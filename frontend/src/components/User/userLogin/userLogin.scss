@@ -1,0 +1,49 @@
+
+@media (max-width: 576px) {
+  /* Small screens */
+  .passwordField,
+  .emailField {
+    margin-top: 10%; /* Increase the margin on small screens */
+  }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  /* Medium screens */
+  .passwordField,
+  .emailField {
+    margin-top: 7%; /* Adjust the margin for medium screens */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  /* Large screens */
+  .passwordField,
+  .emailField {
+    margin-top: 5%; /* Adjust the margin for large screens */
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  /* Extra-large screens */
+  .passwordField,
+  .emailField {
+    margin-top: 4%; /* Adjust the margin for extra-large screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  /* XXL screens */
+  .passwordField,
+  .emailField {
+    margin-top: 3%; /* Adjust the margin for XXL screens */
+  }
+}
+
+  .passwordField,
+  .emailField {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5%; /* Add some space between the fields and the button */
+  }

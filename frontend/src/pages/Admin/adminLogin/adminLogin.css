@@ -1,0 +1,23 @@
+@media screen and (max-width: 768px) {
+  .mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  input {
+    width: 100%;
+  }
+}
+@media (max-width: 576px) {
+  /* Small screens */
+  .mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  input {
+    width: 100%;
+  }
+
+  
+}

@@ -1,0 +1,91 @@
+
+// @media (max-width: 576px) {
+//   /* Small screens */
+//   .passwordField,
+//   .emailField,
+//   .fullnameField,
+//   .phonenumberField,
+//   .genderField {
+//     margin-top: 10%; /* Increase the margin on small screens */
+//   }
+// }
+
+// @media (min-width: 576px) and (max-width: 768px) {
+//   /* Medium screens */
+//   .passwordField,
+//   .emailField,
+//   .fullnameField,
+//   .phonenumberField,
+//   .genderField {
+//     margin-top: 7%; /* Adjust the margin for medium screens */
+//   }
+// }
+
+// @media (min-width: 768px) and (max-width: 992px) {
+//   /* Large screens */
+//   .passwordField,
+//   .emailField,
+//   .fullnameField,
+//   .phonenumberField,
+//   .genderField {
+//     margin-top: 5%; /* Adjust the margin for large screens */
+//   }
+// }
+
+// @media (min-width: 992px) and (max-width: 1200px) {
+//   /* Extra-large screens */
+//   .passwordField,
+//   .emailField,
+//   .fullnameField,
+//   .phonenumberField,
+//   .genderField {
+//     margin-top: 4%; /* Adjust the margin for extra-large screens */
+//   }
+// }
+
+// @media (min-width: 1200px) {
+//   /* XXL screens */
+//   .passwordField,
+//   .emailField,
+//   .fullnameField,
+//   .phonenumberField,
+//   .genderField {
+//     margin-top: 3%; /* Adjust the margin for XXL screens */
+//   }
+// }
+
+//   .passwordField,
+//   .emailField,
+//   .fullnameField,
+//   .phonenumberField,
+//   .genderField {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     flex-direction: column;
+//     margin-top: 5%; /* Add some space between the fields and the button */
+//   }
+
+
+
+.p-4 {
+  height: 80vh;
+}
+
+.fullnameField,
+.emailField,
+.passwordField,
+.phonenumberField,
+.genderField {
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .fullnameField,
+  .emailField,
+  .passwordField,
+  .phonenumberField,
+  .genderField {
+    width: 80%;
+  }
+}
