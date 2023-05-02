@@ -1,6 +1,6 @@
-import "./App.css";
+
 import UserSignup from "./pages/UserSignup";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/User/HomePage";
 import UserLogin from "./pages/UserLogin";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,7 +9,7 @@ import { AuthorizeAdmin, ProtectAdmin } from "./protected/AuthAdmin";
 import AdminLogin from "../../frontend/src/pages/Admin/adminLogin/adminLogin"
 import AdminHome from "./pages/Admin/adminHome/adminHome";
 import AdminUserList from "./pages/Admin/adminUserList/AdminUserList";
-
+import "./style.scss";
 function App() {
   return (
     <div className="App">

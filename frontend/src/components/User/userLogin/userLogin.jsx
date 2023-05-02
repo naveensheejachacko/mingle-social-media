@@ -77,6 +77,7 @@ function UserLogin() {
               // loggedIn:true
               user: response.data.fullname,
               token: response.data.jwt,
+              user_id:response.data.id,
             })
           );
           navigate("home");
@@ -113,6 +114,7 @@ function UserLogin() {
         <form onSubmit={(e) => handleLogin(e)}>
           <MDBCol className="mx-auto" md="6">
             <MDBCard className="my-5">
+            <div style={{ textAlign: "center" }}>
               <h3 className="mt-5" style={{ fontSize: "3em" }}>
                 
                 <b>Getting Started</b>
@@ -121,7 +123,7 @@ function UserLogin() {
                 
                 <b> Login to your account and connect with the people</b>
               </p>
-
+              </div>
               <MDBBtn
                 className="mx-auto my-4"
                 style={{

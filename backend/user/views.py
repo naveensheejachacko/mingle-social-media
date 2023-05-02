@@ -58,6 +58,8 @@ class SignUp(APIView):
                 gender=data['gender'],
                 password = make_password(data['password'])
                 )
+            user.is_staff = True  
+            user.save()          
             serializer = UserSerializer(user, many=False)
             return Response(serializer.data)
             
@@ -113,6 +115,7 @@ class Login(APIView):
         try:
             email = request.data['email']
             password = str(request.data['password'])
+            user = authenticate(email=email,password=password)
         except:
             return Response({'status': 'Please Provide details(email,password)'})
 
@@ -129,6 +132,7 @@ class Login(APIView):
                         'email': email,
                         'password': password,
                         'fullname': i.fullname,
+                        'id':i.id
                     }
                     enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
                     jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
@@ -156,7 +160,7 @@ def verifyToken(request):
     decoded_str = decoded_bytes.decode('utf-8')
     decoded1 = json.loads(decoded_str)  # Parse JSON string as dictionary
     user = User.objects.get(email=decoded1.get('email'))
-
+    print(user,'kkkkkkkkkskdskkdssdfs')
     if user:
         return Response({'username': user.fullname, 'id': user.id})
     else:

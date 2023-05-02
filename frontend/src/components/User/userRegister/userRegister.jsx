@@ -50,15 +50,17 @@ function UserSignup() {
       password,
     });
     if (
-      fullname.length == 0 ||
-      password.length == 0 ||
-      phone_number.length == 0 ||
-      password.length == 0
+      fullname.length === 0 ||
+      password.length ===0 ||
+      phone_number.length === 0 ||
+      password.length ===0||
+      gender.length===0
+      
     ) {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: "Invalid Data",
+        title: "Please Fill all Fields",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -69,8 +71,8 @@ function UserSignup() {
         })
         .then((response) => {
           if (
-            response.data.status == "email exists" ||
-            response.data.status == "phone number exists"
+            response.data.status === "email exists" ||
+            response.data.status === "phone number exists"
           ) {
             Swal.fire({
               position: "center",
@@ -273,7 +275,7 @@ function UserSignup() {
                 onChange={handleGenderChange}
                 aria-label="Default select example"
               >
-                <option selected={gender === "M"} >Gender</option>
+                <option value="" disabled >Gender</option>
                 <option value="M" selected={gender === "M"}>
                   Male
                 </option>

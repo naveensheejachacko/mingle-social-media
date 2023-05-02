@@ -1,47 +1,41 @@
-// import { createSlice } from '@reduxjs/toolkit'
-
-
-// const userSlice=createSlice({
-//     name:"user",
-//     initialState:"",
-//     reducers:{
-//         setLogin:(state,action)=>{
-//             state.user=action.payload.user;
-//             state.token=action.action.payload.token;
-//         },
-//         setLogout:(state)=>{
-//             state.user=null
-//             state.token=null
-//         }
-//     }
-// })
-
-// export const{setLogin,setLogout}=userSlice.actions;
-// export default userSlice.reducer;
-
-
 import { createSlice } from "@reduxjs/toolkit";
 
 
-
-export const userSlice=createSlice({
-    name:"user",
-    initialState:{
-        user:null
+  
+const userSlice = createSlice({
+  name: "user",
+  initialState: {
+    user: null,
+  },
+  reducers: {
+    login: (state, action) => {
+      state.user = action.payload;
     },
-    reducers:{
-        login:(state,action)=>{
-            state.user=action.payload;
-        },
-        logout:(state)=>{
-            state.user=null;
-        }
-    }
+    logout: (state) => {
+      state.user = null;
+    },
+    setPosts:(state,action)=>{
+      state.posts=action.payload
+  },
+    setPost:(state,action)=>{
+    
+      const updatedPost =  state.posts.map((post)=>{
+         
+          if(post.user_id ===  action.payload.user_id) return action.payload;
+          return post;
+      })
+     
+      state.posts=updatedPost
+     
+  },
+  },
+
+});
 
 
-})
-export const{login,logout}=userSlice.actions;
 
-export const selectUser=(state)=>state.user.user
+export const { login, logout,setPost,setPosts } = userSlice.actions;
+
+export const selectUser = (state) => state.user.user;
 
 export default userSlice.reducer; 

@@ -7,6 +7,8 @@ function Navbar() {
   return (
     <div className="adminNavbar">
     <div className="wrapper">
+
+      {/* <p>Welcome</p> */}
       {/* <div className="search">
         <input type="text" placeholder="Search..." />
         <SearchOutlinedIcon />
