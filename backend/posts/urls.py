@@ -8,4 +8,6 @@ urlpatterns = [
 
 
     path('isliked/<id>/',views.isliked,name='isliked'),
+    path('addcomments/<id>/<id2>/',views.addcomments,name='addcomments'),
+
 ]

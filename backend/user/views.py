@@ -172,3 +172,164 @@ class Logout(APIView):
         response = Response({'status': 'success'})
         response.clear('jwt')
         return response
+
+
+class googleLogin(APIView):
+    def post(self, request):
+            data = request.data
+            email = request.data['email']
+
+            try:
+                if User.objects.filter(email=email).exists():
+                    user = authenticate(email=email)
+                    user = User.objects.all()
+                    status = 'None'
+                    for i in user:
+                        print(i,"entering gooogle signin forloop")
+                        if i.email == email:
+                                print("checking email in fi ")
+                                if i.is_blocked:
+                                    status = 'User is blocked'
+                                    break
+                                payload = {
+                                    'email': email,
+                                    'fullname': i.fullname,
+                                    'id':i.id
+                                }
+                                print('payload',payload)
+                                enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
+                                jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
+                                response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
+                                return response
+                else:
+                    data = request.data
+                    # print(data)
+                    fullname = data['fullname']
+                    # print(fullname)
+                    email = data['email']
+
+                    # print("google dtails fetched success")
+                    user = User.objects.create(
+                    fullname = data['fullname'],
+                    email = data['email'],
+                    fromGoogle=True
+                    )
+                    user.is_staff = True  
+                    user.save()   
+                    # print("user created using google")       
+                    serializer = UserSerializer(user, many=False)
+                    # response=Response(serializer.data)
+                    payload = {
+                        'email': email,
+                        'fullname': i.fullname,
+                        'id':i.id
+                    }
+                    print('payload',payload)
+                    enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
+                    jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
+                    response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
+                    
+                    return response
+
+            except:
+                print("erooro")
+
+
+
+
+
+        # try:
+        #     data = request.data
+        #     email = request.data['email']
+        #     print(email,"for authentication")
+        #     user = authenticate(email=email)
+            
+        
+        # except:
+        #     print("enter exception if login credential failed")
+        #     return Response({'status': 'Please Provide details(email)'})
+        # user = User.objects.all()
+        # # print(user,"llllllllllll")
+        # status = 'None'
+
+        # for i in user:
+        #     print(i,"entering gooogle signin forloop")
+        #     if i.email == email:
+        #             print("checking email in fi ")
+        #             if i.is_blocked:
+        #                 status = 'User is blocked'
+        #                 break
+        #             payload = {
+        #                 'email': email,
+        #                 'fullname': i.fullname,
+        #                 'id':i.id
+        #             }
+        #             print('payload',payload)
+        #             enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
+        #             jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
+        #             response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
+        #             return response
+        #     else:
+        #         try:
+
+        #             data = request.data
+        #             # print(data)
+        #             fullname = data['fullname']
+        #             # print(fullname)
+        #             email = data['email']
+
+        #             # print("google dtails fetched success")
+        #             user = User.objects.create(
+        #             fullname = data['fullname'],
+        #             email = data['email'],
+        #             fromGoogle=True
+        #             )
+        #             user.is_staff = True  
+        #             user.save()   
+        #             # print("user created using google")       
+        #             serializer = UserSerializer(user, many=False)
+
+                    
+
+
+
+
+
+        #             # response=Response(serializer.data)
+        #             payload = {
+        #                 'email': email,
+        #                 'fullname': i.fullname,
+        #                 'id':i.id
+        #             }
+        #             print('payload',payload)
+        #             enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
+        #             jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
+        #             response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
+                    
+        #             return response
+                
+        #         except:
+        #             user = User.objects.all()
+        #             # print(user,"llllllllllll")
+        #             status = 'None'
+
+        #             for i in user:
+        #                 print(i,"entering gooogle signin forloop")
+        #                 if i.email == email:
+        #                         print("checking email in fi ")
+        #                         if i.is_blocked:
+        #                             status = 'User is blocked'
+        #                             break
+        #                         payload = {
+        #                             'email': email,
+        #                             'fullname': i.fullname,
+        #                             'id':i.id
+        #                         }
+        #                         print('payload',payload)
+        #                         enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
+        #                         jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
+        #                         response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
+        #                         return response
+
+        
+        # return Response({'status': status})

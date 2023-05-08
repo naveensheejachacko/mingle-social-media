@@ -21,3 +21,8 @@ class Like(models.Model):
     likedby = models.ForeignKey(User,on_delete=models.CASCADE) 
     likedPost = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='liked_post')
 
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='user_na')
+    comment = models.TextField(max_length=255)

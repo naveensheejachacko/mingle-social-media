@@ -14,8 +14,17 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { BiCommentDetail  } from 'react-icons/bi';
+
 import "./Sidebar.scss";
+
+import { useSelector } from 'react-redux';
+
 function Sidebar() {
+
+  const userName=useSelector((state)=>state.user?.user?.user);
+
+
 const navigate=useNavigate();
 const dispatch = useDispatch();
 const userLogout = () => {
@@ -70,7 +79,8 @@ const userLogout = () => {
               <CDBSidebarMenuItem icon="user">My Connections</CDBSidebarMenuItem>
             </NavLink>
             <NavLink to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">
+              <CDBSidebarMenuItem >
+              <BiCommentDetail size={25} />
                 Messages
               </CDBSidebarMenuItem>
             </NavLink>
@@ -92,11 +102,14 @@ const userLogout = () => {
 
 
             <CDBSidebarMenuItem>
-              
-              <button onClick={userLogout}  className="button3">
+            <img className='shareProfileImg' src="assets/person/1.jpeg" alt="" />
+
+              {userName}
+
+            </CDBSidebarMenuItem>
+            <button onClick={userLogout}  className="button3">
                 Logout
               </button>
-            </CDBSidebarMenuItem>
 
             {/* <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>

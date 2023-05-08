@@ -8,7 +8,7 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework import status
 from user.models import User
-from .models import Post,Like
+from .models import Comments, Post,Like
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAdminUser
@@ -106,7 +106,7 @@ def getPosts(request):
     p = Post.objects.all().order_by('-created_at')
     # print(p.user.fullname)
     postSer = PostSerializer(p,many=True)
-    print("ee post shuppera")
+
     return Response({"data":postSer.data})
 
 
@@ -129,4 +129,16 @@ def isliked(request,id):
         print('like added ')
 
     print('success  ')
-    return Response({'results':data})
+    return Response({'results':data,})
+
+
+@api_view(['POST'])
+def addcomments(request,id,id2):
+    print(id,'add comments inside comments f')
+    print(id2)
+    data = request.data
+    c=data['values']
+    print(c['comment'])
+    comm = Comments.objects.create(post = Post.objects.get(id=id2),user = User.objects.get(id=id),comment = c['comment'])
+    ss = {'hai':'hh'}
+    return Response(ss,status=status.HTTP_200_OK)

@@ -6,6 +6,9 @@ import Cookies from "js-cookie";
 import axios from "../../../utils/axios";
 import "./userLogin.scss";
 import Swal from "sweetalert2";
+import { FaGoogle } from "react-icons/fa";
+
+
 
 import {
   MDBBtn,
@@ -18,7 +21,11 @@ import {
   MDBNavbar,
   MDBContainers,
 } from "mdb-react-ui-kit";
-import { userLogin } from "../../../utils/Constants";
+import { userLogin,loginGoogle } from "../../../utils/Constants";
+import {auth,provider} from "../../../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { Button } from "@chakra-ui/react";
+
 
 function UserLogin() {
   const [email, setEmail] = useState("");
@@ -84,6 +91,63 @@ function UserLogin() {
         }
       });
   };
+// const signInWithGoogle= async ()=>{
+
+//   signInWithPopup(auth,provider)
+// .then((result)=>{axios.post(`http://127.0.0.1:8000/googleLogin`,{
+//   fullname:result.user.displayName,
+//   email:result.user.email,
+
+// })
+// }).then((response)=>{
+//   Cookies.set("jwt_user", String(response.data.jwt));
+//   Cookies.set("role", String(response.data.role));
+//   Cookies.set("id", String(response.data.id));
+  
+//   dispatch(login({
+
+//     user: response.data.fullname,
+//     token: response.data.jwt,
+//     user_id:response.data.id,
+//   }
+
+//   ))
+
+
+//   navigate("home");
+// })
+
+
+// }
+
+const signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const response = await axios.post('http://127.0.0.1:8000/googleLogin', {
+      fullname: result.user.displayName,
+      email: result.user.email,
+    });
+    
+    Cookies.set('jwt_user', String(response.data.jwt));
+    Cookies.set('role', String(response.data.role));
+    Cookies.set('id', String(response.data.id));
+
+    dispatch(login({
+      user: response.data.fullname,
+      token: response.data.jwt,
+      user_id: response.data.id,
+    }));
+
+    navigate('home');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+
+
 
   return (
     <>
@@ -124,7 +188,7 @@ function UserLogin() {
                 <b> Login to your account and connect with the people</b>
               </p>
               </div>
-              <MDBBtn
+              <Button
                 className="mx-auto my-4"
                 style={{
                   backgroundColor: "#D9D9D9",
@@ -133,11 +197,11 @@ function UserLogin() {
                   display: "block",
                 }}
                 size="lg"
-                type="button"
-              >
-                <MDBIcon fab icon="google" className="mr-4" />
+                type="button" 
+                 onClick={signInWithGoogle} >
+                  <FaGoogle />
                 connect with Google
-              </MDBBtn>
+              </Button>
 
               <div
                 style={{

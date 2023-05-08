@@ -4,7 +4,7 @@ export const userSignup = "signup"
 export const userLogin = "login"
 export const verifyToken ="verifyToken"//not necessasary
 // export const userLogout = "logout"
-
+export const loginGoogle="loginGoogle"
 
 export const ADD_POST="/posts/addposts/"
 // export const LIST_POST="posts/getposts/"

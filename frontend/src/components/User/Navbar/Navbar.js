@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 
 
 function Navbar() {
-  const userName=useSelector((state)=>state.user?.user?.user);
+  // const userName=useSelector((state)=>state.user?.user?.user);
 
 
   
@@ -33,8 +33,8 @@ function Navbar() {
 
         <div className="right">
         <div className="user">
-
-        {userName && <p>Welcome, {userName}!</p>}
+{/* 
+        {userName && <p>Welcome, {userName}!</p>} */}
 
         </div>
 

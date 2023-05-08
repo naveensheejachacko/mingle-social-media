@@ -9,32 +9,31 @@ const userSlice = createSlice({
   },
   reducers: {
     login: (state, action) => {
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.token=action.payload.token;
+      state.user_id=action.payload.user_id;
+      state.email=action.payload.email;
+
     },
     logout: (state) => {
-      state.user = null;
+      state.user = null
+      state.token=null
+      state.user_id=null
+      state.email=null
     },
     setPosts:(state,action)=>{
       state.posts=action.payload
   },
-    setPost:(state,action)=>{
-    
-      const updatedPost =  state.posts.map((post)=>{
-         
-          if(post.user_id ===  action.payload.user_id) return action.payload;
-          return post;
-      })
-     
-      state.posts=updatedPost
-     
-  },
+  setHomePosts:(state,action)=>{
+    state.homePosts=action.payload
+},
   },
 
 });
 
 
 
-export const { login, logout,setPost,setPosts } = userSlice.actions;
+export const { login, logout,setPost,setHomePosts} = userSlice.actions;
 
 export const selectUser = (state) => state.user.user;
 

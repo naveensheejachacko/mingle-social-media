@@ -74,11 +74,21 @@ z-index: -1;
 .shareButton {
   border: none;
   padding: 0.3em;
-  border-radius:5px;
-  background-color: #4eb5f1;
-  font-family: 'Times New Roman', Times, serif;
+  background-color: rgb(82, 140, 255);
+
   font-weight: 300;
   margin-right: 2em;
   cursor: pointer;
   color: white;
+
+
+
+  background-color: rgb(82, 140, 255);
+
+  border-radius: 6px;
+  cursor: pointer;
+  padding-left: 40px;
+  padding-right: 40px;
+
+
 }

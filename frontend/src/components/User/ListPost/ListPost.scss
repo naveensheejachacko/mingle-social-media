@@ -61,7 +61,15 @@
   
   .postBottomLeft{
       display: flex;
-      align-items: center;   
+      align-items: center; 
+      margin-left: 1em;  
+  }
+  .postBottomRight{
+    display: flex;
+    align-items: center; 
+    margin-right: 2em; 
+    padding-right: 1em; 
+    
   }
   
   .likeIcon{
@@ -80,3 +88,43 @@
       border-bottom: 1px dashed gray;
       font-size: 15px;
   }
+
+
+
+
+
+
+
+
+  // comment
+
+
+
+  .PostImage{
+
+    border-radius: 50%;
+    margin-left: 10px;
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+
+
+}
+
+.commentinput{
+  width: 24pc;
+  margin-left: 10px;
+  border: none;
+
+}
+.addCommentbtn{
+  padding: 9px;
+  border: none;
+  background-color: rgb(82, 140, 255);
+  color: white;
+  border-radius: 6px;
+  margin-left: 39px;
+  cursor: pointer;
+  padding-left: 40px;
+  padding-right: 40px;
+}

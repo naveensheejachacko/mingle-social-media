@@ -1,12 +1,15 @@
 import "./ListPost.scss";
-// import { MoreVert } from "@mui/icons-material";
+import { MoreVert } from "@mui/icons-material";
 
 
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+// import MapsUgcRoundedIcon from '@mui/icons-material/MapsUgcRounded';
+
 import {  Button } from '@chakra-ui/react'
 
+import { AiOutlineComment   } from 'react-icons/ai';
+import { BsTrash3 } from 'react-icons/bs';
 
-import {Users,Posts} from "../../../dummyData";
+// import {Users,Posts} from "../../../dummyData";
 import { useState,useEffect } from "react";
 import {useDispatch } from "react-redux";
 import { useSelector } from 'react-redux';
@@ -16,7 +19,7 @@ import moment from 'moment';
 import axios from 'axios';
 export default function ListPost({ post }) {
 
-  const [posts, setPosts] = useState([]);
+  const [posts,setPosts] = useState([]);
 
   const user_id=useSelector((state)=>state.user?.user?.user_id)
   const userName=useSelector((state)=>state.user?.user?.user)
@@ -30,6 +33,15 @@ export default function ListPost({ post }) {
   //   setIsLiked(!isLiked)
 
   const [liked, setLiked] = useState(false)
+  const [commentOpen, setCommentOpen] = useState(false);
+
+
+
+
+  const openComment = (id) => {
+    setCommentOpen(!commentOpen)
+}
+
   let likebutton = async (id) => {
 
     let response = await fetch(`http://127.0.0.1:8000/posts/isliked/${user_id}/`, {
@@ -61,10 +73,10 @@ export default function ListPost({ post }) {
     async function fetchPosts() {
       const response = await axios.get(`http://127.0.0.1:8000/posts/getPosts`);
       setPosts(response.data.data);
-      console.log(response.data,'*******')
+      // console.log(response.data,'*******') 
     }
     fetchPosts();
-  }, [posts]);
+  }, [post]);
   return (
     <div className="posts">
     {posts.map((post) => (
@@ -79,9 +91,9 @@ export default function ListPost({ post }) {
 
               {/* <span className="postDate">{new Date(post.created_at).toDateString()}</span> */}
             </div>
-            {/* <div className="postTopRight">
+            <div className="postTopRight">
               <MoreVert />
-            </div> */}
+            </div>
           </div>
           <div className="postCenter">
             <span className="postText">{post.content}</span>
@@ -102,10 +114,28 @@ export default function ListPost({ post }) {
                         </span> 
                       }
             {/* <span className="postLikeCounter">{like} people like it</span> */}
+
+
+
+            {/* <Button onClick={() => openComment(post.id)} flex='1' variant='ghost' >
+                    <MapsUgcRoundedIcon/>
+                    </Button> */}
             </div>
+
+
+
             <div className="postBottomRight">
-              {/* <span className="postCommentText">{post.comments.length} {post.comments.length === 1 ? "comment" : "comments"}</span> */}
-            </div>
+
+            <AiOutlineComment size={40}flex='1' />
+            {/* <BsTrash3 /> */}
+
+
+            </div> 
+            <div>
+                        
+
+
+                    </div>
           </div>
         </div>
       </div>
