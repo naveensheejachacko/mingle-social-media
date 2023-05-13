@@ -10,6 +10,7 @@ import AdminLogin from "../../frontend/src/pages/Admin/adminLogin/adminLogin"
 import AdminHome from "./pages/Admin/adminHome/adminHome";
 import AdminUserList from "./pages/Admin/adminUserList/AdminUserList";
 import "./style.scss";
+
 function App() {
   return (
     <div className="App">

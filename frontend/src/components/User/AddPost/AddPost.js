@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import toast,{Toaster} from 'react-hot-toast'
-import { setHomePosts} from '../../../Redux/userSlice';
+import {setPosts } from '../../../Redux/postSlice';
 
 
 
@@ -22,61 +22,58 @@ function AddPost() {
   const navigate=useNavigate();
   const [content, setContent] = useState('')
   const [file, setFile] = useState(null)
-
   const user_id=useSelector((state)=>state.user?.user_id)
   const userName=useSelector((state)=>state.user?.user)
   
-
-  const dispatch=useDispatch();
-
-    let PostAdd = async (e) => {
+const dispatch=useDispatch();
+const homePosts = useSelector((state) => state?.post?.posts);
 
 
-      e.preventDefault()
-      const formData = new FormData();
-      formData.append('image', file)
-      formData.append('content', content)
-      const token=Cookies.get('jwt_user')
-      if (content === '') {
-        console.log("empty string");
-        return toast.error("Cant add an empty post!!")
-      } else {
+
   
-        let response = await fetch(`http://127.0.0.1:8000/posts/addposts/${user_id}`, {
-          method: 'POST',
-          body: formData,
-          headers:{Authorization:`Bearer ${token}` } })
-
-        let data = await response.json()
-        if (response.status === 200){
-          // console.log(data)
 
 
-          dispatch(setHomePosts(data.posts))
-          console.log("home")
+    const PostAdd = async (e) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('image',  file);
+      formData.append('content', content);
+      const token = Cookies.get('jwt_user');
+      if (content === '') {
+        console.log('empty string');
+        return toast.error("Can't add an empty post!!");
+      } else {
+        try {
 
-
-          toast.success("Post Added successfully")
-          setContent('');
-          setFile(null);
+          const response = await axios.post(`http://127.0.0.1:8000/posts/addposts/${user_id}`, formData, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          dispatch(setPosts([...homePosts, response.data?.data]));
+          console.log(setPosts([...homePosts, { content, file }]));
+          if (response.status === 200) {
+            toast.success('Post Added successfully');
+            setContent('');
+            setImage(null);
+          } else if (response.status === 400) {
+            toast.error('Error 400');
+            navigate('/');
+          } else {
+            toast.error('Failed to add post');
+            navigate('/');
+          }
         }
-        else if(response.status === 400) {
-          toast.error("Error 400")
-          navigate('/')
-        } else {
-          toast.error("Failed to add post")
-
-          navigate('/')
+         catch (error) {
+          console.log('Error', error);
         }
       }
-      setContent('');
-      setFile(null);
-    }
+
+
+    };
+
     const setImage = (e) => {
       setFile(e.target.files[0])
-    }
-
-
+        
+  }
 
 
 

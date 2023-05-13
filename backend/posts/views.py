@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 
-from .serializers import PostSerializer
+from .serializers import CommentSerializer, PostSerializer
 from user.serializers import UserSerializer
 from django.http import Http404
 
@@ -96,6 +96,22 @@ def addposts(request, id):
     else:
         data = {'error': 'missing data'}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['DELETE'])
+@csrf_exempt
+def deletePost(request,id):
+    post = Post.objects.filter(id=id).first()
+    if post:
+        post.delete()
+        p = Post.objects.all().order_by('-created_at')
+        data = PostSerializer(p,many=True)
+
+        return Response(data, status=status.HTTP_200_OK)
+    else:
+        data = {'error': 'post not found'}
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
 # @authentication_classes([JWTAuthentication])
@@ -107,7 +123,7 @@ def getPosts(request):
     # print(p.user.fullname)
     postSer = PostSerializer(p,many=True)
 
-    return Response({"data":postSer.data})
+    return Response({"data":postSer.data},status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -118,7 +134,7 @@ def isliked(request,id):
     print(user)
     post = Post.objects.get(id=data['id'])
     
-
+    
     like = Like.objects.filter(Q(likedPost=data['id']) & Q(likedby = user.id))
     if like:
         print('deleted the like that exists')
@@ -132,13 +148,44 @@ def isliked(request,id):
     return Response({'results':data,})
 
 
+# @api_view(['POST'])
+# def addcomments(request,id,id2):
+#     print(id,'add comments')
+#     print(id2)
+#     data = request.data
+#     c=data['values']
+#     print(c['comment'])
+#     comm = Comments.objects.create(post = Post.objects.get(id=id2),user = User.objects.get(id=id),comment = c['comment'])
+#     ss = {'hai':'hh'}
+#     return Response(ss,status=status.HTTP_200_OK)
+
+
 @api_view(['POST'])
-def addcomments(request,id,id2):
-    print(id,'add comments inside comments f')
+def addcomments(request, id, id2):
+    print(id, 'add comments')
     print(id2)
     data = request.data
-    c=data['values']
-    print(c['comment'])
-    comm = Comments.objects.create(post = Post.objects.get(id=id2),user = User.objects.get(id=id),comment = c['comment'])
-    ss = {'hai':'hh'}
-    return Response(ss,status=status.HTTP_200_OK)
+    c = data['values']
+    comment = c['comment']
+    comm = Comments.objects.create(post=Post.objects.get(id=id2), user=User.objects.get(id=id), comment=comment)
+    ss = {'hai': 'hh'}
+    return Response(ss, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def getcomments(request,id):
+    print("working")
+    comment = Comments.objects.filter(post=id).select_related('user').order_by('-id')
+    print(comment)
+    serializer = CommentSerializer(comment,many=True)
+    if serializer.is_valid:
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    else:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
+
+@api_view(['POST'])
+def deletecomment(request,id):
+    comm = Comments.objects.get(id=id).delete()
+    data = {'status':'success'}
+    return Response(data,status=status.HTTP_200_OK)
+

@@ -91,34 +91,7 @@ function UserLogin() {
         }
       });
   };
-// const signInWithGoogle= async ()=>{
 
-//   signInWithPopup(auth,provider)
-// .then((result)=>{axios.post(`http://127.0.0.1:8000/googleLogin`,{
-//   fullname:result.user.displayName,
-//   email:result.user.email,
-
-// })
-// }).then((response)=>{
-//   Cookies.set("jwt_user", String(response.data.jwt));
-//   Cookies.set("role", String(response.data.role));
-//   Cookies.set("id", String(response.data.id));
-  
-//   dispatch(login({
-
-//     user: response.data.fullname,
-//     token: response.data.jwt,
-//     user_id:response.data.id,
-//   }
-
-//   ))
-
-
-//   navigate("home");
-// })
-
-
-// }
 
 const signInWithGoogle = async () => {
   try {
@@ -134,6 +107,7 @@ const signInWithGoogle = async () => {
 
     dispatch(login({
       user: response.data.fullname,
+      email:response.data.email,
       token: response.data.jwt,
       user_id: response.data.id,
     }));

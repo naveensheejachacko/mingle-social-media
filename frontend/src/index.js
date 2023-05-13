@@ -9,13 +9,27 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Provider } from 'react-redux';
 import store from './Redux/store';
 
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
+
+const persistor = persistStore(store)
+
+
+
+
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
   <React.StrictMode>
     {/* <AuthProvider> */}
+    <PersistGate loading={null} persistor={persistor}>
+
     <App />
+
+    </PersistGate>
     {/* </AuthProvider> */}
   </React.StrictMode>
   </Provider>

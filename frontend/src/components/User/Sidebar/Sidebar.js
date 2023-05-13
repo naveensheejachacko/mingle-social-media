@@ -7,9 +7,12 @@ import {
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
+  CDBBtn
 } from "cdbreact";
 
 import { logout } from "../../../Redux/userSlice";
+import { resetPosts } from "../../../Redux/postSlice";
+
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -22,8 +25,8 @@ import { useSelector } from 'react-redux';
 
 function Sidebar() {
 
-  const userName=useSelector((state)=>state.user?.user?.user);
-
+  const userName=useSelector((state)=>state.user?.user)
+  const email=useSelector((state)=>state.user?.email)
 
 const navigate=useNavigate();
 const dispatch = useDispatch();
@@ -34,11 +37,16 @@ const userLogout = () => {
     dispatch(logout());
     navigate('/')
 
+  // clear posts
+  dispatch(resetPosts());
+
+
+
   }
 
 
   return (
-    <div className="adminSide">
+    // <div className="adminSide">
     <div className="top"
       style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
     >
@@ -69,66 +77,56 @@ const userLogout = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-            </NavLink>
-            {/* <NavLink exact to="/tables" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
-            </NavLink> */}
-            <NavLink  to="#"  style={{ textDecoration: "none" }}  activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">My Connections</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem >
-              <BiCommentDetail size={25} />
-                Messages
-              </CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem >
-               Notifications
-              </CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem >
-                Settings
-              </CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem>
-                Profile
-              </CDBSidebarMenuItem>
-            </NavLink>
+          <div class="sidebar-menu">
+    
+    <NavLink exact to="#" activeClassName="activeClicked">
+    <CDBSidebarMenuItem>Home</CDBSidebarMenuItem>
+    </NavLink>
 
+    <NavLink exact to="#" activeClassName="activeClicked">
 
+    <CDBSidebarMenuItem> My Connections</CDBSidebarMenuItem>
+      </NavLink>
+      <NavLink exact to="#" activeClassName="activeClicked">
+
+      <CDBSidebarMenuItem> Messages</CDBSidebarMenuItem>
+      </NavLink>
+      <NavLink exact to="#" activeClassName="activeClicked">
+
+      <CDBSidebarMenuItem> Notifications</CDBSidebarMenuItem>
+      </NavLink>
+      <NavLink exact to="#" activeClassName="activeClicked">
+
+      <CDBSidebarMenuItem>Settings</CDBSidebarMenuItem>
+      </NavLink>
+
+      </div>
+      <NavLink to="#" activeClassName="activeClicked">
             <CDBSidebarMenuItem>
-            <img className='shareProfileImg' src="assets/person/1.jpeg" alt="" />
-
-              {userName}
+  <div className="user-profile">
+              <img src="assets/person/1.jpeg" alt="" />
+              <div className="user-details">
+                <span className="user-name">{userName}</span>
+                <span className="user-email">{email}</span>
+              </div>
+            </div>
+           
 
             </CDBSidebarMenuItem>
-            <button onClick={userLogout}  className="button3">
-                Logout
-              </button>
+          </NavLink>
+          <CDBSidebarMenuItem>
+          <button class="button3" onClick={userLogout}>Logout</button>
+          </CDBSidebarMenuItem>
 
-            {/* <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
-            </NavLink> */}
+
+    {/* <CDBBtn button class="button3" onClick={userLogout}>Logout</CDBBtn> */}
+
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
-        <CDBSidebarFooter style={{ textAlign: "center" }}>
-          {/* <div
-            style={{
-              padding: '20px 5px',
-            }}
-          >
-            Sidebar Footer
-          </div> */}
-        </CDBSidebarFooter>
       </CDBSidebar>
     </div>
-    </div>
+    // </div>
   );
 }
 

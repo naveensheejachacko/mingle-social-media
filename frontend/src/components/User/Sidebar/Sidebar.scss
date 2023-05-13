@@ -3,12 +3,12 @@
   flex: 1;
   border-right: 0.5px solid rgb(230, 227, 227);
   min-height: 100vh;
-  background-color: white;
   left: 0; /* add this line */
   top: 0; /* add this line */
   bottom: 0; /* add this line */
   position: sticky; /* add this line */
-
+  // overflow: hidden;
+  margin-left:1em;
   .top {
     position:sticky;
     height: 30px;
@@ -121,3 +121,41 @@
 }
 
 
+
+
+
+.sidebar-menu :hover {
+  background-color: #528cff07
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile img {
+  height: 2.5em;
+  width: 2.5em;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1em;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-email {
+  font-size: 12px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  text-align: center;
+}

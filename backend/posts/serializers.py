@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from user.serializers import UserSerializer
-from .models import Like, Post
+from .models import Comments, Like, Post
 
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +15,12 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
+
+class CommentSerializer(serializers.ModelSerializer):
+    user_na = serializers.SerializerMethodField()
+    class Meta:
+        model = Comments
+        fields = 'id','post','user','comment','user_na'
+
+    def get_user_na(self,obj):
+        return obj.user.fullname
