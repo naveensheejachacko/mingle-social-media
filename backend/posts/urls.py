@@ -17,4 +17,8 @@ urlpatterns = [
     path('deletecomment/<id>/',views.deletecomment,name='deletecomment'),
 
 
+    #Fetch User Post
+    path('userPost/<id>/',views.userPost,name='userPost'),
+
+
 ]

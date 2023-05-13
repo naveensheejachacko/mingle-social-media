@@ -114,17 +114,27 @@
 .commentinput{
   width: 24pc;
   margin-left: 10px;
-  border: none;
+  border-radius: 1.5em;
+  border-color: rgb(82, 140, 255);
 
+}
+
+.commentinput:focus {
+  outline: none;
+  border-color: rgb(82, 140, 255);
 }
 .addCommentbtn{
   padding: 9px;
   border: none;
   background-color: rgb(82, 140, 255);
   color: white;
-  border-radius: 6px;
+  border-radius: 2em;
   margin-left: 39px;
   cursor: pointer;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 2em;
+  padding-right:2em;
 }
+
+
+
+

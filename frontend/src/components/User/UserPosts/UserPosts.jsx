@@ -1,4 +1,4 @@
-import "./ListPost.scss";
+import './UserPosts.scss'
 import { MoreVert } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 
@@ -20,7 +20,7 @@ import toast,{Toaster} from 'react-hot-toast'
 import axios from "axios";
 import { fetchPosts } from "../../../Redux/postSlice";
 
-export default function ListPost({ post }) {
+export default function UserPost({ post }) {
   const [posts, setPosts] = useState([]);
 
   const user_id = useSelector((state) => state.user?.user_id);
@@ -191,12 +191,14 @@ let deleteComment = async (id)=>{
 
   useEffect(() => {
     async function fetchPosts() {
-      const response = await axios.get(`http://127.0.0.1:8000/posts/getPosts`);
+      const response = await axios.get(`http://127.0.0.1:8000/posts/userPost/${user_id}/`);
       setPosts(response.data.data);
       // console.log(response.data,'*******')
-    }
-     fetchPosts();      
+     
+    } 
+    fetchPosts(); 
   },[posts]);
+
 
 
 // delete Post
@@ -260,13 +262,6 @@ const handleDeleteClick = async (postId) => {
   }
 }
 
-
-
-
-
-
-
-
   // useEffect(() => {
   //     dispatch(fetchPosts());
   //   }, [dispatch]);
@@ -275,10 +270,6 @@ const handleDeleteClick = async (postId) => {
     <div className="posts">
       {posts.map((post) => (
         <div key={post.id} className="post">
-          
-
-
-
           <div className="postWrapper">
             <div className="postTop">
               <div className="postTopLeft">
@@ -293,9 +284,6 @@ const handleDeleteClick = async (postId) => {
                 <span style={{marginLeft:"0.6em"}} className="postDate">{moment(post.created_at).fromNow()}</span>
 
                 </div>
-
-
-
                 {/* <span className="postDate">{new Date(post.created_at).toDateString()}</span> */}
               </div>
               {user_id==post.user.id?
@@ -310,10 +298,7 @@ const handleDeleteClick = async (postId) => {
                   open={Boolean(anchorEl)}
                   onClose={handleMenuClose}
                 >
-
-
                   <MenuItem onClick={()=>{{handleDeleteClick(post.id)}}}>Delete</MenuItem>
-
                 </Menu>
               </div>
               :null}
@@ -359,8 +344,6 @@ const handleDeleteClick = async (postId) => {
                     getComments(post.id)}}
                 />
 
-
-                
               </div>
             </div>
           </div>

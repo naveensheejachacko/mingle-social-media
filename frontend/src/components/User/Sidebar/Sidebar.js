@@ -79,13 +79,13 @@ const userLogout = () => {
           <CDBSidebarMenu>
           <div class="sidebar-menu">
     
-    <NavLink exact to="#" activeClassName="activeClicked">
+    <NavLink  to="/home" activeClassName="activeClicked">
     <CDBSidebarMenuItem>Home</CDBSidebarMenuItem>
     </NavLink>
 
     <NavLink exact to="#" activeClassName="activeClicked">
 
-    <CDBSidebarMenuItem> My Connections</CDBSidebarMenuItem>
+    <CDBSidebarMenuItem> People</CDBSidebarMenuItem>
       </NavLink>
       <NavLink exact to="#" activeClassName="activeClicked">
 
@@ -103,10 +103,12 @@ const userLogout = () => {
       </div>
       <NavLink to="#" activeClassName="activeClicked">
             <CDBSidebarMenuItem>
+
+
   <div className="user-profile">
               <img src="assets/person/1.jpeg" alt="" />
               <div className="user-details">
-                <span className="user-name">{userName}</span>
+            <NavLink to="/profile">  <span className="user-name">{userName}</span></NavLink>  
                 <span className="user-email">{email}</span>
               </div>
             </div>

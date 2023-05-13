@@ -1,6 +1,6 @@
 import React from 'react'
 import './AddPost.scss'
-import {PermMedia, Label} from "@mui/icons-material"
+import {PermMedia, Label, SentimentVerySatisfiedOutlined} from "@mui/icons-material"
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 
 // import { toast } from "react-toastify";
@@ -48,12 +48,12 @@ const homePosts = useSelector((state) => state?.post?.posts);
           const response = await axios.post(`http://127.0.0.1:8000/posts/addposts/${user_id}`, formData, {
             headers: { Authorization: `Bearer ${token}` },
           });
-          dispatch(setPosts([...homePosts, response.data?.data]));
-          console.log(setPosts([...homePosts, { content, file }]));
+          // dispatch(setPosts([...homePosts, response.data?.data]));
+          // console.log(setPosts([...homePosts, { content, file }]));
           if (response.status === 200) {
             toast.success('Post Added successfully');
             setContent('');
-            setImage(null);
+            setFile(null);
           } else if (response.status === 400) {
             toast.error('Error 400');
             navigate('/');
@@ -90,8 +90,9 @@ const homePosts = useSelector((state) => state?.post?.posts);
           onChange={(e) => { setContent(e.target.value) }}
           className='shareInput'/>
           <Toaster
-            position="top-right"
-            reverseOrder={false} />
+  position="top-center"
+  reverseOrder={false}
+/>
       </div>
       <hr className='shareHr'/>
       <div className="shareBottom">
@@ -106,9 +107,9 @@ const homePosts = useSelector((state) => state?.post?.posts);
               }} type="file" id="post" name="post" style={{ display: "none" }} />
               <label htmlFor="post">
 
-                <div className="item">
-                  <img src="" alt="" />
-                  <span style={{ color: 'black' }}><AddPhotoAlternateOutlinedIcon /></span>
+                <div className="posItem">
+                  {/* <img src="" alt="" /> */}
+                  <span style={{ color: 'black',cursor:'pointer' }}><AddPhotoAlternateOutlinedIcon /></span>
                   <label>add image</label>
                 </div>
               </label>

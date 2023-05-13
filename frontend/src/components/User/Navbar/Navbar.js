@@ -3,15 +3,6 @@ import './Navbar.scss'
 
 
 
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-
 
 import { useSelector } from 'react-redux';
 
@@ -25,11 +16,24 @@ function Navbar() {
     <div className="userNavbar">
     <div className="wrapper">
 
+<div className="main">
+  
 
-    <div className="search">
-          <SearchOutlinedIcon />
-          <input type="text" placeholder="Search..." />
-        </div>
+  
+  {/* <!-- Another variation with a button --> */}
+  <div className="input-group">
+    <input type="text" className="form-control" placeholder="Search on mingle" />      <button className="btn btn-secondary" type="button">
+        <i className="fa fa-search"></i>
+      </button>
+    {/* <div class="input-group-append">
+
+    </div> */}
+  </div>
+  
+  
+  
+</div>
+
 
         <div className="right">
         <div className="user">

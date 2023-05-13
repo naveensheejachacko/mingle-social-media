@@ -51,7 +51,7 @@ z-index: -1;
 .shareOptions {
   display: flex;
   margin-left: 2em;
-  cursor: pointer;
+  
 }
 
 .shareOption {
@@ -87,9 +87,12 @@ z-index: -1;
   background-color: rgb(82, 140, 255);
 
   border-radius: 6px;
-  cursor: pointer;
+
   padding-left: 40px;
   padding-right: 40px;
 
 
+}
+.postItem{
+  cursor: pointer;
 }
