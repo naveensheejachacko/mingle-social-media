@@ -21,4 +21,9 @@ urlpatterns = [
     path('userPost/<id>/',views.userPost,name='userPost'),
 
 
+    #follow 
+    path('follow_user/<int:user_id>/<int:fingId>/',views.follow_user,name=" follow_user"),
+    path('user_suggestions/<id>/',views.user_suggestions,name="user_suggestions"),
+
+
 ]

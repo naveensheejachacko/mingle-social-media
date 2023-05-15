@@ -203,7 +203,7 @@ let deleteComment = async (id)=>{
      
     } 
     fetchPosts(); 
-  },[posts]);
+  },[]);
 
 
 

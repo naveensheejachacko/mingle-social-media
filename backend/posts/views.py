@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 
+from adminapp.serializers import UserdemoSerializer
+
 from .serializers import CommentSerializer, PostSerializer
 from user.serializers import UserSerializer
 from django.http import Http404
@@ -8,7 +10,7 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework import status
 from user.models import User
-from .models import Comments, Post,Like
+from .models import Comments, FollowList, Post,Like
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAdminUser
@@ -29,6 +31,45 @@ from rest_framework.response import Response
 from rest_framework import status
 from user.models import User
 from .models import Post
+
+
+
+
+
+@api_view(['POST'])
+def follow_user(request, user_id,fingId):
+    user = User.objects.get(id=user_id)
+    following_user = User.objects.get(id=fingId)
+
+    if user == following_user:
+        return Response({'error': 'You cannot follow yourself'})
+
+    if FollowList.objects.filter(follower=user, following=following_user).exists():
+        unfollow = FollowList.objects.filter(follower=user,following=following_user)
+        unfollow.delete()
+        return Response({'success': 'unfollowed'})
+    else:
+        follow = FollowList.objects.create(follower=user, following=following_user)
+
+    return Response({'success': 'You are now following this user'})
+
+
+
+
+@api_view(['GET'])
+def user_suggestions(request,id):
+    user = User.objects.get(id=id)
+    # print(user,'################')
+    following_users=user.following.values_list('following_id', flat=True)
+    # print(following_users,'folloing userssssssss$$$$$$$$$$$$$$')
+    user_suggestions = User.objects.exclude(id__in=following_users).exclude(id=user.id)
+    # print(user_suggestions,'user sugestionss*******')
+    serializer = UserdemoSerializer(user_suggestions, many=True)
+
+    return Response(serializer.data)
+
+
+
 
 
 
@@ -61,7 +102,7 @@ def deletePost(request,id):
         post.delete()
         posts = Post.objects.all().order_by('-created_at')
         data = [{"id": p.id, "content": p.content, "created_at": p.created_at} for p in posts]
-        print(data,'llllll')
+        # print(data,'llllll')
         return Response(data, status=status.HTTP_200_OK)
     else:
         data = {'error': 'post not found'}
@@ -78,7 +119,7 @@ def getPosts(request):
     # print(p.user.fullname)
     postSer = PostSerializer(p,many=True)
 
-    return Response({"data":postSer.data},status=status.HTTP_200_OK)
+    return Response({'data':postSer.data},status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -154,4 +195,9 @@ def userPost(request,id):
     p = Post.objects.filter(user_id=id).order_by("-id")
     userPostSer = PostSerializer(p,many=True)
     return Response({"data":userPostSer.data},status=status.HTTP_200_OK)
+
+
+
+
+
 
