@@ -20,6 +20,11 @@ import toast,{Toaster} from 'react-hot-toast'
 import axios from "axios";
 import { fetchPosts } from "../../../Redux/postSlice";
 
+
+
+import { Link } from "react-router-dom";
+
+
 export default function ListPost({ post }) {
   const [posts, setPosts] = useState([]);
 
@@ -124,7 +129,7 @@ export default function ListPost({ post }) {
   }
   // gettingcommetns for posts
   let getComments = async (postId)=>{
-    console.log(post,'post id from getdata')
+    console.log(postId,'post id from getdata')
 
 
     let response = await fetch(`http://127.0.0.1:8000/posts/getcomments/${postId}`, {
@@ -195,7 +200,7 @@ let deleteComment = async (id)=>{
       setPosts(response.data.data);
       // console.log(response.data,'*******')
     }
-     fetchPosts();      
+    //  fetchPosts();      
   },[posts]);
 
 
@@ -287,8 +292,16 @@ const handleDeleteClick = async (postId) => {
                   src="assets/person/1.jpeg"
                   alt=""
                 />
-                 <div>
-                <span className="postUsername">{post.user.fullname}</span>
+                 <div> 
+
+
+                 <Link to={`/profile/${post.user.id}`}>
+ 
+
+                <span key={post.user.id} className="postUsername"> {post.user.fullname}</span>
+                </Link>
+                
+                
                 <br />
                 <span style={{marginLeft:"0.6em"}} className="postDate">{moment(post.created_at).fromNow()}</span>
 

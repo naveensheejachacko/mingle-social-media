@@ -8,7 +8,7 @@ urlpatterns = [
     path('logout',views.Logout.as_view(),name='logout'),
     path('verifyToken',views.verifyToken,name='verifyToken'),
     path('googleLogin',views.googleLogin.as_view(),name='googleLogin'),
-    # path('u',views.UserView.as_view(),name='login'),
+    path('getUserById/<int:user_id>/',views.getUserById,name='getUserById'),
     
 
 

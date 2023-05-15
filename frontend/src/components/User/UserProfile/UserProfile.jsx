@@ -5,11 +5,27 @@ import AddPost from "../../../components/User/AddPost/AddPost"
 import ListPost from "../../../components/User/ListPost/ListPost";
 import UserPost from '../../../components/User/UserPosts/UserPosts';
 import { useSelector } from 'react-redux';
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 
 function UserProfile() {
-    const user_id=useSelector((state)=>state.user?.user_id)
-    const userName=useSelector((state)=>state.user?.user)
+  const { userId } = useParams();
+  const [userDetails, setUserDetails] = useState(null);
+
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/getUserById/${userId}`)
+      .then(response => setUserDetails(response.data))
+      .catch(error => console.log(error));
+  }, [userId]);
+
+
+  if (!userDetails) {
+    return <div>Loading...</div>;
+  }
+    // const userName=useSelector((state)=>state.user?.user)
 
   return (
     <>
@@ -46,7 +62,9 @@ function UserProfile() {
             </a> */}
           </div>
           <div className="center">
-            <span>{userName}</span>
+            <span className='userName'>{userDetails.username}</span>
+            <br />
+            <span  className="useremail" >{userDetails.email}</span>
             <div className="info">
               {/* <div className="item">
                 <PlaceIcon />
@@ -67,8 +85,8 @@ function UserProfile() {
 
       </div>
     </div>
-    <AddPost />
-      <UserPost />
+    {/* <AddPost /> */}
+      <UserPost  />
 
     </>
   )

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 # Create your views here.
 import json
@@ -15,12 +15,15 @@ from user.serializers import UserSerializer
 from rest_framework import status
 from rest_framework . exceptions import AuthenticationFailed
 
-# class SignUp(APIView):
-#     def post(self,request):
-#         serializer=UserSerializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save()
-#         return Response(serializer.data)
+@api_view(['GET'])
+def getUserById(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    data = {
+        'username': user.fullname,
+        'email': user.email,
+        # Add any other user details you want to include here
+    }
+    return Response(data)
 
 class SignUp(APIView):
     def post(self, request):
@@ -71,44 +74,7 @@ class SignUp(APIView):
         
     
 
-# class Login(APIView):
 
-#     def post(self, request):
-
-#         try:
-#             email = request.data['email']
-#             password = str(request.data['password'])
-#         except:
-#             return Response({'status': 'Please Provide details(email,password)'})
-
-#         user = User.objects.all()
-#         # for users in user:
-#         #     print(users.fullname)
-
-#         status = 'None'
-
-#         for i in user:
-#             if i.email == email:
-#                 if check_password(password, i.password):
-#                     payload = {
-#                         'email': email,
-#                         'password': password,
-#                         'fullname':i.fullname,
-#                     }
-#                     enpayload = base64.b64encode(json.dumps(
-#                         payload).encode('utf-8')).decode('utf-8')
-#                     jwt_token = jwt.encode(
-#                         {'payload': enpayload}, 'secret', algorithm='HS256')
-#                     response = Response(
-#                         {'status': 'Success','payload': enpayload,'fullname':i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
-#                     return response
-#                 else:
-#                     status = 'Wrong Password'
-#                     break
-#             else:
-#                 status = 'Email is not found'
-
-#         return Response({'status': status})
 
 class Login(APIView):
     def post(self, request):
@@ -249,99 +215,3 @@ class googleLogin(APIView):
 
 
 
-
-        # try:
-        #     data = request.data
-        #     email = request.data['email']
-        #     print(email,"for authentication")
-        #     user = authenticate(email=email)
-            
-        
-        # except:
-        #     print("enter exception if login credential failed")
-        #     return Response({'status': 'Please Provide details(email)'})
-        # user = User.objects.all()
-        # # print(user,"llllllllllll")
-        # status = 'None'
-
-        # for i in user:
-        #     print(i,"entering gooogle signin forloop")
-        #     if i.email == email:
-        #             print("checking email in fi ")
-        #             if i.is_blocked:
-        #                 status = 'User is blocked'
-        #                 break
-        #             payload = {
-        #                 'email': email,
-        #                 'fullname': i.fullname,
-        #                 'id':i.id
-        #             }
-        #             print('payload',payload)
-        #             enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
-        #             jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
-        #             response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
-        #             return response
-        #     else:
-        #         try:
-
-        #             data = request.data
-        #             # print(data)
-        #             fullname = data['fullname']
-        #             # print(fullname)
-        #             email = data['email']
-
-        #             # print("google dtails fetched success")
-        #             user = User.objects.create(
-        #             fullname = data['fullname'],
-        #             email = data['email'],
-        #             fromGoogle=True
-        #             )
-        #             user.is_staff = True  
-        #             user.save()   
-        #             # print("user created using google")       
-        #             serializer = UserSerializer(user, many=False)
-
-                    
-
-
-
-
-
-        #             # response=Response(serializer.data)
-        #             payload = {
-        #                 'email': email,
-        #                 'fullname': i.fullname,
-        #                 'id':i.id
-        #             }
-        #             print('payload',payload)
-        #             enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
-        #             jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
-        #             response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
-                    
-        #             return response
-                
-        #         except:
-        #             user = User.objects.all()
-        #             # print(user,"llllllllllll")
-        #             status = 'None'
-
-        #             for i in user:
-        #                 print(i,"entering gooogle signin forloop")
-        #                 if i.email == email:
-        #                         print("checking email in fi ")
-        #                         if i.is_blocked:
-        #                             status = 'User is blocked'
-        #                             break
-        #                         payload = {
-        #                             'email': email,
-        #                             'fullname': i.fullname,
-        #                             'id':i.id
-        #                         }
-        #                         print('payload',payload)
-        #                         enpayload = base64.b64encode(json.dumps(payload).encode('utf-8')).decode('utf-8')
-        #                         jwt_token = jwt.encode({'payload': enpayload}, 'secret', algorithm='HS256')
-        #                         response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname, 'jwt': jwt_token, 'role': 'user', 'id': i.id})
-        #                         return response
-
-        
-        # return Response({'status': status})

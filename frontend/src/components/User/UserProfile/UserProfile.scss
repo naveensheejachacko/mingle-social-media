@@ -85,10 +85,15 @@
           align-items: flex-start;
         //   gap: 10px;
 
-          span {
+          .userName {
             font-size: 30px;
             font-weight: 500;
           }
+
+          .user-email{
+            font-size: 12px;
+          }
+          
 
           .info {
             width: 100%;
@@ -127,4 +132,5 @@
       }
     }
 //   }
+
 }

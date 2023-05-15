@@ -16,7 +16,7 @@ import { resetPosts } from "../../../Redux/postSlice";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link ,NavLink} from "react-router-dom";
 import { BiCommentDetail  } from 'react-icons/bi';
 
 import "./Sidebar.scss";
@@ -27,6 +27,7 @@ function Sidebar() {
 
   const userName=useSelector((state)=>state.user?.user)
   const email=useSelector((state)=>state.user?.email)
+  const userId = useSelector((state) => state.user?.user_id);
 
 const navigate=useNavigate();
 const dispatch = useDispatch();
@@ -83,7 +84,7 @@ const userLogout = () => {
     <CDBSidebarMenuItem>Home</CDBSidebarMenuItem>
     </NavLink>
 
-    <NavLink exact to="#" activeClassName="activeClicked">
+    <NavLink exact to="/people" activeClassName="activeClicked">
 
     <CDBSidebarMenuItem> People</CDBSidebarMenuItem>
       </NavLink>
@@ -108,7 +109,7 @@ const userLogout = () => {
   <div className="user-profile">
               <img src="assets/person/1.jpeg" alt="" />
               <div className="user-details">
-            <NavLink to="/profile">  <span className="user-name">{userName}</span></NavLink>  
+            <Link to={`/profile/${userId}`} > <span className="user-name">{userName}</span></Link>  
                 <span className="user-email">{email}</span>
               </div>
             </div>

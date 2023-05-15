@@ -279,6 +279,10 @@ const signInWithGoogle = async () => {
             </MDBCard>
           </MDBCol>
         </form>
+<div className="para">
+<Link className="userLogin" to="/otpLogin" >Login with OTP</Link></div>
+
+
         <div className="para">
            Have an account?
                   <Link className="userLogin" to="/signup">

@@ -19,7 +19,7 @@ function Profile() {
 
       <UserProfile />
       {/* <AddPost /> */}
-      {/* <UserPosts /> */}
+      {/* <UserPosts  /> */}
       
 
       </div>

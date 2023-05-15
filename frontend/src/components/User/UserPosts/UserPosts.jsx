@@ -20,7 +20,13 @@ import toast,{Toaster} from 'react-hot-toast'
 import axios from "axios";
 import { fetchPosts } from "../../../Redux/postSlice";
 
+
+import { useParams } from "react-router-dom";
+
+
 export default function UserPost({ post }) {
+  const { userId } = useParams();
+
   const [posts, setPosts] = useState([]);
 
   const user_id = useSelector((state) => state.user?.user_id);
@@ -191,7 +197,7 @@ let deleteComment = async (id)=>{
 
   useEffect(() => {
     async function fetchPosts() {
-      const response = await axios.get(`http://127.0.0.1:8000/posts/userPost/${user_id}/`);
+      const response = await axios.get(`http://127.0.0.1:8000/posts/userPost/${userId}/`);
       setPosts(response.data.data);
       // console.log(response.data,'*******')
      
@@ -275,7 +281,7 @@ const handleDeleteClick = async (postId) => {
               <div className="postTopLeft">
                 <img
                   className="shareProfileImg"
-                  src="assets/person/1.jpeg"
+                  src="assets/person/post/1.jpeg"
                   alt=""
                 />
                  <div>
