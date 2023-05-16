@@ -18,14 +18,18 @@ import Swal from 'sweetalert2';
 import toast,{Toaster} from 'react-hot-toast'
 
 import axios from "axios";
-import { fetchPosts } from "../../../Redux/postSlice";
+// import { fetchPosts } from "../../../Redux/postSlice";
 
 
 
 import { Link } from "react-router-dom";
+// import { fetchPosts } from "../../../Redux/postSlice";
 
 
-export default function ListPost({ post }) {
+export default function ListPost() {
+
+
+  // console.log(post,'postttttttt')
   const [posts, setPosts] = useState([]);
 
   const user_id = useSelector((state) => state.user?.user_id);
@@ -132,7 +136,7 @@ export default function ListPost({ post }) {
     console.log(postId,'post id from getdata')
 
 
-    let response = await fetch(`http://127.0.0.1:8000/posts/getcomments/${postId}`, {
+    let response = await fetch(`http://127.0.0.1:8000/posts/getcomments/${postId}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -168,7 +172,6 @@ let deleteComment = async (id)=>{
   if (response.status === 200) {
     // console.log(data,'get comments')
     toast.success('comment deleted')
-    fetchPosts()
 
   } else {
     alert("Something went wrong!!")
@@ -200,43 +203,70 @@ let deleteComment = async (id)=>{
       setPosts(response.data.data);
       // console.log(response.data,'*******')
     }
-    //  fetchPosts();      
+     fetchPosts();      
   },[posts]);
 
+
+  
+
+
+
+
+
+
+  
 
 // delete Post
 
 const handleMenuClick = (event) => {
-  setAnchorEl(event.currentTarget);
+  setAnchorEl(event?.currentTarget);
 };
+
+
+
+
+
+
+
+
+
 
 const handleMenuClose = () => {
   setAnchorEl(null);
 };
 
-// const handleDeleteClick =async (postId) => {
-//   // handle delete logic here
-//   let response = await fetch(`http://127.0.0.1:8000/posts/deletePost/${postId}`, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
 
+// const handleDeleteClick = async (id) => {
+//   // show confirmation dialog
+//   const confirmDelete = await Swal.fire({
+//     title: 'Are you sure you want to delete this post?',
+//     icon: 'warning',
+//     showCancelButton: true,
+//     confirmButtonColor: '#3085d6',
+//     cancelButtonColor: '#d33',
+//     confirmButtonText: 'Delete'
 //   })
-//   let data = await response.json()
-  
 
-//   if (response.status === 200) {
-//     toast.success('deleted')
-//     fetchPosts()
-//   } else {
-//     // logoutUser()
-//     alert('failed')
+//   if (confirmDelete.isConfirmed) {
+//     // handle delete logic here
+//     let response = await fetch(`http://127.0.0.1:8000/posts/deletePost/${id}`, {
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     })
+//     let data = await response.json()
 
+//     if (response.status === 200) {
+//       toast.success('deleted')
+//     } else {
+//       alert('failed')
+//     }
 //   }
-// };
+// }
 
-const handleDeleteClick = async (postId) => {
+
+const handleDeleteClick = async (id) => {
   // show confirmation dialog
   const confirmDelete = await Swal.fire({
     title: 'Are you sure you want to delete this post?',
@@ -247,23 +277,19 @@ const handleDeleteClick = async (postId) => {
     confirmButtonText: 'Delete'
   })
 
+  // delete the post if the user confirms
   if (confirmDelete.isConfirmed) {
-    // handle delete logic here
-    let response = await fetch(`http://127.0.0.1:8000/posts/deletePost/${postId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    let data = await response.json()
-
+    const response = await axios.delete(`http://127.0.0.1:8000/posts/deletePost/${id}`);
     if (response.status === 200) {
-      toast.success('deleted')
+      setPosts(posts.filter((post) => post.id !== id));
+      toast.success('Post deleted successfully');
+      // fetchPosts(); 
     } else {
-      alert('failed')
+      toast.error('Failed to delete post');
     }
   }
-}
+};
+
 
 
 
@@ -279,7 +305,7 @@ const handleDeleteClick = async (postId) => {
   return (
     <div className="posts">
       {posts.map((post) => (
-        <div key={post.id} className="post">
+        <div  className="post">
           
 
 
@@ -311,11 +337,11 @@ const handleDeleteClick = async (postId) => {
 
                 {/* <span className="postDate">{new Date(post.created_at).toDateString()}</span> */}
               </div>
-              {user_id==post.user.id?
+              {/* {user_id==post.user.id?
 
 
               <div className="postTopRight">
-                <IconButton onClick={handleMenuClick}>
+                <IconButton onClick={(e)=>handleMenuClick(e)}>
                   <MoreVert />
                 </IconButton>
                 <Menu
@@ -325,11 +351,13 @@ const handleDeleteClick = async (postId) => {
                 >
 
 
-                  <MenuItem onClick={()=>{{handleDeleteClick(post.id)}}}>Delete</MenuItem>
+                  <MenuItem  onClick={() => handleDeleteClick(post.id)}>Delete</MenuItem> 
+
+
 
                 </Menu>
               </div>
-              :null}
+              :null} */}
             </div>
             <div className="postCenter">
               <span className="postText">{post.content}</span>
@@ -366,15 +394,22 @@ const handleDeleteClick = async (postId) => {
                 {/* <AiOutlineComment   onClick={handleshow } size={40}flex='1' /> */}
 
                 <AiOutlineComment
-                  size={40}
+                  size={25}
                   flex="1"
                   onClick={() =>{ handleCommentClick(post.id);
                     getComments(post.id)}}
                 />
+                              </div>
+ {user_id==post.user.id?
 
 
+
+<BsTrash3  size={20}  onClick={() => handleDeleteClick(post.id)} />
+
+
+:null}
                 
-              </div>
+
             </div>
           </div>
 

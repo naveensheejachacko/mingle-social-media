@@ -148,12 +148,12 @@ const signInWithGoogle = async () => {
         </MDBContainer>
       </MDBNavbar>
 
-      <MDBContainer fluid className="p-4">
+      <MDBContainer className='mt-5 mb-5 shadow-5'>
         <form onSubmit={(e) => handleLogin(e)}>
           <MDBCol className="mx-auto" md="6">
-            <MDBCard className="my-5">
+            {/* <MDBCard className="my-3  py-4"> */}
             <div style={{ textAlign: "center" }}>
-              <h3 className="mt-5" style={{ fontSize: "3em" }}>
+              <h3  style={{ fontSize: "3em" }}>
                 
                 <b>Getting Started</b>
               </h3>
@@ -183,10 +183,12 @@ const signInWithGoogle = async () => {
                   borderBottom: "1px solid black",
                   position: "relative",
                   margin: "auto",
+                  marginBottom:"2em"
                 }}
               >
                 <span
                   style={{
+        
                     position: "absolute",
                     left: "50%",
                     top: "50%",
@@ -205,6 +207,7 @@ const signInWithGoogle = async () => {
                   justifyContent: "center",
                   alignItems: "center",
                   flexDirection: "column",
+
                 }}
               >
                 <input
@@ -276,14 +279,14 @@ const signInWithGoogle = async () => {
               >
                 Login
               </MDBBtn>
-            </MDBCard>
+            {/* </MDBCard> */}
           </MDBCol>
         </form>
-<div className="para">
-<Link className="userLogin" to="/otpLogin" >Login with OTP</Link></div>
+<div  style={{ textAlign: "center" }}  className="para">
+<Link className="userLogin"  to="/otpLogin" >Login with OTP</Link></div>
 
 
-        <div className="para">
+        <div style={{ textAlign: "center" }}className="para">
            Have an account?
                   <Link className="userLogin" to="/signup">
                     Sign up here

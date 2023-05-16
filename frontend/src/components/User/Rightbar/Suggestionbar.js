@@ -4,6 +4,8 @@ import axios from "axios";
 import Button from 'react-bootstrap/Button';
 import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
+import toast,{Toaster} from 'react-hot-toast'
+
 
 const SuggestionBar = () => {
   const user_id = useSelector((state) => state.user?.user_id);
@@ -24,6 +26,7 @@ const SuggestionBar = () => {
       
           });
           setSuggestions(response.data);
+          
         } catch (error) {
           console.error(error);
         }
@@ -40,7 +43,9 @@ const SuggestionBar = () => {
       try {
         const response = await axios.post(`http://127.0.0.1:8000/posts/follow_user/${user_id}/${fingId}/`);
         setFollowing(true);
+        // toast.success('success')
         fetchUserSuggestions();
+
       } catch (error) {
         console.error(error);
       }
@@ -62,14 +67,15 @@ const SuggestionBar = () => {
           <div className="user">
             <div key={user.id} className="userInfo">
               <img
-                src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                src="../assets/person/1.jpeg"
                 alt=""
               />
               <span >{user.fullname}</span>
             </div>
             <div className="buttons">
+              
             <Button className="button" variant="primary" onClick={()=>{{handleFollowUser(user.id)}}}  style={{borderRadius:'10px'}}>Follow</Button>
-
+            {/* <Toaster /> */}
               {/* <button>follow</button> */}
               {/* <button>dismiss</button> */}
             </div>

@@ -164,7 +164,7 @@ function UserSignup() {
         className="p-10 d-flex justify-content-center align-items-center"
       >
         <MDBCol md="6">
-          <MDBCard className="my-4">
+          {/* <MDBCard className="my-4"> */}
             <form onSubmit={(e) => handleSubmit(e)}>
               <h3 className="mt-4 mb-3" style={{ fontSize: "3em" }}>
                 <b>Getting Started</b>
@@ -306,7 +306,7 @@ function UserSignup() {
 
               <div className="text-center">{/* some text */}</div>
             </form>
-          </MDBCard>
+          {/* </MDBCard> */}
           <div className="para text-center">
             Have an account?
             <Link className="userLogin" to="/">

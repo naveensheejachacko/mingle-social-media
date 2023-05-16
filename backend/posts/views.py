@@ -34,6 +34,24 @@ from .models import Post
 
 
 
+@api_view(['GET'])
+def following_list(request, user_id):
+    user = User.objects.get(id=user_id)
+    following_users=user.following.values_list('following_id', flat=True)
+    following_list = User.objects.filter(id__in=following_users)
+    serializer = UserdemoSerializer(following_list, many=True,context={'user_id': user_id})
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def followers_list(request, user_id):
+    user = User.objects.get(id=user_id)
+    followers = user.followers.values_list('follower_id', flat=True)
+    followers_list = User.objects.filter(id__in=followers)
+    serializer = UserdemoSerializer(followers_list, many=True, context={'user_id': user_id})
+    return Response(serializer.data)
+
+
 
 
 @api_view(['POST'])
@@ -42,18 +60,54 @@ def follow_user(request, user_id,fingId):
     following_user = User.objects.get(id=fingId)
 
     if user == following_user:
+        print("checking user id anf fid same")
         return Response({'error': 'You cannot follow yourself'})
 
     if FollowList.objects.filter(follower=user, following=following_user).exists():
+        print("check user already following and delete it")
         unfollow = FollowList.objects.filter(follower=user,following=following_user)
         unfollow.delete()
         return Response({'success': 'unfollowed'})
     else:
+        print("create followlist")
         follow = FollowList.objects.create(follower=user, following=following_user)
 
     return Response({'success': 'You are now following this user'})
 
 
+
+
+
+
+
+
+
+# @api_view(['POST'])
+# def follow_user(request, user_id,fingId):
+#     user = User.objects.get(id=user_id)
+#     following_user = User.objects.get(id=fingId)
+
+#     if user == following_user:
+#         print("checking user id anf fid same")
+#         return Response({'error': 'You cannot follow yourself'})
+#     else:
+#         print("create followlist")
+#         follow = FollowList.objects.create(follower=user, following=following_user)
+
+#     return Response({'success': 'You are now following this user'})
+
+
+# @api_view(['POST'])
+# def unfollow_user(request, user_id,fingId):
+#     user = User.objects.get(id=user_id)
+#     following_user = User.objects.get(id=fingId)
+#     if FollowList.objects.filter(follower=user, following=following_user).exists():
+#         print("check user already following and delete it")
+#         unfollow = FollowList.objects.filter(follower=user,following=following_user)
+#         unfollow.delete()
+#         return Response({'success': 'unfollowed'})
+
+#     return Response({'success': 'You are now following this user'})
 
 
 @api_view(['GET'])
@@ -64,7 +118,7 @@ def user_suggestions(request,id):
     # print(following_users,'folloing userssssssss$$$$$$$$$$$$$$')
     user_suggestions = User.objects.exclude(id__in=following_users).exclude(id=user.id)
     # print(user_suggestions,'user sugestionss*******')
-    serializer = UserdemoSerializer(user_suggestions, many=True)
+    serializer = UserdemoSerializer(user_suggestions, many=True,context={'user_id': id})
 
     return Response(serializer.data)
 

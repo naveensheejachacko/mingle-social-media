@@ -4,7 +4,6 @@ import "./HomePage.scss";
 import Navbar from "../../components/User/Navbar/Navbar";
 import ConnectionList from "../../components/User/Followers/ConnectionList";
 import { useState } from "react";
-import Rightbar from "../../components/User/Rightbar/Rightbar";
 function HomePage() {
 
 
@@ -19,7 +18,17 @@ function HomePage() {
 
       </div>
       <div className="Rightbar">     
-       <Rightbar />
+       {/* <Rightbar /> */}
+
+
+
+<div />
+
+
+
+
+
+
 </div>
       </div>
 

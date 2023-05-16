@@ -6,6 +6,9 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Suggestion from './Suggestion';
+import FollowList from './FollowingList';
+import FollowingList from './FollowingList';
+import FollowersList from './FollowersList';
 function ConnectionList() {
 
     function TabPanel(props) {
@@ -57,11 +60,11 @@ function ConnectionList() {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-          <Suggestion />
+        <FollowersList />
 
           </TabPanel>
           <TabPanel value={value} index={1}>
-          <Suggestion />
+            <FollowingList />
 
           </TabPanel>
           <TabPanel value={value} index={2}>

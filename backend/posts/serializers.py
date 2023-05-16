@@ -28,7 +28,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 
-class FollowlistSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FollowList
-        fields ='__all__'
+# class FollowlistSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = FollowList
+#         fields ='__all__'

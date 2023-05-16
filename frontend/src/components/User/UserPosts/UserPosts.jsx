@@ -8,6 +8,9 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 import { AiOutlineComment } from "react-icons/ai";
 import { BsTrash3 } from "react-icons/bs";
 
+
+
+
 // import {Users,Posts} from "../../../dummyData";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -203,7 +206,7 @@ let deleteComment = async (id)=>{
      
     } 
     fetchPosts(); 
-  },[]);
+  },[posts]);
 
 
 
@@ -274,14 +277,21 @@ const handleDeleteClick = async (postId) => {
 
   return (
     <div className="posts">
-      {posts.map((post) => (
+       {posts.length === 0 ? (
+        <div style={{marginLeft:"3.5em"}}   className=" mt-3">
+          <img src="../assets/nopost.jpeg" alt="No Post Available" />
+          
+        </div>
+      ) :( 
+
+         posts.map((post) => (
         <div key={post.id} className="post">
           <div className="postWrapper">
             <div className="postTop">
               <div className="postTopLeft">
                 <img
                   className="shareProfileImg"
-                  src="assets/person/post/1.jpeg"
+                  src="../assets/person/1.jpeg"
                   alt=""
                 />
                  <div>
@@ -292,7 +302,7 @@ const handleDeleteClick = async (postId) => {
                 </div>
                 {/* <span className="postDate">{new Date(post.created_at).toDateString()}</span> */}
               </div>
-              {user_id==post.user.id?
+              {/* {user_id==post.user.id?
 
 
               <div className="postTopRight">
@@ -307,7 +317,7 @@ const handleDeleteClick = async (postId) => {
                   <MenuItem onClick={()=>{{handleDeleteClick(post.id)}}}>Delete</MenuItem>
                 </Menu>
               </div>
-              :null}
+              :null} */}
             </div>
             <div className="postCenter">
               <span className="postText">{post.content}</span>
@@ -322,7 +332,7 @@ const handleDeleteClick = async (postId) => {
               <div className="postBottomLeft">
                 <img
                   className="likeIcon"
-                  src="assets/like.png"
+                  src="../assets/like.png"
                   onClick={() => {
                     likebutton(post.id)}
                   }
@@ -344,13 +354,21 @@ const handleDeleteClick = async (postId) => {
                 {/* <AiOutlineComment   onClick={handleshow } size={40}flex='1' /> */}
 
                 <AiOutlineComment
-                  size={40}
+                  size={25}
                   flex="1"
                   onClick={() =>{ handleCommentClick(post.id);
                     getComments(post.id)}}
                 />
 
               </div>
+              {user_id==post.user.id?
+
+
+
+<BsTrash3  size={20}  onClick={() => handleDeleteClick(post.id)} />
+
+
+:null}
             </div>
           </div>
 
@@ -428,7 +446,13 @@ const handleDeleteClick = async (postId) => {
           )}
 
         </div>
-      ))}
+      ))
+
+
+)}
+
+
+      
     </div>
   );
 }

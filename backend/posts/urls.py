@@ -22,7 +22,11 @@ urlpatterns = [
 
 
     #follow 
-    path('follow_user/<int:user_id>/<int:fingId>/',views.follow_user,name=" follow_user"),
+    path('following_list/<int:user_id>/',views.following_list,name="following_list"),
+    path('followers_list/<int:user_id>/', views.followers_list, name='followers_list'),
+    path('follow_user/<int:user_id>/<int:fingId>/',views.follow_user,name="follow_user"),
+    # path('unfollow_user/<int:user_id>/<int:fingId>/',views.unfollow_user,name="unfollow_user"),
+
     path('user_suggestions/<id>/',views.user_suggestions,name="user_suggestions"),
 
 
