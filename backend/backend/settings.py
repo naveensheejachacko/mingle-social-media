@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+from decouple import config
+import dotenv
+
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'posts',
+    'cloudinary',
 ]
 
 
@@ -149,8 +154,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -159,3 +167,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW=True
 CORS_ALLOW_CREDENTIALS=True
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+
+
+# cloudinary
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+# Load environment variables from .env file
+dotenv.load_dotenv()
+
+# Configure Cloudinary
+cloudinary.config(
+    cloud_name = "dtnbd0res",
+    api_key = "918969667649939",
+    api_secret = "TFRhgs5QlpQ4hGlCvWpSG71KzlY"
+)

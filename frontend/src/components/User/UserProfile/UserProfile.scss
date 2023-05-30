@@ -9,6 +9,24 @@
       height: 200px;
       position: relative;
 
+
+
+
+      .editIcon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+        background-color: #ffffff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
       .cover {
         width: 95%;
         height: 90%;

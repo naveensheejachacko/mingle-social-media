@@ -21,12 +21,14 @@ import { BiCommentDetail } from "react-icons/bi";
 
 import "./Sidebar.scss";
 
+
 import { useSelector } from "react-redux";
 
 function Sidebar() {
   const userName = useSelector((state) => state.user?.user);
   const email = useSelector((state) => state.user?.email);
   const userId = useSelector((state) => state.user?.user_id);
+  const profilePic=useSelector((state)=>state.user?.profilePic)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -75,9 +77,13 @@ function Sidebar() {
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
             <div class="sidebar-menu">
-              <NavLink to="/home" activeClassName="activeClicked">
+            <NavLink to="/home" activeClassName="activeClicked">
                 <CDBSidebarMenuItem>Home</CDBSidebarMenuItem>
               </NavLink>
+              <NavLink to="/explore" activeClassName="activeClicked">
+                <CDBSidebarMenuItem>Explore</CDBSidebarMenuItem>
+              </NavLink>
+
 
               <NavLink exact to="/people" activeClassName="activeClicked">
                 <CDBSidebarMenuItem> People</CDBSidebarMenuItem>
@@ -95,7 +101,7 @@ function Sidebar() {
             <NavLink to="#" activeClassName="activeClicked">
               <CDBSidebarMenuItem>
                 <div className="user-profile">
-                  <img src="../assets/person/1.jpeg" alt="" />
+<img src={profilePic} alt="Profile Picture" />
                   <div className="user-details">
                     <Link to={`/profile/${userId}`}>
                       {" "}

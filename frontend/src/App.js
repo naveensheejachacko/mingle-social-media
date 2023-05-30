@@ -1,5 +1,7 @@
 import UserSignup from "./pages/UserSignup";
 import HomePage from "./pages/User/HomePage";
+import FollowingPosts from "./pages/User/FollowingPosts";
+
 import UserLogin from "./pages/UserLogin";
 import OTPLogin from "./pages/OTPLogin";
 import Profile from "./pages/User/Profile"
@@ -18,6 +20,9 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+
+
+
           <Route
             path="signup"
             element={
@@ -35,7 +40,6 @@ function App() {
             }
           />
 
-
 <Route
             path="otpLogin"
             element={
@@ -47,10 +51,20 @@ function App() {
 
 
           <Route
-            path="home"
+            path="explore"
             element={
               <AuthorizeUser>
                 <HomePage />
+              </AuthorizeUser>
+            }
+          />
+
+          
+<Route
+            path="home"
+            element={
+              <AuthorizeUser>
+                <FollowingPosts />
               </AuthorizeUser>
             }
           />

@@ -33,8 +33,11 @@ export default function ListPost() {
   const [posts, setPosts] = useState([]);
 
   const user_id = useSelector((state) => state.user?.user_id);
+
   // console.log(useSelector((state)=>state.user?.user_id),'lllllllllll')
   const userName = useSelector((state) => state.user?.user?.user);
+  const profilePic=useSelector((state)=>state.user?.profilePic)
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   // const [commentwriting, setcommentwriting] = useState("");
@@ -199,12 +202,12 @@ let deleteComment = async (id)=>{
 
   useEffect(() => {
     async function fetchPosts() {
-      const response = await axios.get(`http://127.0.0.1:8000/posts/getPosts`);
+      const response = await axios.get(`http://127.0.0.1:8000/posts/getPosts/${user_id}/`);
       setPosts(response.data.data);
       // console.log(response.data,'*******')
     }
      fetchPosts();      
-  },[posts]);
+  },[]);
 
 
   
@@ -313,11 +316,8 @@ const handleDeleteClick = async (id) => {
           <div className="postWrapper">
             <div className="postTop">
               <div className="postTopLeft">
-                <img
-                  className="shareProfileImg"
-                  src="assets/person/1.jpeg"
-                  alt=""
-                />
+              <img src={post.user.profile_picture} className="shareProfileImg" alt="Profile Picture" />
+      
                  <div> 
 
 
@@ -364,8 +364,7 @@ const handleDeleteClick = async (id) => {
 
               <img
                 className="postImg"
-                src={"http://127.0.0.1:8000/" + post.image}
-                alt=""
+                src={decodeURIComponent(post?.image).replace('/https:', 'https:')}                  alt=""
               />
             </div>
             <div className="postBottom">

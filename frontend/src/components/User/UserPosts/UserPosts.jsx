@@ -33,6 +33,7 @@ export default function UserPost({ post }) {
   const [posts, setPosts] = useState([]);
 
   const user_id = useSelector((state) => state.user?.user_id);
+  const profilePic=useSelector((state)=> state.user?.profilePic)
   // console.log(useSelector((state)=>state.user?.user_id),'lllllllllll')
   const userName = useSelector((state) => state.user?.user?.user);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -202,11 +203,17 @@ let deleteComment = async (id)=>{
     async function fetchPosts() {
       const response = await axios.get(`http://127.0.0.1:8000/posts/userPost/${userId}/`);
       setPosts(response.data.data);
+ 
+
       // console.log(response.data,'*******')
      
     } 
     fetchPosts(); 
-  },[posts]);
+  },[]);
+// cloudify
+  // const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dtnbd0res' });
+
+
 
 
 
@@ -291,7 +298,7 @@ const handleDeleteClick = async (postId) => {
               <div className="postTopLeft">
                 <img
                   className="shareProfileImg"
-                  src="../assets/person/1.jpeg"
+                  src={profilePic}
                   alt=""
                 />
                  <div>
@@ -320,14 +327,16 @@ const handleDeleteClick = async (postId) => {
               :null} */}
             </div>
             <div className="postCenter">
-              <span className="postText">{post.content}</span>
+              <span className="postText">{post?.content}</span>
 
               <img
                 className="postImg"
-                src={"http://127.0.0.1:8000/" + post.image}
+                src={decodeURIComponent(post?.image).replace('/https:', 'https:')}                
                 alt=""
               />
             </div>
+
+
             <div className="postBottom">
               <div className="postBottomLeft">
                 <img

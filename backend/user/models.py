@@ -5,8 +5,8 @@ class User(models.Model):
     fullname = models.CharField(max_length=255,blank=False)
     phone_number = models.CharField(max_length=15,blank=False)
     password = models.CharField(max_length=5000,blank=True)
-    default_image = models.ImageField(upload_to='userImage/', default='userImage/default_profilePic.png')
-    default_cover_image = models.ImageField(upload_to='userCover/', default='userCover/default_cover.png')
+    profile_picture = models.CharField(max_length=255,blank=True)
+    cover_picture = models.CharField(max_length=255,blank=True)
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),

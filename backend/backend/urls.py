@@ -24,6 +24,7 @@ urlpatterns = [
     path('',include('user.urls')),
     path('adminn/',include('adminapp.urls')),
     path('posts/',include('posts.urls')),
-]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+# static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

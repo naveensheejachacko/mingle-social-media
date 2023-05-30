@@ -39,6 +39,24 @@ function UserLogin() {
       email,
       password,
     });
+    if (
+      password.length ===0 ||
+      email.length==0
+      
+    ) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Please Fill all Fields",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
+else{
+
+
+
     axios
       .post(userLogin, data, {
         headers: { "Content-Type": "application/json" },
@@ -85,13 +103,14 @@ function UserLogin() {
               user: response.data.fullname,
               token: response.data.jwt,
               user_id:response.data.id,
+              profilePic:response.data.profile_picture
             })
           );
           navigate("home");
         }
       });
+    }
   };
-
 
 const signInWithGoogle = async () => {
   try {
@@ -110,6 +129,7 @@ const signInWithGoogle = async () => {
       email:response.data.email,
       token: response.data.jwt,
       user_id: response.data.id,
+      profilePic:response.data.profile_picture
     }));
 
     navigate('home');

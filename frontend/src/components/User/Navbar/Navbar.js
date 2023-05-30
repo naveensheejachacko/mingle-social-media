@@ -13,9 +13,9 @@ function Navbar() {
 
   
   return (
-    <div className="userNavbar">
-    <div className="wrapper">
-
+    // <div className="userNavbar">
+    // <div className="wrapper">
+<>
 <div className="main">
   
 
@@ -43,8 +43,11 @@ function Navbar() {
         </div>
 
         </div>
-      </div>
-    </div>
+        </>
+    //   </div>
+
+
+    // </div>
 
   )
 }

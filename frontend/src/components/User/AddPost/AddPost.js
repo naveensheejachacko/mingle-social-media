@@ -27,6 +27,7 @@ function AddPost() {
   
 const dispatch=useDispatch();
 const homePosts = useSelector((state) => state?.post?.posts);
+const profilePic=useSelector((state)=>state.user?.profilePic)
 
 
 
@@ -85,7 +86,7 @@ const homePosts = useSelector((state) => state?.post?.posts);
     <div className="shareWrapper">
     <form encType="multipart/form-data" onSubmit={PostAdd}>
       <div className="shareTop">
-          <img className='shareProfileImg' src="assets/person/1.jpeg" alt="" />
+      <img src={profilePic}  className="shareProfileImg" alt="Profile Picture" />
           <input value={content} placeholder={`What's on your mind ${userName}?`} 
           onChange={(e) => { setContent(e.target.value) }}
           className='shareInput'/>

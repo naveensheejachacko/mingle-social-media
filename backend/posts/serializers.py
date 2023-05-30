@@ -11,11 +11,13 @@ class LikeSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     liked_post = LikeSerializer(many=True,read_only = True)
-
+    profile_picture = serializers.SerializerMethodField()
     class Meta:
         model = Post
         fields = '__all__'
-
+    def get_profile_picture(self, obj):
+        return obj.user.profile_picture
+    
 class CommentSerializer(serializers.ModelSerializer):
     user_na = serializers.SerializerMethodField()
     class Meta:

@@ -58,7 +58,7 @@ function FollowingList() {
     <div className="card-container">
       {followingList.map((user) => (
         <Card key={user.id} className="card">
-          <Card.Img style={{ borderRadius: "50%" }} variant="top" src="assets/person/3.jpeg" className="rounded"/>
+          <Card.Img style={{ borderRadius: "50%" }} variant="top"  src={user.profile_picture} className="rounded"/>
           <Card.Body>
             <Card.Title> {user.fullname}</Card.Title>
             <Card.Text>

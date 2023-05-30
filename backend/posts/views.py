@@ -10,7 +10,7 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework import status
 from user.models import User
-from .models import Comments, FollowList, Post,Like
+from .models import Comments, FollowList, Post, Like
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAdminUser
@@ -34,12 +34,16 @@ from .models import Post
 
 
 
+import cloudinary.uploader
+
+
 @api_view(['GET'])
 def following_list(request, user_id):
     user = User.objects.get(id=user_id)
-    following_users=user.following.values_list('following_id', flat=True)
+    following_users = user.following.values_list('following_id', flat=True)
     following_list = User.objects.filter(id__in=following_users)
-    serializer = UserdemoSerializer(following_list, many=True,context={'user_id': user_id})
+    serializer = UserdemoSerializer(
+        following_list, many=True, context={'user_id': user_id})
     return Response(serializer.data)
 
 
@@ -48,14 +52,13 @@ def followers_list(request, user_id):
     user = User.objects.get(id=user_id)
     followers = user.followers.values_list('follower_id', flat=True)
     followers_list = User.objects.filter(id__in=followers)
-    serializer = UserdemoSerializer(followers_list, many=True, context={'user_id': user_id})
+    serializer = UserdemoSerializer(
+        followers_list, many=True, context={'user_id': user_id})
     return Response(serializer.data)
 
 
-
-
 @api_view(['POST'])
-def follow_user(request, user_id,fingId):
+def follow_user(request, user_id, fingId):
     user = User.objects.get(id=user_id)
     following_user = User.objects.get(id=fingId)
 
@@ -65,97 +68,89 @@ def follow_user(request, user_id,fingId):
 
     if FollowList.objects.filter(follower=user, following=following_user).exists():
         print("check user already following and delete it")
-        unfollow = FollowList.objects.filter(follower=user,following=following_user)
+        unfollow = FollowList.objects.filter(
+            follower=user, following=following_user)
         unfollow.delete()
         return Response({'success': 'unfollowed'})
     else:
         print("create followlist")
-        follow = FollowList.objects.create(follower=user, following=following_user)
+        follow = FollowList.objects.create(
+            follower=user, following=following_user)
 
     return Response({'success': 'You are now following this user'})
 
 
+@api_view(['GET'])
+def fposts(request, user_id):
+    user = User.objects.get(id=user_id)
+    following_users = user.following.values_list('following_id', flat=True)
+    posts = Post.objects.filter(Q(user_id__in=following_users) | Q(
+        user=user)).order_by('-created_at')
+    postSer = PostSerializer(posts, many=True)
+    return Response({'data': postSer.data}, status=status.HTTP_200_OK)
 
 
-
-
-
-
-
-# @api_view(['POST'])
-# def follow_user(request, user_id,fingId):
-#     user = User.objects.get(id=user_id)
-#     following_user = User.objects.get(id=fingId)
-
-#     if user == following_user:
-#         print("checking user id anf fid same")
-#         return Response({'error': 'You cannot follow yourself'})
-#     else:
-#         print("create followlist")
-#         follow = FollowList.objects.create(follower=user, following=following_user)
-
-#     return Response({'success': 'You are now following this user'})
-
-
-# @api_view(['POST'])
-# def unfollow_user(request, user_id,fingId):
-#     user = User.objects.get(id=user_id)
-#     following_user = User.objects.get(id=fingId)
-#     if FollowList.objects.filter(follower=user, following=following_user).exists():
-#         print("check user already following and delete it")
-#         unfollow = FollowList.objects.filter(follower=user,following=following_user)
-#         unfollow.delete()
-#         return Response({'success': 'unfollowed'})
-
-#     return Response({'success': 'You are now following this user'})
 
 
 @api_view(['GET'])
-def user_suggestions(request,id):
+def user_suggestions(request, id):
     user = User.objects.get(id=id)
     # print(user,'################')
-    following_users=user.following.values_list('following_id', flat=True)
+    following_users = user.following.values_list('following_id', flat=True)
     # print(following_users,'folloing userssssssss$$$$$$$$$$$$$$')
-    user_suggestions = User.objects.exclude(id__in=following_users).exclude(id=user.id)
+    user_suggestions = User.objects.exclude(
+        id__in=following_users).exclude(id=user.id)
     # print(user_suggestions,'user sugestionss*******')
-    serializer = UserdemoSerializer(user_suggestions, many=True,context={'user_id': id})
+    serializer = UserdemoSerializer(
+        user_suggestions, many=True, context={'user_id': id})
 
     return Response(serializer.data)
-
-
-
-
 
 
 @api_view(['POST'])
 @csrf_exempt
 def addposts(request, id):
     print(request.user.id, 'llllllll')
-    user = User.objects.filter(id=id).first()   
+    user = User.objects.filter(id=id).first()
     print(id, 'hhh')
     content = request.POST['content']
     image = request.FILES.get('image')
-    if content:
+    if image:
+        upload_result = cloudinary.uploader.upload(
+                image,
+                folder='posts'
+            )
+        image_url = upload_result['secure_url']
         post = Post.objects.create(
-            image=image,
+        image=image_url,
+        content=content,
+        user=user
+        )
+        data = {'success': 'success'}
+        return Response(data, status=status.HTTP_200_OK)
+
+    elif content:
+        post = Post.objects.create(
             content=content,
             user=user
         )
         data = {'success': 'success'}
         return Response(data, status=status.HTTP_200_OK)
+
     else:
         data = {'error': 'missing data'}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
-    
+
 
 @api_view(['DELETE'])
 @csrf_exempt
-def deletePost(request,id):
+def deletePost(request, id):
     post = Post.objects.filter(id=id).first()
     if post:
         post.delete()
         posts = Post.objects.all().order_by('-created_at')
-        data = [{"id": p.id, "content": p.content, "created_at": p.created_at} for p in posts]
+        data = [{"id": p.id, "content": p.content,
+                 "created_at": p.created_at} for p in posts]
         # print(data,'llllll')
         return Response(data, status=status.HTTP_200_OK)
     else:
@@ -165,37 +160,37 @@ def deletePost(request,id):
 
 @api_view(['GET'])
 # @authentication_classes([JWTAuthentication])
-def getPosts(request):
+def getPosts(request,user_id):
     # postukal = Post.objects.all().order_by('-created_at')
     # posts = []
     # posts.append(postukal)
-    p = Post.objects.all().order_by('-created_at')
+    p = Post.objects.all().order_by('-created_at').exclude(user_id=user_id)
     # print(p.user.fullname)
-    postSer = PostSerializer(p,many=True)
+    postSer = PostSerializer(p, many=True)
 
-    return Response({'data':postSer.data},status=status.HTTP_200_OK)
+    return Response({'data': postSer.data}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
-def isliked(request,id):
+def isliked(request, id):
     print('hai isliked function on backend ')
-    data  = request.data
+    data = request.data
     user = User.objects.get(id=id)
     print(user)
     post = Post.objects.get(id=data['id'])
-    
-    
-    like = Like.objects.filter(Q(likedPost=data['id']) & Q(likedby = user.id))
+
+    like = Like.objects.filter(Q(likedPost=data['id']) & Q(likedby=user.id))
     if like:
         print('deleted the like that exists')
         like.delete()
     else:
-        
-        Like.objects.create(likedby=User.objects.get(id=user.id),likedPost = post)
+
+        Like.objects.create(likedby=User.objects.get(
+            id=user.id), likedPost=post)
         print('like added ')
 
     print('success  ')
-    return Response({'results':data,})
+    return Response({'results': data, })
 
 
 # @api_view(['POST'])
@@ -217,41 +212,36 @@ def addcomments(request, id, id2):
     data = request.data
     c = data['values']
     comment = c['comment']
-    comm = Comments.objects.create(post=Post.objects.get(id=id2), user=User.objects.get(id=id), comment=comment)
+    comm = Comments.objects.create(post=Post.objects.get(
+        id=id2), user=User.objects.get(id=id), comment=comment)
     ss = {'hai': 'hh'}
     return Response(ss, status=status.HTTP_200_OK)
 
+
 @api_view(['GET'])
-def getcomments(request,id):
+def getcomments(request, id):
     print("working")
-    comment = Comments.objects.filter(post=id).select_related('user').order_by('-id')
+    comment = Comments.objects.filter(
+        post=id).select_related('user').order_by('-id')
     print(comment)
-    serializer = CommentSerializer(comment,many=True)
+    serializer = CommentSerializer(comment, many=True)
     if serializer.is_valid:
-        return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_403_FORBIDDEN)
 
 
 @api_view(['POST'])
-def deletecomment(request,id):
+def deletecomment(request, id):
     comm = Comments.objects.get(id=id).delete()
-    data = {'status':'success'}
-    return Response(data,status=status.HTTP_200_OK)
+    data = {'status': 'success'}
+    return Response(data, status=status.HTTP_200_OK)
 
 
-
-
-#Fetch Particular UserPost
+# Fetch Particular UserPost
 @api_view(['GET'])
-def userPost(request,id):
+def userPost(request, id):
     print("userspost functions///")
     p = Post.objects.filter(user_id=id).order_by("-id")
-    userPostSer = PostSerializer(p,many=True)
-    return Response({"data":userPostSer.data},status=status.HTTP_200_OK)
-
-
-
-
-
-
+    userPostSer = PostSerializer(p, many=True)
+    return Response({"data": userPostSer.data}, status=status.HTTP_200_OK)

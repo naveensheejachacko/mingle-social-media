@@ -67,7 +67,7 @@ const SuggestionBar = () => {
           <div className="user">
             <div key={user.id} className="userInfo">
               <img
-                src="../assets/person/1.jpeg"
+                src={user.profile_picture}
                 alt=""
               />
               <span >{user.fullname}</span>

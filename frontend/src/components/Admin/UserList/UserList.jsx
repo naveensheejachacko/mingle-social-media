@@ -143,7 +143,9 @@ function UserList({userId}) {
             <TableCell align="right">{user.email}</TableCell>
             <TableCell align="right">{user.phone_number}</TableCell>
             <TableCell align="right">{user.gender}</TableCell>
+            <TableCell align="right"> <img src={user.profile_picture} alt="Profile Picture" /></TableCell>
             <TableCell align="right" key={user.id}>
+
            <BlockUnblockButton userId={user.id} /></TableCell>
         
           </TableRow>
