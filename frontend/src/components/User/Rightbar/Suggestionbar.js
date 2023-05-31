@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import toast,{Toaster} from 'react-hot-toast'
+import { Link } from "react-router-dom";
 
 
 const SuggestionBar = () => {
@@ -70,7 +71,10 @@ const SuggestionBar = () => {
                 src={user.profile_picture}
                 alt=""
               />
+
+<Link to={`/profile/${user.id}`}> 
               <span >{user.fullname}</span>
+              </Link>
             </div>
             <div className="buttons">
               

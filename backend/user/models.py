@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.hashers import check_password
+
 
 class User(models.Model):
     email = models.EmailField(unique=True,blank=False)
@@ -26,3 +28,11 @@ class User(models.Model):
 
     def __str__(self):
         return self.email
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password)
+    def update_details(self, fullname, email, phone_number, gender):
+        self.fullname = fullname
+        self.email = email
+        self.phone_number = phone_number
+        self.gender = gender
+        self.save()

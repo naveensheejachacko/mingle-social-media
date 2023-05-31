@@ -14,5 +14,8 @@ urlpatterns = [
 
     path('changeProfilePic/<int:user_id>/', views.changeProfilePic, name='changeProfilePic'),
     path('changeCover/<int:user_id>/', views.changeCover, name='changeCover'),
+    path('updatePassword/<int:user_id>/', views.updatePassword, name='updatePassword'),
+    path('updateUserDetails/<int:user_id>/', views.updateUserDetails, name='updateUserDetails'),
+
 
 ]

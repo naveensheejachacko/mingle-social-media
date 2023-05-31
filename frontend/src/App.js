@@ -12,7 +12,9 @@ import { AuthorizeAdmin, ProtectAdmin } from "./protected/AuthAdmin";
 import AdminLogin from "../../frontend/src/pages/Admin/adminLogin/adminLogin";
 import AdminHome from "./pages/Admin/adminHome/adminHome";
 import AdminUserList from "./pages/Admin/adminUserList/AdminUserList";
+import AdminPostHandle from "./pages/Admin/adminPostHandle/adminPostHandle"
 import People from './pages/User/People'
+import Settings from './pages/User/Settings'
 import "./style.scss";
 
 function App() {
@@ -89,6 +91,13 @@ function App() {
         }
           />
 
+<Route path="settings"
+        element={
+          <AuthorizeUser>
+            <Settings />
+          </AuthorizeUser>
+        }
+          />
 
 
 
@@ -119,6 +128,15 @@ function App() {
             element={
               <AuthorizeAdmin>
                 <AdminUserList />
+              </AuthorizeAdmin>
+            }
+          />
+
+<Route
+            path="/adminn/reportPost"
+            element={
+              <AuthorizeAdmin>
+                <AdminPostHandle />
               </AuthorizeAdmin>
             }
           />

@@ -57,16 +57,19 @@ function Sidebar() {
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
             <NavLink exact to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem >Dashboard</CDBSidebarMenuItem>
             </NavLink>
             {/* <NavLink exact to="/tables" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
             </NavLink> */}
             <NavLink  to="/adminn/users"  style={{ textDecoration: "none" }}  activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Users</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem >Users</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink  to="/adminn/reportPost"  style={{ textDecoration: "none" }}  activeClassName="activeClicked">
+              <CDBSidebarMenuItem >Posts</CDBSidebarMenuItem>
             </NavLink>
             <NavLink to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">
+              <CDBSidebarMenuItem >
                 Analytics
               </CDBSidebarMenuItem>
             </NavLink>

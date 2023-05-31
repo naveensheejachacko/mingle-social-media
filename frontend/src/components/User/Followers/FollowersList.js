@@ -61,7 +61,6 @@ function FollowersList() {
         <Card.Body>
           <Card.Title> {user.fullname}</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the bulk of the card's content.
           </Card.Text>
           <div className="button-container">
             {/* <Button variant="danger" size='sm' onClick={() => { handleUnFollowUser(user.id) }} style={{ borderRadius: '10px' }}>unfollow</Button> */}

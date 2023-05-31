@@ -4,7 +4,8 @@ import Rightbar from "../../components/User/Rightbar/Rightbar";
 import Navbar from "../../components/User/Navbar/Navbar";
 import Sidebar from "../../components/User/Sidebar/Sidebar";
 import AddPost from "../../components/User/AddPost/AddPost"
-import UserPosts from '../../components/User/UserPosts/UserPosts';
+import UserPost from "../../components/User/UserPosts/UserPosts";
+
 import "./HomePage.scss";
 
 
@@ -19,7 +20,7 @@ function Profile() {
 
       <UserProfile />
       {/* <AddPost /> */}
-      {/* <UserPosts  /> */}
+      <UserPost  />
       
 
       </div>

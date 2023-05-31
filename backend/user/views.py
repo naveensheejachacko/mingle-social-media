@@ -29,6 +29,8 @@ def getUserById(request, user_id):
         'profile_picture': user.profile_picture,
         'cover_picture': user.cover_picture,
         'id':user.id,
+        'phoneNumber':user.phone_number,
+        'gender':user.gender,
         # Add any other user details you want to include here
     }
     return Response(data)
@@ -280,7 +282,7 @@ class googleLogin(APIView):
                         jwt_token = jwt.encode(
                             {'payload': enpayload}, 'secret', algorithm='HS256')
                         response = Response({'status': 'Success', 'payload': enpayload, 'fullname': i.fullname,
-                                            'jwt': jwt_token, "email": email, 'role': 'user', 'id': i.id})
+                                            'jwt': jwt_token, "email": email, 'role': 'user', 'id': i.id,'profile_picture': i.profile_picture})
                         return response
 
         except:
@@ -309,7 +311,7 @@ def changeProfilePic(request, user_id):
 @api_view(['POST'])
 def changeCover(request, user_id):
     user_id = user_id
-    user = User.objects.get(id=user_id)   # Assuming the user is authenticated
+    user = User.objects.get(id=user_id) 
     cover_picture = request.FILES["cover_picture"]
     if cover_picture:
         upload_result = cloudinary.uploader.upload(
@@ -323,3 +325,41 @@ def changeCover(request, user_id):
         return Response({"cover_picture_url": cover_picture_url})
     else:
         return Response({"message": "Unsuccessful"})
+
+
+
+@api_view(['POST'])
+def updatePassword(request, user_id):
+    user = User.objects.get(id=user_id)
+    current_password = request.data.get("current_password")
+    new_password = request.data.get("new_password")
+
+    if user.fromGoogle:
+        user.password = make_password(new_password)
+        user.fromGoogle=False
+        user.save()
+        
+        return Response({"status": "success"})
+
+    elif not user.check_password(current_password):
+        print("errororr")
+        return Response({"status": "error"})
+
+    # Update the user's password
+    else:
+        user.password = make_password(new_password)
+        user.save()
+        return Response({"status": "success"})
+
+
+@api_view(['POST'])
+def updateUserDetails(request,user_id):
+    user = User.objects.get(id=user_id)
+    fullname = request.data.get("fullname")
+    email = request.data.get("email")
+    phone_number = request.data.get("phone_number")
+    gender = request.data.get("gender")
+
+    user.update_details(fullname, email, phone_number, gender)
+
+    return Response({"status": "success",'fullname':fullname,'email':email})

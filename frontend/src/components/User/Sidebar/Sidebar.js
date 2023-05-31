@@ -91,10 +91,10 @@ function Sidebar() {
               <NavLink exact to="#" activeClassName="activeClicked">
                 <CDBSidebarMenuItem> Messages</CDBSidebarMenuItem>
               </NavLink>
-              <NavLink exact to="#" activeClassName="activeClicked">
+              {/* <NavLink exact to="#" activeClassName="activeClicked">
                 <CDBSidebarMenuItem> Notifications</CDBSidebarMenuItem>
-              </NavLink>
-              <NavLink exact to="#" activeClassName="activeClicked">
+              </NavLink> */}
+              <NavLink exact to="/settings" activeClassName="activeClicked">
                 <CDBSidebarMenuItem>Settings</CDBSidebarMenuItem>
               </NavLink>
             </div>

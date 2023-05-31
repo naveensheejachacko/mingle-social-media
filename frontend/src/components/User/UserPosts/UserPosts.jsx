@@ -209,7 +209,7 @@ let deleteComment = async (id)=>{
      
     } 
     fetchPosts(); 
-  },[]);
+  },[posts]);
 // cloudify
   // const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dtnbd0res' });
 

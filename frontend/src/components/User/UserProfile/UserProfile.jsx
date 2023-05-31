@@ -291,7 +291,7 @@ console.log(user_id,userId,'userrrrrrr');
 
 
       {/* <AddPost /> */}
-      <UserPost />
+      {/* <UserPost  /> */}
     </>
   );
 }

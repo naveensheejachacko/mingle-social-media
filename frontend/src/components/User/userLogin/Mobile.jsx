@@ -94,7 +94,7 @@ function Mobile() {
                   window.confirmationResult = confirmationResult;
                 })
                 .catch((error) => {
-                  toast.success(`error=> ${error.message}`);
+                  toast.error(`error=> ${error.message}`);
                 });
             } else {
               toast.error("mobile not registered");
@@ -130,7 +130,7 @@ function Mobile() {
           navigate("/home");
         })
         .catch((error) => {
-          toast.success(`error=> ${error.message}`);
+          toast.error(`error=> ${error.message}`);
         });
     } else {
       // Handle the case when window.confirmationResult is not available yet

@@ -53,6 +53,7 @@ function UserSignup() {
       fullname.length === 0 ||
       password.length ===0 ||
       phone_number.length === 0 ||
+      phone_number.length<10||
       password.length ===0||
       gender.length===0
       

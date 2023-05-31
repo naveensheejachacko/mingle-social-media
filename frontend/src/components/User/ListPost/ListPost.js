@@ -439,7 +439,7 @@ const handleDeleteClick = async (id) => {
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     className="PostImage"
-                    src="assets/person/2.jpeg"
+                    src="assets/person/1.jpeg"
                     alt=""
                   />
 

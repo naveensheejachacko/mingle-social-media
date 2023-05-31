@@ -6,6 +6,8 @@ import { IconButton, Menu, MenuItem } from "@mui/material";
 
 
 import { AiOutlineComment } from "react-icons/ai";
+
+import { MdReportGmailerrorred } from "react-icons/md";
 import { BsTrash3 } from "react-icons/bs";
 
 // import {Users,Posts} from "../../../dummyData";
@@ -196,7 +198,7 @@ let deleteComment = async (id)=>{
       // console.log(response.data,'*******')
     }
      fetchFollowingPost();      
-  },[]);
+  },[posts]);
 
 
   
@@ -296,12 +298,17 @@ const handleDeleteClick = async (id) => {
 
   return (
     <div className="posts">
-      {posts.map((post) => (
-        <div  className="post">
+
+
+{posts.length === 0 ? (
+        <div style={{marginLeft:"3.5em"}}   className=" mt-3">
+          <img src="../assets/nopost.jpeg" alt="No Post Available" />
           
-
-
-
+        </div>
+      ) :( 
+      
+      posts.map((post) => (
+        <div  className="post">
           <div className="postWrapper">
             <div className="postTop">
               <div className="postTopLeft">
@@ -323,38 +330,27 @@ const handleDeleteClick = async (id) => {
 
                 </div>
 
-
+                
 
                 {/* <span className="postDate">{new Date(post.created_at).toDateString()}</span> */}
               </div>
-              {/* {user_id==post.user.id?
+               {user_id==post.user.id?null:
 
 
-              <div className="postTopRight">
-                <IconButton onClick={(e)=>handleMenuClick(e)}>
-                  <MoreVert />
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                >
+              <div className="postTopRight" id={post.id}>
+                
+                 <MdReportGmailerrorred />
+                
 
-
-                  <MenuItem  onClick={() => handleDeleteClick(post.id)}>Delete</MenuItem> 
-
-
-
-                </Menu>
               </div>
-              :null} */}
+                    } 
             </div>
             <div className="postCenter">
               <span className="postText">{post?.content}</span>
 
               <img
                 className="postImg"
-                src={decodeURIComponent(post?.image).replace('/https:', 'https:')}                  alt=""
+                src={decodeURIComponent(post?.image).replace('/https:', 'https:')}  alt=""
               />
             </div>
             <div className="postBottom">
@@ -429,7 +425,7 @@ const handleDeleteClick = async (id) => {
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     className="PostImage"
-                    src="assets/person/2.jpeg"
+                    src="assets/person/1.jpeg"
                     alt=""
                   />
 
@@ -476,7 +472,10 @@ const handleDeleteClick = async (id) => {
           )}
 
         </div>
-      ))}
+      ))
+
+      )}
+
     </div>
   );
 }
