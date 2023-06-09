@@ -32,7 +32,8 @@ urlpatterns = [
          views.follow_user, name="follow_user"),
     # path('unfollow_user/<int:user_id>/<int:fingId>/',views.unfollow_user,name="unfollow_user"),
 
-    path('user_suggestions/<id>/', views.user_suggestions, name="user_suggestions"),
+    path('user_suggestions/<id>/', views.user_suggestions, name="user_suggestions"),    
+    path('removeSuggestion/<userId>/<suggestionId>/', views.removeSuggestion, name="removeSuggestion"),
 
 
 ]

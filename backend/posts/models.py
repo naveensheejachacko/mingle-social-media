@@ -34,7 +34,10 @@ class FollowList(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-
+class RemovedUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    removed_user = models.ForeignKey(User, related_name='removed_by', on_delete=models.CASCADE)
+    removed_at = models.DateTimeField(auto_now_add=True)
 
 class Report(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

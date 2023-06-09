@@ -63,10 +63,22 @@ function Suggestion() {
       
     };
 
-    const handleCancelUser = (userId) => {
-      const updatedSuggestions = suggestions.filter((user) => user.id !== userId);
-      setSuggestions(updatedSuggestions);
+
+
+    const handleRemoveUser = async (suggestionId) => {
+      try {
+        const response = await axios.post(`http://127.0.0.1:8000/posts/removeSuggestion/${user_id}/${suggestionId}/`);
+        const { suggestions, removed_user } = response.data;
+    
+        // Update the suggestions state with the updated suggestions
+        fetchUserSuggestions();    
+        // Do something with the removed_user details
+        console.log('Removed User:', removed_user);
+      } catch (error) {
+        console.error(error);
+      }
     };
+    
 
 
   return (
@@ -83,8 +95,8 @@ function Suggestion() {
     <div className="card-container">
       {suggestions.map((user) => (
         <Card key={user.id} className="card">
-          <CloseIcon  className="close-icon"
-          color="primary" onClick={() => handleCancelUser(user.id)}/>
+          <CloseIcon  className="close-icon"  onClick={() => { handleRemoveUser(user.id) }}
+          color="primary"/>
           <Card.Img 
           style={{ width: "250px",height:"250px",borderRadius: "50%" }}
           variant="top"  src={user.profile_picture} className="rounded"/>

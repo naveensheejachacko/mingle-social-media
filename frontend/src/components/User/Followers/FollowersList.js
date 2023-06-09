@@ -70,7 +70,7 @@ function FollowersList() {
           {followersList.map((user) => (
             <Card key={user.id} className="card">
               <Card.Img
-                style={{ width: "250px", height: "250px", borderRadius: "50%" }}
+                style={{ width: "275px", height: "250px", borderRadius: "50%" }}
                 variant="top"
                 src={user.profile_picture}
                 className="rounded"
