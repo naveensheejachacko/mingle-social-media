@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from user.serializers import UserSerializer
-from .models import Comments, FollowList, Like, Post
+from .models import Comments, FollowList, Like, Post, Report
 
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,3 +34,11 @@ class CommentSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = FollowList
 #         fields ='__all__'
+
+
+class ReprotedPostSerializer(serializers.ModelSerializer):
+    post = PostSerializer(read_only=True)
+    reporter = UserSerializer(read_only=True)
+    class Meta:
+        model = Report
+        fields ='__all__' 

@@ -1,34 +1,41 @@
 import React from "react";
-
-import {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-  CDBBtn,
-} from "cdbreact";
-
 import { logout } from "../../../Redux/userSlice";
 import { resetPosts } from "../../../Redux/postSlice";
-
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { BiCommentDetail } from "react-icons/bi";
-
 import "./Sidebar.scss";
-
-
 import { useSelector } from "react-redux";
+import {
+  AccountBox,
+  Home,
+  Article,
+  // ModeNight,
+  Person,
+  Settings,
+  Message,
+  Logout,
+} from "@mui/icons-material";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  // Switch,
+} from "@mui/material";
+
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+
+import { useState } from "react";
 
 function Sidebar() {
   const userName = useSelector((state) => state.user?.user);
   const email = useSelector((state) => state.user?.email);
   const userId = useSelector((state) => state.user?.user_id);
-  const profilePic=useSelector((state)=>state.user?.profilePic)
+  const profilePic = useSelector((state) => state.user?.profilePic);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,86 +51,128 @@ function Sidebar() {
   };
 
   return (
-    // <div className="adminSide">
-    <div
-      className="top"
-      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
-    >
-      <CDBSidebar
-        style={{ borderRight: "0.5px solid rgb(230, 227, 227)" }}
-        textColor="#000"
-        backgroundColor="#fff"
+    <div className="leftBar">
+      <div
+        className="container"
+        style={{
+          display: "flex",
+          height: "100vh",
+          overflow: "scroll initial",
+          marginTop: "2rem",
+        }}
       >
-        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+        <div className="menu">
+          {/* <div className="user">
+          
+          <span>adharsh</span>
+        </div> */}
           <img
-            style={{ width: "31px", height: "31px", marginRight: "10px" }}
+            style={{ width: "31px", height: "31px", marginLeft: "2rem" }}
             src="../../../Images/logo.jpg"
             alt=""
           />
-          <a href="#">
-            <span
-              className="navbar-text"
-              style={{
-                fontFamily: "Iceberg",
-                fontWeight: "bold",
-                color: "black",
-              }}
-            >
-              mingle
-            </span>
-          </a>
-        </CDBSidebarHeader>
+          <span
+            className="navbar-text"
+            style={{
+              fontFamily: "Iceberg",
+              fontWeight: "bold",
+              color: "black",
+            }}
+          >
+            mingle
+          </span>
+          <div className="item">
+            <List sx={{ width: "100%", maxWidth: 360, color: "black" }}>
+              <ListItem></ListItem>
+              <ListItem>
+                <ListItemButton component="a" onClick={() => navigate("/home")}>
+                  <ListItemIcon>
+                    <Home />
+                  </ListItemIcon>
+                  <ListItemText primary="Homepage" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem>
+                <ListItemButton
+                  component="a"
+                  onClick={() => navigate("/explore")}
+                >
+                  <ListItemIcon>
+                    <Article />
+                  </ListItemIcon>
+                  <ListItemText primary="Explore" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem>
+                <ListItemButton component="a">
+                  <ListItemIcon>
+                    <PeopleAltIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="People"
+                    onClick={() => navigate("/people")}
+                  />
+                </ListItemButton>
+              </ListItem>
 
-        <CDBSidebarContent className="sidebar-content">
-          <CDBSidebarMenu>
-            <div class="sidebar-menu">
-            <NavLink to="/home" activeClassName="activeClicked">
-                <CDBSidebarMenuItem>Home</CDBSidebarMenuItem>
-              </NavLink>
-              <NavLink to="/explore" activeClassName="activeClicked">
-                <CDBSidebarMenuItem>Explore</CDBSidebarMenuItem>
-              </NavLink>
+              <ListItem>
+                <ListItemButton component="a">
+                  <ListItemIcon>
+                    <Message />
+                  </ListItemIcon>
+                  <ListItemText primary="Messages" />
+                </ListItemButton>
+              </ListItem>
 
 
-              <NavLink exact to="/people" activeClassName="activeClicked">
-                <CDBSidebarMenuItem> People</CDBSidebarMenuItem>
-              </NavLink>
-              <NavLink exact to="#" activeClassName="activeClicked">
-                <CDBSidebarMenuItem> Messages</CDBSidebarMenuItem>
-              </NavLink>
-              {/* <NavLink exact to="#" activeClassName="activeClicked">
-                <CDBSidebarMenuItem> Notifications</CDBSidebarMenuItem>
-              </NavLink> */}
-              <NavLink exact to="/settings" activeClassName="activeClicked">
-                <CDBSidebarMenuItem>Settings</CDBSidebarMenuItem>
-              </NavLink>
-            </div>
-            <NavLink to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem>
-                <div className="user-profile">
-<img src={profilePic} alt="Profile Picture" />
-                  <div className="user-details">
-                    <Link to={`/profile/${userId}`}>
-                      {" "}
-                      <span className="user-name">{userName}</span>
-                    </Link>
+              <ListItem>
+                <ListItemButton component="a">
+                  <ListItemIcon>
+                    <Settings />
+                  </ListItemIcon>
+                  <ListItemText onClick={() => navigate("/settings")} primary="Settings" />
+                </ListItemButton>
+              </ListItem>
+
+
+              <ListItem className="user-profile">
+                {/* <ListItemButton  component="a"> */}
+                <ListItemIcon>
+                  <img src={profilePic} alt="Profile Picture" />
+                  <div
+                    className="user-details"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/profile/${userId}`)}
+                  >
+                    {" "}
+                    <span className="user-name">{userName}</span>
                     <span className="user-email">{email}</span>
                   </div>
-                </div>
-              </CDBSidebarMenuItem>
-            </NavLink>
-            <CDBSidebarMenuItem>
-              <button class="button3" onClick={userLogout}>
-                Logout
-              </button>
-            </CDBSidebarMenuItem>
-
-            {/* <CDBBtn button class="button3" onClick={userLogout}>Logout</CDBBtn> */}
-          </CDBSidebarMenu>
-        </CDBSidebarContent>
-      </CDBSidebar>
+                </ListItemIcon>
+                {/* <ListItemText primary="Profile" /> */}
+                {/* </ListItemButton> */}
+              </ListItem>
+              <ListItem>
+                <ListItemButton component="a" onClick={userLogout}>
+                  <ListItemIcon>
+                    <Logout />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItemButton>
+              </ListItem>
+              {/* <ListItem >
+                <ListItemButton component="a" href="#simple-list">
+                  <ListItemIcon>
+                    <ModeNight />
+                  </ListItemIcon>
+                  <Switch />
+                </ListItemButton>
+              </ListItem> */}
+            </List>
+          </div>
+        </div>
+      </div>
     </div>
-    // </div>
   );
 }
 

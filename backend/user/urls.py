@@ -1,6 +1,8 @@
 from django.urls import path
 from user import views
 
+from .views import UserProfileSearchView
+
 urlpatterns = [
 
     path('signup',views.SignUp.as_view(),name='signup'),
@@ -17,5 +19,6 @@ urlpatterns = [
     path('updatePassword/<int:user_id>/', views.updatePassword, name='updatePassword'),
     path('updateUserDetails/<int:user_id>/', views.updateUserDetails, name='updateUserDetails'),
 
+    path('profileSearch/', UserProfileSearchView.as_view(), name='profileSearch'),
 
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework.views import APIView
 
 from adminapp.serializers import UserdemoSerializer
@@ -10,7 +10,7 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework import status
 from user.models import User
-from .models import Comments, FollowList, Post, Like
+from .models import Comments, FollowList, Post, Like, Report
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django.db.models import Q
 from rest_framework.permissions import AllowAny, IsAdminUser
@@ -84,8 +84,13 @@ def follow_user(request, user_id, fingId):
 def fposts(request, user_id):
     user = User.objects.get(id=user_id)
     following_users = user.following.values_list('following_id', flat=True)
-    posts = Post.objects.filter(Q(user_id__in=following_users) | Q(
-        user=user)).order_by('-created_at')
+    reported_posts = Report.objects.filter(approved=True).values_list('post_id', flat=True)
+    posts = Post.objects.filter(Q(user_id__in=following_users) | Q(user=user)).exclude(id__in=reported_posts).order_by('-created_at')
+
+    
+    
+    # posts = Post.objects.filter(Q(user_id__in=following_users) | Q(
+    #     user=user)).order_by('-created_at')
     postSer = PostSerializer(posts, many=True)
     return Response({'data': postSer.data}, status=status.HTTP_200_OK)
 
@@ -105,6 +110,8 @@ def user_suggestions(request, id):
         user_suggestions, many=True, context={'user_id': id})
 
     return Response(serializer.data)
+
+
 
 
 @api_view(['POST'])
@@ -161,14 +168,28 @@ def deletePost(request, id):
 @api_view(['GET'])
 # @authentication_classes([JWTAuthentication])
 def getPosts(request,user_id):
-    # postukal = Post.objects.all().order_by('-created_at')
-    # posts = []
-    # posts.append(postukal)
-    p = Post.objects.all().order_by('-created_at').exclude(user_id=user_id)
+    reported_posts = Report.objects.filter(approved=True).values_list('post_id', flat=True)
+    posts = Post.objects.exclude(id__in=reported_posts).exclude(user_id=user_id).order_by('-created_at')
     # print(p.user.fullname)
-    postSer = PostSerializer(p, many=True)
+    postSer = PostSerializer(posts, many=True)
 
     return Response({'data': postSer.data}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def reportPost(request, postId,userId):
+        post = get_object_or_404(Post, id=postId)
+        reporter = get_object_or_404(User, id=userId)
+        reason = request.data.get('reason')
+        
+        # Create a new report instance
+        report = Report(post=post, reporter=reporter, reason=reason)
+        report.save()
+
+        # Increment the report_count field of the post
+        post.report_count += 1
+        post.save()
+
+        return Response({'message': 'Post reported successfully'}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -193,16 +214,6 @@ def isliked(request, id):
     return Response({'results': data, })
 
 
-# @api_view(['POST'])
-# def addcomments(request,id,id2):
-#     print(id,'add comments')
-#     print(id2)
-#     data = request.data
-#     c=data['values']
-#     print(c['comment'])
-#     comm = Comments.objects.create(post = Post.objects.get(id=id2),user = User.objects.get(id=id),comment = c['comment'])
-#     ss = {'hai':'hh'}
-#     return Response(ss,status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -245,3 +256,5 @@ def userPost(request, id):
     p = Post.objects.filter(user_id=id).order_by("-id")
     userPostSer = PostSerializer(p, many=True)
     return Response({"data": userPostSer.data}, status=status.HTTP_200_OK)
+
+

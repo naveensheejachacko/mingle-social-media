@@ -1,20 +1,31 @@
 import React from "react";
-
-import {
-  CDBSidebar,
-  CDBSidebarContent,
-  CDBSidebarFooter,
-  CDBSidebarHeader,
-  CDBSidebarMenu,
-  CDBSidebarMenuItem,
-} from "cdbreact";
-
 import { setAdminLogout } from "../../../Redux/adminSlice";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.scss";
+
+import {
+  AccountBox,
+  Home,
+  Article,
+  // ModeNight,
+  Person,
+  Settings,
+  Message,
+  Logout
+} from "@mui/icons-material";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  // Switch,
+} from "@mui/material";
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+
 function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,78 +37,74 @@ function Sidebar() {
   };
 
   return (
-    <div className="top"
-      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
-    >
-      <CDBSidebar
-        style={{borderRight:'0.5px solid rgb(230, 227, 227)' }}
-        textColor="#000"
-        backgroundColor="#fff"
-      >
-        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <img
-            style={{ width: "31px", height: "31px", marginRight: "10px" }}
+
+    <div className="leftBar">
+      <div className="container" style={{
+          display: "flex",
+          height: "100vh",
+          overflow: "scroll initial",
+          marginTop: "2rem",
+        }}>
+        <div className="menu">
+        <img
+            style={{ width: "31px", height: "31px", marginLeft: "2rem" }}
             src="../../../Images/logo.jpg"
             alt=""
           />
-          <a href="#">
-            <span
-              className="navbar-text"
-              style={{
-                fontFamily: "Iceberg",
-                fontWeight: "bold",
-                color: "black",
-              }}
-            >
-              mingle
-            </span>
-          </a>
-        </CDBSidebarHeader>
-
-        <CDBSidebarContent className="sidebar-content">
-          <CDBSidebarMenu>
-            <NavLink exact to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem >Dashboard</CDBSidebarMenuItem>
-            </NavLink>
-            {/* <NavLink exact to="/tables" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
-            </NavLink> */}
-            <NavLink  to="/adminn/users"  style={{ textDecoration: "none" }}  activeClassName="activeClicked">
-              <CDBSidebarMenuItem >Users</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink  to="/adminn/reportPost"  style={{ textDecoration: "none" }}  activeClassName="activeClicked">
-              <CDBSidebarMenuItem >Posts</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink to="#" activeClassName="activeClicked">
-              <CDBSidebarMenuItem >
-                Analytics
-              </CDBSidebarMenuItem>
-            </NavLink>
-
-            <CDBSidebarMenuItem>
-              
-              <button onClick={adminLogout} className="button3">
-                Logout
-              </button>
-            </CDBSidebarMenuItem>
-
-            {/* <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
-            </NavLink> */}
-          </CDBSidebarMenu>
-        </CDBSidebarContent>
-
-        <CDBSidebarFooter style={{ textAlign: "center" }}>
-          {/* <div
+                    <span
+            className="navbar-text"
             style={{
-              padding: '20px 5px',
+              fontFamily: "Iceberg",
+              fontWeight: "bold",
+              color: "black",
             }}
           >
-            Sidebar Footer
-          </div> */}
-        </CDBSidebarFooter>
-      </CDBSidebar>
+            mingle
+          </span>
+          <div className="item">
+            <List sx={{ width: '100%', maxWidth: 360, color: "black" }}>
+              <ListItem >
+              </ListItem>
+              <ListItem >
+                <ListItemButton  component="a" >
+                  <ListItemIcon>
+                    <Home />
+                  </ListItemIcon>
+                  <ListItemText primary="Homepage" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem >
+                <ListItemButton component="a" onClick={() => navigate("/adminn/users")}>
+                  <ListItemIcon>
+                    <Article />
+                  </ListItemIcon>
+                  <ListItemText primary="Users" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem >
+                <ListItemButton component="a" >
+                  <ListItemIcon>
+                  <PeopleAltIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Post Management" onClick={() => navigate("/adminn/reportPost")}  /> 
+                </ListItemButton>
+              </ListItem>
+              <ListItem  >
+                <ListItemButton component="a"  onClick={adminLogout}>
+                  <ListItemIcon>
+                    <Logout />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItemButton>
+              </ListItem>
+
+              
+            </List>
+          </div>
+        </div>
+      </div>
     </div>
+
   );
 }
 

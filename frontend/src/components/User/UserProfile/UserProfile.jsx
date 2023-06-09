@@ -13,6 +13,8 @@ import { BiEdit } from "react-icons/bi";
 import { FcCompactCamera } from "react-icons/fc";
 import { Modal, Button } from "react-bootstrap";
 
+import SkeltonLoad from "../SkeltonLoad/SkeltonLoad";
+
 function UserProfile() {
   const { userId } = useParams();
   const [userDetails, setUserDetails] = useState(null);
@@ -75,7 +77,9 @@ function UserProfile() {
   }, [userId]);
 
   if (!userDetails) {
-    return <div>Loading...</div>;
+    return (   
+<SkeltonLoad />
+    )
   }
   // const userName=useSelector((state)=>state.user?.user)
 
@@ -175,6 +179,11 @@ console.log(user_id,userId,'userrrrrrr');
 
   return (
     <>
+
+
+
+
+
       <div className="profile">
         <div className="images">
           {user_id == userId &&(
@@ -193,8 +202,6 @@ console.log(user_id,userId,'userrrrrrr');
           alt=""
           className="cover"
           />
-          
-
           <div className="images">
             {/* <div className="editIcon"> */}
             {user_id == userId &&(

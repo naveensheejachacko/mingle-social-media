@@ -24,7 +24,7 @@ import {
 import { userLogin,loginGoogle } from "../../../utils/Constants";
 import {auth,provider} from "../../../firebase";
 import { signInWithPopup } from "firebase/auth";
-import { Button } from "@chakra-ui/react";
+
 
 
 function UserLogin() {
@@ -182,7 +182,7 @@ const signInWithGoogle = async () => {
                 <b> Login to your account and connect with the people</b>
               </p>
               </div>
-              <Button
+              <button
                 className="mx-auto my-4"
                 style={{
                   backgroundColor: "#D9D9D9",
@@ -195,7 +195,7 @@ const signInWithGoogle = async () => {
                  onClick={signInWithGoogle} >
                   <FaGoogle />
                 connect with Google
-              </Button>
+              </button>
 
               <div
                 style={{

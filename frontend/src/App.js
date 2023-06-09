@@ -15,6 +15,7 @@ import AdminUserList from "./pages/Admin/adminUserList/AdminUserList";
 import AdminPostHandle from "./pages/Admin/adminPostHandle/adminPostHandle"
 import People from './pages/User/People'
 import Settings from './pages/User/Settings'
+import SearchResult from './pages/User/SearchResult'
 import "./style.scss";
 
 function App() {
@@ -95,6 +96,13 @@ function App() {
         element={
           <AuthorizeUser>
             <Settings />
+          </AuthorizeUser>
+        }
+          />
+          <Route path="searchResults"
+        element={
+          <AuthorizeUser>
+            <SearchResult />
           </AuthorizeUser>
         }
           />

@@ -5,6 +5,8 @@ from django.contrib.auth.hashers import check_password
 import json
 import base64
 import jwt
+from posts.serializers import ReprotedPostSerializer
+from posts.models import Report
 from user.models import User
 from user.serializers import UserSerializer
 
@@ -14,6 +16,10 @@ from rest_framework import generics,permissions
 # from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 from user.serializers import UserSerializer
+
+from rest_framework import status
+
+
 
 from django.contrib.auth import get_user_model
 # Create your views here.
@@ -38,12 +44,6 @@ class IsAuthenticatedOrReadOnly(BasePermission):
         return request.method in ['GET', 'HEAD', 'OPTIONS'] or request.user.is_authenticated
 
 
-class UserList(generics.ListAPIView):
-    serializer_class = UserSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-    def get_queryset(self):
-        return User.objects.all().exclude(is_superuser=True)
 
 
 
@@ -87,47 +87,14 @@ class AdminLogin(APIView):
         else:
             status = 'Not A Admin Account'
         return Response({'status': status})
-# class AdminLogout(APIView):
-#     def get(self, request):
-#         response = Response({'status': 'Success'})
-#         response.clear('jwt')
-#         return response
-
-
-# class UserList(generics.ListAPIView):
-#     serializer_class = UserSerializer
-#     permission_classes = [IsSuperUser]
     
-#     def get_queryset(self):
-#         return User.objects.all().exclude(is_superuser=True)
 
+class UserList(generics.ListAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
-# class UserList(generics.ListAPIView):
-#     # queryset = User.objects.all()
-#     # serializer_class = UserSerializer
-#     # permission_classes = [IsSuperUser]
-#     model = User
-#     def getUsers(request):
-#         user = User.objects.all().exclude(is_superuser = True)
-#         serializer = UserSerializer(user, many = True)
-#         return Response(serializer.data)
-
-
-# class BlockOrUnblockUser(generics.ListAPIView):
-#     queryset = User.objects.filter(is_superuser=False)
-#     serializer_class = UserSerializer
-
-#     def put(self, request, *args, **kwargs):
-#         user_id = kwargs.get('id')
-#         user = get_object_or_404(self.get_queryset(), id=user_id)
-#         is_blocked = request.data.get('is_blocked')
-#         if is_blocked is None:
-#             return Response({'status': 'error', 'message': 'is_blocked parameter is required'}, status=400)
-#         user.is_blocked = is_blocked
-#         user.save()
-#         serializer = self.serializer_class(user)
-#         return Response(serializer.data)
-
+    def get_queryset(self):
+        return User.objects.all().exclude(is_superuser=True)
 
 
 class UserView(APIView):
@@ -142,3 +109,26 @@ class BlockUnblockUserView(APIView):
         user.is_blocked = not user.is_blocked
         user.save()
         return Response({'status': 'success'})
+    
+
+
+
+class ApproveReportView(APIView):
+    def patch(self, request, reportId):
+        report = get_object_or_404(Report, pk=reportId)
+        report.approved = not report.approved
+        report.save()
+        return Response({'status': 'success'})
+
+class ReportedPosts(generics.ListAPIView):
+    serializer_class = ReprotedPostSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        return Report.objects.all()
+
+class rPostView(APIView):
+    def get(self, request, reportId):
+        report = get_object_or_404(Report, pk=reportId)
+        return Response({'approved': report.approved})
+    

@@ -15,6 +15,8 @@ from django.contrib.auth.hashers import make_password, check_password
 from user.serializers import UserSerializer
 from rest_framework import status
 from rest_framework . exceptions import AuthenticationFailed
+from django.db.models import Q
+
 
 
 import cloudinary.uploader
@@ -363,3 +365,21 @@ def updateUserDetails(request,user_id):
     user.update_details(fullname, email, phone_number, gender)
 
     return Response({"status": "success",'fullname':fullname,'email':email})
+
+
+class UserProfileSearchView(APIView):
+    def get(self, request):
+        query = request.GET.get('query')
+        print(query,'llllll')
+        if query:
+            # Perform search using the query
+            results = User.objects.filter(
+                Q(fullname__icontains=query) | Q(email__icontains=query)
+            )
+        else:
+            # Return all user profiles if no query is provided
+            # results = User.objects.all()
+            return Response({'status':'no result'})
+
+        serializer = UserSerializer(results, many=True)
+        return Response(serializer.data)

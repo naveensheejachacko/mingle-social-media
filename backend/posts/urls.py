@@ -6,6 +6,7 @@ urlpatterns = [
     path('addposts/<int:id>', views.addposts, name='addposts'),
     path('getPosts/<int:user_id>/', views.getPosts, name='getPosts'),
     path('deletePost/<int:id>', views.deletePost, name='deletePost'),
+    path('reportPost/<int:postId>/<int:userId>', views.reportPost, name='reportPost'),
 
     # likes
     path('isliked/<id>/', views.isliked, name='isliked'),

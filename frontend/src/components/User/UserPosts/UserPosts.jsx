@@ -26,6 +26,8 @@ import { fetchPosts } from "../../../Redux/postSlice";
 
 import { useParams } from "react-router-dom";
 
+import SkeltonLoad from '../SkeltonLoad/SkeltonLoad';
+import NoDataAvailable from '../NoDataAvailable/NoDataAvailable';
 
 export default function UserPost({ post }) {
   const { userId } = useParams();
@@ -285,10 +287,14 @@ const handleDeleteClick = async (postId) => {
   return (
     <div className="posts">
        {posts.length === 0 ? (
-        <div style={{marginLeft:"3.5em"}}   className=" mt-3">
-          <img src="../assets/nopost.jpeg" alt="No Post Available" />
-          
+<>
+        <div className="post">
+        <NoDataAvailable   data={"Posts"}/>
+        
         </div>
+        <SkeltonLoad />
+        </>
+       
       ) :( 
 
          posts.map((post) => (

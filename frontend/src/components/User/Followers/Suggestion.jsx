@@ -1,5 +1,6 @@
 
 import { Margin } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -10,6 +11,8 @@ import { useSelector } from "react-redux";
 import './Suggestion.scss';
 
 import { Link } from "react-router-dom";
+
+import SkeltonCard from '../SkeltonLoad/SkeltonCard';
 
 
 
@@ -60,17 +63,32 @@ function Suggestion() {
       
     };
 
-
-
-
-
+    const handleCancelUser = (userId) => {
+      const updatedSuggestions = suggestions.filter((user) => user.id !== userId);
+      setSuggestions(updatedSuggestions);
+    };
 
 
   return (
+    <>
+  {
+    suggestions?.length===0 ?
+    <>
+    
+    <SkeltonCard />
+    <SkeltonCard />
+    <SkeltonCard />
+</>:
+
     <div className="card-container">
       {suggestions.map((user) => (
         <Card key={user.id} className="card">
-          <Card.Img style={{ borderRadius: "50%" }} variant="top"  src={user.profile_picture} className="rounded"/>
+          <CloseIcon  className="close-icon"
+          color="primary" onClick={() => handleCancelUser(user.id)}/>
+          <Card.Img 
+          style={{ width: "250px",height:"250px",borderRadius: "50%" }}
+          variant="top"  src={user.profile_picture} className="rounded"/>
+          
           <Card.Body>
             <Card.Title>{user.fullname}</Card.Title>
             <Card.Text>
@@ -85,6 +103,8 @@ function Suggestion() {
         </Card>
       ))}
     </div>
+}
+    </>
     );
     
 
