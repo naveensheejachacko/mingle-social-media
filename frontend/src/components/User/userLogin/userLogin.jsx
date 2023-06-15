@@ -54,9 +54,6 @@ function UserLogin() {
     }
 
 else{
-
-
-
     axios
       .post(userLogin, data, {
         headers: { "Content-Type": "application/json" },

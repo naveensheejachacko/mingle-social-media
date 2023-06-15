@@ -30,10 +30,11 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 
-# class FollowlistSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = FollowList
-#         fields ='__all__'
+class FollowlistSerializer(serializers.ModelSerializer):
+    user = UserSerializer(source='following', read_only=True)
+    class Meta:
+        model = FollowList
+        fields ='__all__'
 
 
 class ReprotedPostSerializer(serializers.ModelSerializer):

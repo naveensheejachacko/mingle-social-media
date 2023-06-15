@@ -8,6 +8,8 @@ import { Link, NavLink } from "react-router-dom";
 import { BiCommentDetail } from "react-icons/bi";
 import "./Sidebar.scss";
 import { useSelector } from "react-redux";
+
+
 import {
   AccountBox,
   Home,
@@ -26,6 +28,7 @@ import {
   ListItemText,
   // Switch,
 } from "@mui/material";
+
 
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
@@ -50,7 +53,20 @@ function Sidebar() {
     dispatch(resetPosts());
   };
 
+  const [sidebarClosed, setSidebarClosed] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarClosed(!sidebarClosed);
+  };
+
+
+
+
   return (
+    <div className={`leftBar ${sidebarClosed ? "sidebarClosed" : ""}`}>
+
+
+
     <div className="leftBar">
       <div
         className="container"
@@ -120,7 +136,7 @@ function Sidebar() {
                   <ListItemIcon>
                     <Message />
                   </ListItemIcon>
-                  <ListItemText primary="Messages" />
+                  <ListItemText primary="Messages"  onClick={()=> navigate("/chat")} />
                 </ListItemButton>
               </ListItem>
 
@@ -172,6 +188,9 @@ function Sidebar() {
           </div>
         </div>
       </div>
+    </div>
+
+
     </div>
   );
 }

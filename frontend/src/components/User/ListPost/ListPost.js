@@ -10,10 +10,12 @@ import { BsTrash3 } from "react-icons/bs";
 import { MdReportGmailerrorred } from "react-icons/md";
 
 // import {Users,Posts} from "../../../dummyData";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import Cookies from 'js-cookie';
+
 
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
@@ -37,6 +39,7 @@ export default function ListPost() {
   // console.log(useSelector((state)=>state.user?.user_id),'lllllllllll')
   const userName = useSelector((state) => state.user?.user?.user);
   const profilePic = useSelector((state) => state.user?.profilePic);
+  const token = Cookies.get('jwt_user');
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -52,6 +55,9 @@ export default function ListPost() {
       {
         method: "POST",
         headers: {
+           "Authorization": `Bearer ${token}` ,
+
+
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ id }),
@@ -165,16 +171,71 @@ export default function ListPost() {
 
   // getingpost
 
-  useEffect(() => {
-    async function fetchPosts() {
+  // useEffect(() => {
+  //   async function fetchPosts() {
+  //     const response = await axios.get(
+  //       `http://127.0.0.1:8000/posts/getPosts/${user_id}/`
+  //     );
+  //     setPosts(response.data.data);
+  //     // console.log(response.data,'*******')
+  //   }
+  //   fetchPosts();
+  // }, []);
+
+
+
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1); // Initialize the page to 1
+
+
+  const fetchPosts = async () => {
+    setLoading(true);
+    try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/posts/getPosts/${user_id}/`
+        `http://127.0.0.1:8000/posts/getPosts/${user_id}/${page}`
       );
-      setPosts(response.data.data);
-      // console.log(response.data,'*******')
+      const newPosts = response.data.data;
+      // console.log(response.data)
+      setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+      setPage((prevPage) => prevPage + 1); // Increment the page
+    } catch (error) {
+      console.error(error);
     }
+    setLoading(false);
+  };
+
+  useEffect(() => {
     fetchPosts();
-  }, []);
+  }, []); // Fetch initial posts
+
+  const lastPostRef = useRef();
+
+  const handleIntersection = (entries) => {
+    const entry = entries[0];
+    if (entry.isIntersecting && !loading) {
+      fetchPosts();
+    }
+  };
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+    if (lastPostRef.current) {
+      observer.observe(lastPostRef.current);
+    }
+
+    return () => {
+      if (lastPostRef.current) {
+        observer.unobserve(lastPostRef.current);
+      }
+    };
+  }, [loading]);
+
 
   // delete Post
 
@@ -195,38 +256,6 @@ export default function ListPost() {
     setAnchorEl(null);
   };
 
-  // const handleMenuClose = () => {
-  //   setAnchorEl(null);
-  // };
-
-  // const handleDeleteClick = async (id) => {
-  //   // show confirmation dialog
-  //   const confirmDelete = await Swal.fire({
-  //     title: 'Are you sure you want to delete this post?',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Delete'
-  //   })
-
-  //   if (confirmDelete.isConfirmed) {
-  //     // handle delete logic here
-  //     let response = await fetch(`http://127.0.0.1:8000/posts/deletePost/${id}`, {
-  //       method: 'DELETE',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //     let data = await response.json()
-
-  //     if (response.status === 200) {
-  //       toast.success('deleted')
-  //     } else {
-  //       alert('failed')
-  //     }
-  //   }
-  // }
 
   const handleDeleteClick = async (id) => {
     // show confirmation dialog
@@ -268,11 +297,14 @@ export default function ListPost() {
       ) : (
 
 
-      posts.map((post) => (
-        <div className="post">
+        posts.map((post, index) => (
+
+
+
+        <div  className="post">
           <div className="postWrapper">
             <div className="postTop">
-              <div className="postTopLeft">
+              <div key={post.id}  className="postTopLeft">
                 <img
                   src={post.user.profile_picture}
                   className="shareProfileImg"
@@ -309,7 +341,7 @@ export default function ListPost() {
               )}
             </div>
             <div className="postCenter">
-              <span className="postText">{post.content}</span>
+              <span   className="postText">{post.content}</span>
 
               <img
                 className="postImg"
@@ -449,8 +481,22 @@ export default function ListPost() {
             </div>
           )}
         </div>
-      ))
+
+
+
+      )
+
+      
+      )
       )}
+
+             {/* Render the loading indicator */}
+             {loading && <div> <SkeltonLoad /></div>}
+
+{/* Attach the ref to the last post */}
+<div ref={lastPostRef}></div>
+
+
     </div>
   );
 }

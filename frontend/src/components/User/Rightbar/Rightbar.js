@@ -8,7 +8,7 @@ const RightBar = () => {
       <div className="container">
 
 <SuggestionBar />
-<OnlineBar />
+{/* <OnlineBar /> */}
 
 
 

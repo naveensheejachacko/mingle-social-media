@@ -1,10 +1,10 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
-import toast,{Toaster} from 'react-hot-toast'
 import { useSelector } from 'react-redux';
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { login } from "../../../Redux/userSlice";
+import toast,{Toaster} from 'react-hot-toast'
 
 
 function UpdateDetails() {
@@ -45,13 +45,7 @@ function UpdateDetails() {
     email.length==0
     
   ) {
-    Swal.fire({
-      position: "center",
-      icon: "warning",
-      title: "Please Fill all Fields",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    toast.error("All Fields Required")
   } else {
     const data = {
       fullname,
@@ -71,14 +65,7 @@ function UpdateDetails() {
           })
         );
 
-
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Details updated successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        toast.success('Details Updated');
       })
       .catch((error) => {
         Swal.fire({
@@ -167,8 +154,9 @@ useEffect(() => {
 <>
 
 <main className="col-md-12 mt-5 " style={{marginLeft:'5em'}}>
-        <article className="card">
-          <header className="card-header">
+<article className="card custom-card-width"
+        style={{width:"600px"}}
+        >          <header className="card-header">
             <strong className="d-inline-block mr-3">Update Account</strong>
           </header>
           <div className="card-body">
@@ -185,7 +173,6 @@ useEffect(() => {
                       placeholder="Enter Your FullName"
                       className="form-control"
 
-                      required
                     />
                    <span className="text-danger">{fullnameError}</span>
 
@@ -200,7 +187,7 @@ useEffect(() => {
                       value={email}
                       onChange={handleEmailChange}
 
-                      required
+                      
                     />
                   </div>
                   <span className="text-danger">{emailError}</span>
@@ -214,7 +201,7 @@ useEffect(() => {
                       className="form-control"
                     //   value={confirmPassword}
                     //   onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
+                      
                     />
                   </div>
                   <span className="text-danger">{phone_numberError}</span>

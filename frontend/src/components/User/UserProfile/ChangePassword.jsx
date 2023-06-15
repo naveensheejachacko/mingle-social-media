@@ -20,7 +20,7 @@ const ChangePasswordForm = () => {
       newPassword.length === 0 ||
       confirmPassword.length ===0
     ){
-      toast.error('password cant be zero');
+      toast.error('password cant be Null');
       return;
     }
     if (newPassword !== confirmPassword) {
@@ -60,7 +60,9 @@ else{
   
     return (
       <main className="col-md-12 mt-5 " style={{marginLeft:'5em'}}>
-        <article className="card">
+        <article className="card custom-card-width"
+        style={{width:"600px"}}
+        >
           <header className="card-header">
             <strong className="d-inline-block mr-3">Change Your Password</strong>
           </header>

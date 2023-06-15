@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,10 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'adminapp',
+    'posts',
+    'chat',
+    # 'channels',
     'rest_framework',
     'corsheaders',
-    'posts',
     'cloudinary',
+
 ]
 
 
@@ -60,10 +64,11 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -90,7 +95,13 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = "backend.asgi.application"
 WSGI_APPLICATION = 'backend.wsgi.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+        }
+    }
 
 
 # Database

@@ -14,13 +14,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-// import Button from '@mui/material/Button';
-// import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
-// import DialogTitle from '@mui/material/DialogTitle';
-// import PinkSwitch from './PinkSwitch'; 
+
 import { alpha, styled } from '@mui/material/styles';
 import { pink } from '@mui/material/colors';
 import Switch from '@mui/material/Switch'
@@ -34,17 +28,6 @@ import './UserList.scss'
 function UserList({userId}) {
 
     const [usersList, setUsers] = useState([]);
-    // const [open, setOpen] = React.useState(false);
-  
-  
-    // const handleClickOpen = () => {
-    //   setOpen(true);
-    // };
-  
-    // const handleClose = () => {
-    //   setOpen(false);
-    // };
-
 
 
   
@@ -66,20 +49,6 @@ function UserList({userId}) {
         console.log(err)
       }
     }
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
 
   return (
 

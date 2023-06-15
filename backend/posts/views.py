@@ -170,17 +170,39 @@ def deletePost(request, id):
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
 
+# @api_view(['GET'])
+# # @authentication_classes([JWTAuthentication])
+# def getPosts(request, user_id):
+#     reported_posts = Report.objects.filter(
+#         approved=True).values_list('post_id', flat=True)
+#     posts = Post.objects.exclude(id__in=reported_posts).exclude(
+#         user_id=user_id).order_by('-created_at')
+#     # print(p.user.fullname)
+#     postSer = PostSerializer(posts, many=True)
+
+#     return Response({'data': postSer.data}, status=status.HTTP_200_OK)
+
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 @api_view(['GET'])
-# @authentication_classes([JWTAuthentication])
-def getPosts(request, user_id):
+def getPosts(request, user_id, page):
     reported_posts = Report.objects.filter(
         approved=True).values_list('post_id', flat=True)
     posts = Post.objects.exclude(id__in=reported_posts).exclude(
         user_id=user_id).order_by('-created_at')
-    # print(p.user.fullname)
-    postSer = PostSerializer(posts, many=True)
 
+    # Paginate the posts
+    paginator = Paginator(posts, 10)  # Assuming 10 posts per page
+    posts = paginator.page(page)
+    # try:
+    #     posts = paginator.page(page)
+    # except PageNotAnInteger:
+    #     posts = paginator.page(1)
+    # except EmptyPage:
+    #     return Response({'message': 'No more posts'}, status=status.HTTP_204_NO_CONTENT)  # Return 204 status code
+    postSer = PostSerializer(posts, many=True)
     return Response({'data': postSer.data}, status=status.HTTP_200_OK)
+
 
 
 @api_view(['POST'])

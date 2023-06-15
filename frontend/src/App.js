@@ -8,6 +8,7 @@ import Profile from "./pages/User/Profile"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthorizeUser, ProtectUser } from "./protected/AuthUser";
+import { AuthProvider } from "./context/AuthProvider";
 import { AuthorizeAdmin, ProtectAdmin } from "./protected/AuthAdmin";
 import AdminLogin from "../../frontend/src/pages/Admin/adminLogin/adminLogin";
 import AdminHome from "./pages/Admin/adminHome/adminHome";
@@ -16,15 +17,17 @@ import AdminPostHandle from "./pages/Admin/adminPostHandle/adminPostHandle"
 import People from './pages/User/People'
 import Settings from './pages/User/Settings'
 import SearchResult from './pages/User/SearchResult'
+import Chat from './pages/User/Chat'
 import "./style.scss";
 
 function App() {
   return (
     <div className="App">
       <Router>
+      <AuthProvider>
         <Routes>
 
-
+     
 
           <Route
             path="signup"
@@ -107,7 +110,13 @@ function App() {
         }
           />
 
-
+<Route path="chat"
+        element={
+          <AuthorizeUser>
+            <Chat />
+          </AuthorizeUser>
+        }
+          />
 
 
 
@@ -148,7 +157,11 @@ function App() {
               </AuthorizeAdmin>
             }
           />
+
+
+
         </Routes>
+        </AuthProvider>
       </Router>
     </div>
   );

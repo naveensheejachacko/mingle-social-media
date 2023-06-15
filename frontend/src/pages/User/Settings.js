@@ -4,8 +4,7 @@ import Sidebar from "../../components/User/Sidebar/Sidebar";
 import Navbar from "../../components/User/Navbar/Navbar";
 import Rightbar from "../../components/User/Rightbar/Rightbar";
 
-import ChangePasswordForm from '../../components/User/UserProfile/ChangePassword';
-import UpdateDetails from '../../components/User/UserProfile/UpdateDetails';
+import UserSettings from '../../components/User/UserProfile/UserSettings';
 function Settings() {
   return (
     <>
@@ -16,11 +15,8 @@ function Settings() {
     <Navbar />
     <div className="container">
       <div className="row">
-        <div className="col-md-6">
-          <ChangePasswordForm />
-        </div>
-        <div className="col-md-6">
-          <UpdateDetails />
+        <div className="col-md-10">
+<UserSettings />
         </div>
       </div>
     </div>
