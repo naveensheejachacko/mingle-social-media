@@ -8,6 +8,7 @@ from django.utils import timezone
 class Post(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to='posts/', null=True, blank=True)
+    video = models.FileField(upload_to='posts/videos/', null=True, blank=True)  # Add a video field
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

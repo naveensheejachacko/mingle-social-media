@@ -32,8 +32,9 @@ from rest_framework import status
 from user.models import User
 from .models import Post
 
-
+import cloudinary
 import cloudinary.uploader
+import cloudinary.api
 
 
 @api_view(['GET'])
@@ -127,6 +128,7 @@ def addposts(request, id):
     print(id, 'hhh')
     content = request.POST['content']
     image = request.FILES.get('image')
+    video = request.FILES.get('video')
     if image:
         upload_result = cloudinary.uploader.upload(
             image,
@@ -140,6 +142,22 @@ def addposts(request, id):
         )
         data = {'success': 'success'}
         return Response(data, status=status.HTTP_200_OK)
+
+    elif video:
+        upload_result = cloudinary.uploader.upload(
+            video,
+            resource_type='video',
+            folder='posts/videos'
+        )
+        video_url = upload_result['secure_url']
+        post = Post.objects.create(
+            video=video_url,
+            content=content,
+            user=user
+        )
+        data = {'success': 'success'}
+        return Response(data, status=status.HTTP_200_OK)
+
 
     elif content:
         post = Post.objects.create(

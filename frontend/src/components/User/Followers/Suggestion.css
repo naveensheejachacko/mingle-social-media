@@ -1,0 +1,21 @@
+.suggestion-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.scard {
+  /* width: 250px; */
+  margin-bottom: 20px;
+  /* margin-top: 20px; */
+}
+
+.close-icon {
+  cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}

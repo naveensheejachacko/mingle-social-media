@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import "./FollowingList.scss";
+import "./FollowingList.css";
 
 import { Link } from "react-router-dom";
 
@@ -49,52 +49,59 @@ function FollowingList() {
 
   return (
     <>
-      {followingList?.length === 0 ? (
-        <>
-          <NoDataAvailable data={"Following"} />
-          <SkeltonCard />
-          <SkeltonCard />
-        </>
-      ) : (
-        <div className="card-container">
-          {followingList.map((user) => (
-            <Card key={user.id} className="card">
-              <Card.Img
-                style={{ width: "275px", height: "250px", borderRadius: "50%" }}
-                variant="top"
-                src={user.profile_picture}
-                className="rounded"
+        <div className="following-container">
+    {followingList?.length === 0 ? (
+      <>
+        <NoDataAvailable data="Following" />
+        <SkeltonCard />
+        <SkeltonCard />
+      </>
+    ) : (
+<>
+        {followingList.map((user) => (
+          <Card key={user.id} style={{marginTop:'20px'}} className="fcard">
+            <Card.Img
+              style={{
+                width: '250px', // Set the desired width
+                height: '250px',
+                borderRadius: '50%',
+                position: 'relative',
+              }}
+              variant="top"
+              src={user.profile_picture}
+              className="rounded"
               />
-              <Card.Body>
-                <Card.Title> {user.fullname}</Card.Title>
-                <Card.Text></Card.Text>
-                <div className="button-container">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => {
-                      handleUnFollowUser(user.id);
-                    }}
-                    style={{ borderRadius: "10px" }}
+            <Card.Body>
+              <Card.Title>{user.fullname}</Card.Title>
+              <div className="button-container">
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => {
+                    handleUnFollowUser(user.id);
+                  }}
+                  style={{ borderRadius: '10px' }}
                   >
-                    unfollow
-                  </Button>
-                  <Link to={`/profile/${user.id}`}>
-                    <Button
-                      variant="light"
-                      size="sm"
-                      style={{ borderRadius: "10px", margin: "5px" }}
+                  Unfollow
+                </Button>
+                <Link to={`/profile/${user.id}`}>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    style={{ borderRadius: '10px' }}
                     >
-                      View Profile
-                    </Button>{" "}
-                  </Link>
-                </div>
-              </Card.Body>
-            </Card>
-          ))}
-        </div>
-      )}
-    </>
+                    Profile
+                  </Button>
+                </Link>
+              </div>
+            </Card.Body>
+          </Card>
+        ))}
+     
+        </>
+    )}
+     </div>
+  </>
   );
 }
 

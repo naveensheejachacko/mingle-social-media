@@ -1,0 +1,20 @@
+.following-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start
+  /* margin-bottom: 20px; */
+}
+
+
+.fcard {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 600px;
+
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}

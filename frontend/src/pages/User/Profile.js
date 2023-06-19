@@ -12,22 +12,21 @@ import "./HomePage.scss";
 function Profile() {
   return (
     <>
-      <div className="userHome">
-      <Sidebar />
-      
-      <div className="homeContainer">
-      <Navbar />
+      <div>
+<Navbar />
+<div style={{ display: "flex" }}>
+  <Sidebar />
+  <div style={{ flex: 6 }}>
+<div className="home"> 
+<UserProfile />
+<UserPost />
+  
 
-      <UserProfile />
-      {/* <AddPost /> */}
-      <UserPost  />
-      
-
-      </div>
-      <div className="Rightbar">     
-       <Rightbar />
 </div>
-      </div>
+  </div>
+  <Rightbar />
+</div>
+</div>
 
     </>
   )

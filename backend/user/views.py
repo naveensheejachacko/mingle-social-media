@@ -182,7 +182,7 @@ def verifyToken(request):
     decoded_str = decoded_bytes.decode('utf-8')
     decoded1 = json.loads(decoded_str)  # Parse JSON string as dictionary
     user = User.objects.get(email=decoded1.get('email'))
-    print(user, 'kkkkkkkkkskdskkdssdfs')
+    # print(user, 'kkkkkkkkkskdskkdssdfs')
     if user:
         return Response({'username': user.fullname, 'id': user.id})
     else:

@@ -340,18 +340,30 @@ export default function ListPost() {
                 </div>
               )}
             </div>
-            <div className="postCenter">
-              <span   className="postText">{post.content}</span>
+            <span className="postText">{post?.content}</span>
 
-              <img
-                className="postImg"
-                src={decodeURIComponent(post?.image).replace(
-                  "/https:",
-                  "https:"
-                )}
-                alt=""
-              />
-            </div>
+            <div className="postCenter">
+
+  <img
+    className="postImg"
+    src={decodeURIComponent(post?.image).replace(
+      "/https:",
+      "https:"
+    )}
+    alt=""
+  />
+
+  {post?.video && (
+    <video
+      className="postVideo"
+      src={decodeURIComponent(post?.video).replace(
+        "/https:",
+        "https:"
+      )}
+      controls
+    ></video>
+  )}
+</div>
             <div className="postBottom">
               <div className="postBottomLeft">
                 <img
@@ -441,13 +453,19 @@ export default function ListPost() {
                   <img src={`https://images.pexels.com/photos/1126993/pexels-photo-1126993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`} className="PostImage" alt="" /> : <img src={`${item.profile}`} className="PostImage" alt="" />
                 } */}
                         <p
+                          
                           style={{
                             marginLeft: "6px",
                             fontSize: 18,
-                            marginTop: 6,
+                            marginTop: 8,
+                            fontWeight:'bold'
                           }}
                         >
                           {com.user_na}
+
+
+
+                          
                           {user_id == com.user && (
                             <span
                               onClick={() => {
@@ -461,20 +479,25 @@ export default function ListPost() {
                               style={{ marginLeft: "3vh" }}
                             >
                               {" "}
-                              <BsTrash3 style={{ marginLeft: "5em" }} />
+                              <BsTrash3 style={{ marginLeft: "1em" }} />
                             </span>
                           )}
-                        </p>
-                      </div>
-                      <p
+
+                          <p
                         style={{
-                          marginLeft: "55px",
+                          marginLeft: "5px",
                           textAlign: "start",
-                          marginTop: -16,
+                          color:'black',
+                          fontSize:'15px'
+                          // marginTop: -16,
                         }}
                       >
                         {com.comment}
                       </p>
+
+                        </p>
+                      </div>
+
                     </div>
                   ))
                 : null}

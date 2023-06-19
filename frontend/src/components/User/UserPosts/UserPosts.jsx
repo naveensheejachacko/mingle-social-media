@@ -29,7 +29,7 @@ import { useParams } from "react-router-dom";
 import SkeltonLoad from '../SkeltonLoad/SkeltonLoad';
 import NoDataAvailable from '../NoDataAvailable/NoDataAvailable';
 
-export default function UserPost({ post }) {
+export default function UserPost() {
   const { userId } = useParams();
 
   const [posts, setPosts] = useState([]);
@@ -136,7 +136,7 @@ export default function UserPost({ post }) {
   }
   // gettingcommetns for posts
   let getComments = async (postId)=>{
-    console.log(post,'post id from getdata')
+    // console.log(post,'post id from getdata')
 
 
     let response = await fetch(`http://127.0.0.1:8000/posts/getcomments/${postId}`, {
@@ -211,7 +211,9 @@ let deleteComment = async (id)=>{
      
     } 
     fetchPosts(); 
-  },[posts]);
+  },[]);
+
+  // [posts] include to  load user posts 
 // cloudify
   // const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: 'dtnbd0res' });
 
@@ -229,27 +231,6 @@ const handleMenuClose = () => {
   setAnchorEl(null);
 };
 
-// const handleDeleteClick =async (postId) => {
-//   // handle delete logic here
-//   let response = await fetch(`http://127.0.0.1:8000/posts/deletePost/${postId}`, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-
-//   })
-//   let data = await response.json()
-  
-
-//   if (response.status === 200) {
-//     toast.success('deleted')
-//     fetchPosts()
-//   } else {
-//     // logoutUser()
-//     alert('failed')
-
-//   }
-// };
 
 const handleDeleteClick = async (postId) => {
   // show confirmation dialog
@@ -332,15 +313,30 @@ const handleDeleteClick = async (postId) => {
               </div>
               :null} */}
             </div>
-            <div className="postCenter">
-              <span className="postText">{post?.content}</span>
+            <span className="postText">{post?.content}</span>
 
-              <img
-                className="postImg"
-                src={decodeURIComponent(post?.image).replace('/https:', 'https:')}                
-                alt=""
-              />
-            </div>
+            <div className="postCenter">
+
+  <img
+    className="postImg"
+    src={decodeURIComponent(post?.image).replace(
+      "/https:",
+      "https:"
+    )}
+    alt=""
+  />
+
+  {post?.video && (
+    <video
+      className="postVideo"
+      src={decodeURIComponent(post?.video).replace(
+        "/https:",
+        "https:"
+      )}
+      controls
+    ></video>
+  )}
+</div>
 
 
             <div className="postBottom">

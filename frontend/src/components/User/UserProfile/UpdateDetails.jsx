@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { login } from "../../../Redux/userSlice";
 import toast,{Toaster} from 'react-hot-toast'
-
+import './UpdateDetails.css'
 
 function UpdateDetails() {
 
@@ -152,17 +152,15 @@ useEffect(() => {
 
   return (
 <>
-
-<main className="col-md-12 mt-5 " style={{marginLeft:'5em'}}>
-<article className="card custom-card-width"
-        style={{width:"600px"}}
-        >          <header className="card-header">
+<main className="col-md-12 mt-5">
+        <article className="card custom-card-width "  >
+          <header className="card-header">
             <strong className="d-inline-block mr-3">Update Account</strong>
           </header>
           <div className="card-body">
             <div className="row">
-              <div className="col-md-12">
-                <form onSubmit={handleSubmit} >
+              <div className="col-md-12 d-flex justify-content-center">
+                <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label>Full Name</label>
                     <Toaster />
@@ -172,10 +170,9 @@ useEffect(() => {
                       onChange={handleNameChange}
                       placeholder="Enter Your FullName"
                       className="form-control"
-
+                      style={{ width: '250px' }}
                     />
-                   <span className="text-danger">{fullnameError}</span>
-
+                    <span className="text-danger">{fullnameError}</span>
                   </div>
                   <div className="form-group">
                     <label>Email</label>
@@ -186,48 +183,44 @@ useEffect(() => {
                       className="form-control"
                       value={email}
                       onChange={handleEmailChange}
-
-                      
+                      style={{ width: '250px' }}
                     />
+                    <span className="text-danger">{emailError}</span>
                   </div>
-                  <span className="text-danger">{emailError}</span>
                   <div className="form-group">
                     <label>Mobile</label>
                     <input
                       type="number"
                       name="phone"
                       value={phone_number}
+                      style={{ width: '250px' }}
                       onChange={handlePhoneNumberChange}
                       className="form-control"
-                    //   value={confirmPassword}
-                    //   onChange={(e) => setConfirmPassword(e.target.value)}
-                      
                     />
+                    <span className="text-danger">{phone_numberError}</span>
                   </div>
-                  <span className="text-danger">{phone_numberError}</span>
-
                   <div className="form-group">
-                  <label>Gender</label>
-                  <select
-                className="genderField form-select "
-                value={gender}
-                onChange={handleGenderChange}
-                aria-label="Default select example"
-              >
-                <option value="" disabled >Gender</option>
-                <option value="M" selected={gender === "M"}>
-                  Male
-                </option>
-                <option value="F" selected={gender === "F"}>
-                  Female
-                </option>
-                <option value="O" selected={gender === "O"}>
-                  Other
-                </option>
-              </select>
-</div>
-
-
+                    <label>Gender</label>
+                    <select
+                      className="genderField form-select"
+                      value={gender}
+                      style={{ width: '250px' }}
+                      onChange={handleGenderChange}
+                      aria-label="Default select example"
+                    >
+                      <option value="" disabled>Gender</option>
+                      <option value="M" selected={gender === "M"}>
+                        Male
+                      </option>
+                      <option value="F" selected={gender === "F"}>
+                        Female
+                      </option>
+                      <option value="O" selected={gender === "O"}>
+                        Other
+                      </option>
+                    </select>
+                    <span className="text-danger">{genderError}</span>
+                  </div>
                   <input
                     type="submit"
                     value="Update Details"

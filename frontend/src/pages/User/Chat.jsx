@@ -10,7 +10,7 @@ import { styled } from '@mui/system';
 
 
 import Navbar from "../../components/User/Navbar/Navbar";
-import "./HomePage.scss";
+// import "./HomePage.scss";
 
 
 
@@ -37,11 +37,11 @@ function Chat() {
 
   return (
     <>
-    <div className="userHome">
-    <Sidebar />
-    
-    <div className="homeContainer">
+    <div >
     <Navbar />
+    
+    <div style={{ display: "flex" }}>
+    <Sidebar/>
 
     <Container>
   <Grid container>

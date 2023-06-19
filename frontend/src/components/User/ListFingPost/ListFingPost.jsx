@@ -1,5 +1,5 @@
 import "./ListFingPost.scss";
-import { MoreVert } from "@mui/icons-material";
+// import { MoreVert } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import SkeltonLoad from '../SkeltonLoad/SkeltonLoad';
 import NoDataAvailable from "../NoDataAvailable/NoDataAvailable";
@@ -175,7 +175,7 @@ export default function ListFingPost() {
         `http://127.0.0.1:8000/posts/fposts/${user_id}/`
       );
       setPosts(response.data.data);
-      // console.log(response.data,'*******')
+      
     }
     fetchFollowingPost();
   }, [posts]);
@@ -277,18 +277,31 @@ export default function ListFingPost() {
                   </div>
                 )}
               </div>
+              <span className="postText">{post?.content}</span>
               <div className="postCenter">
-                <span className="postText">{post?.content}</span>
+ 
 
-                <img
-                  className="postImg"
-                  src={decodeURIComponent(post?.image).replace(
-                    "/https:",
-                    "https:"
-                  )}
-                  alt=""
-                />
-              </div>
+  <img
+    className="postImg"
+    src={decodeURIComponent(post?.image).replace(
+      "/https:",
+      "https:"
+    )}
+    alt=""
+  />
+
+  {post?.video && (
+    <video
+      className="postVideo"
+      src={decodeURIComponent(post?.video).replace(
+        "/https:",
+        "https:"
+      )}
+      controls
+    ></video>
+  )}
+</div>
+
               <div className="postBottom">
                 <div className="postBottomLeft">
                   <img

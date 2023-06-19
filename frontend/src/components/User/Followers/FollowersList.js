@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import "./FollowingList.scss";
+import "./FollowingList.css";
 
 import { Link } from "react-router-dom";
 import NoDataAvailable from "../NoDataAvailable/NoDataAvailable";
@@ -58,6 +58,9 @@ function FollowersList() {
 
   return (
     <>
+    
+<div className="following-container">
+
       {followersList?.length === 0 ? (
         <>
           <NoDataAvailable data={"Followers"} />
@@ -66,46 +69,55 @@ function FollowersList() {
           {/* <SkeltonCard /> */}
         </>
       ) : (
-        <div className="card-container">
+
+        <>
+
           {followersList.map((user) => (
-            <Card key={user.id} className="card">
+            <Card key={user.id} style={{marginTop:'20px'}} className="fcard">
               <Card.Img
-                style={{ width: "275px", height: "250px", borderRadius: "50%" }}
-                variant="top"
-                src={user.profile_picture}
-                className="rounded"
-              />
+          style={{
+            
+            
+            width: '250px', // Set the desired width
+            height: '250px',
+            borderRadius: '50%',
+            position: 'relative',
+          }}
+          variant="top"
+          src={user.profile_picture}
+          className="rounded"
+          />
               <Card.Body>
                 <Card.Title> {user.fullname}</Card.Title>
-                <Card.Text></Card.Text>
+                
                 <div className="button-container">
                   {/* <Button variant="danger" size='sm' onClick={() => { handleUnFollowUser(user.id) }} style={{ borderRadius: '10px' }}>unfollow</Button> */}
 
                   {/* <Button
 
-                variant={user.following ? "danger" : "primary"}
-                size="sm"
-                onClick={() => handleFollowUser(user.id)}
-                style={{ borderRadius: '10px' }}
-              >
-                {following ? "Unfollow" : "Follow"}
-              </Button> */}
+variant={user.following ? "danger" : "primary"}
+size="sm"
+onClick={() => handleFollowUser(user.id)}
+style={{ borderRadius: '10px' }}
+>
+{following ? "Unfollow" : "Follow"}
+</Button> */}
 
                   {user.following ? (
                     <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => handleUnFollowUser(user.id)}
-                      style={{ borderRadius: "10px" }}
+                    variant="danger"
+                    size="sm"
+                    onClick={() => handleUnFollowUser(user.id)}
+                    style={{ borderRadius: "10px" }}
                     >
                       Unfollow
                     </Button>
                   ) : (
                     <Button
-                      variant="primary"
-                      size="sm"
-                      onClick={() => handleFollowUser(user.id)}
-                      style={{ borderRadius: "10px" }}
+                    variant="primary"
+                    size="sm"
+                    onClick={() => handleFollowUser(user.id)}
+                    style={{ borderRadius: "10px" }}
                     >
                       Follow
                     </Button>
@@ -113,19 +125,21 @@ function FollowersList() {
 
                   <Link to={`/profile/${user.id}`}>
                     <Button
-                      variant="light"
-                      size="sm"
-                      style={{ borderRadius: "10px", margin: "5px" }}
-                    >
-                      View Profile
-                    </Button>{" "}
+                variant="secondary"
+                size="sm"
+                style={{ borderRadius: "10px" }}
+                >
+                      Profile
+                    </Button>
                   </Link>
                 </div>
               </Card.Body>
             </Card>
           ))}
-        </div>
+     
+      </>
       )}
+      </div>
     </>
   );
 }

@@ -3,17 +3,18 @@ $themes: (
     textColor: #000,
     bg: white,
     logo: darkblue,
-    bgSoft: #f6f3f3,
-    textColorSoft: #555,
+    bgSoft: #ffffff,
+    textColorSoft: #000000,
     border: lightgray,
   ),
   dark: (
     textColor: whitesmoke,
-    bg: #222,
+    bg:white,
     logo: white,
-    bgSoft: #333,
+    bgSoft: #ffffff,
     textColorSoft: lightgray,
-    border: #444,
+    border: #ffffff,
+
   ),
 );
 
@@ -41,7 +42,7 @@ $themes: (
 }
 
 @mixin mobile {
-  @media (max-width: 480px) {
+  @media (max-width: 783px) {
     @content;
   }
 }
@@ -49,4 +50,8 @@ $themes: (
   @media (max-width: 960px) {
     @content;
   }
+}
+body{
+  padding: 0;
+  margin: 0;
 }

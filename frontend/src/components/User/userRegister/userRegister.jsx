@@ -167,10 +167,10 @@ function UserSignup() {
         <MDBCol md="6">
           {/* <MDBCard className="my-4"> */}
             <form onSubmit={(e) => handleSubmit(e)}>
-              <h3 className="mt-4 mb-3" style={{ fontSize: "3em" }}>
+              <h3 className="mt-4 mb-3" style={{ textAlign: "center" ,marginTop:'1.5em',fontSize:'3em'}}>
                 <b>Getting Started</b>
               </h3>
-              <p style={{ fontSize: "1em" }}>
+              <p  style={{ textAlign: "center" ,marginTop:'1em',fontSize:'1em'}}>
                 <b>
                   {" "}
                   Create and account to continue and connect with the people
@@ -185,7 +185,7 @@ function UserSignup() {
                   width: "20rem",
                   display: "block",
                   backgroundColor: "#fff",
-                  padding: ".7rem",
+                  padding: "1rem",
                   boxShadow: "0 0 10px rgba(0,0,0,0.3)",
                   border: "none",
                 }}
@@ -206,7 +206,7 @@ function UserSignup() {
                   width: "20rem",
                   display: "block",
                   backgroundColor: "#fff",
-                  padding: ".7rem",
+                  padding: "1rem",
                   boxShadow: "0 0 10px rgba(0,0,0,0.3)",
                   border: "none",
                 }}
@@ -227,7 +227,7 @@ function UserSignup() {
                   width: "20rem",
                   display: "block",
                   backgroundColor: "#fff",
-                  padding: ".7rem",
+                  padding: "1rem",
                   boxShadow: "0 0 10px rgba(0,0,0,0.3)",
                   border: "none",
                 }}
@@ -248,7 +248,7 @@ function UserSignup() {
                   width: "20rem",
                   display: "block",
                   backgroundColor: "#fff",
-                  padding: ".7rem",
+                  padding: "1rem",
                   boxShadow: "0 0 10px rgba(0,0,0,0.3)",
                   border: "none",
                 }}
@@ -268,7 +268,7 @@ function UserSignup() {
                   width: "20rem",
                   display: "block",
                   backgroundColor: "#fff",
-                  padding: ".7rem",
+                  padding: "1rem",
                   boxShadow: "0 0 10px rgba(0,0,0,0.3)",
                   border: "none",
                 }}

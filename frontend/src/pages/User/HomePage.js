@@ -13,20 +13,36 @@ function HomePage() {
   const [viewposts, setViewposts] = useState([])
   return (
     <>
-      <div className="userHome">
-      <Sidebar />
+{/* //       <div className="userHome">
+//       <Sidebar />
       
-      <div className="homeContainer">
-      <Navbar />
-      <AddPost />
-      <Posts />
+//       <div className="homeContainer">
+//       <Navbar />
+//       <AddPost />
+//       <Posts />
 
-      </div>
-      <div className="Rightbar">     
-       <Rightbar />
+//       </div>
+//       <div className="Rightbar">     
+//        <Rightbar />
+// </div>
+//       </div> */}
+
+
+<div>
+<Navbar />
+<div style={{ display: "flex" }}>
+  <Sidebar />
+  <div style={{ flex: 6 }}>
+<div className="home"> 
+<AddPost />
+<Posts />
+  
+
 </div>
-      </div>
-
+  </div>
+  <Rightbar />
+</div>
+</div>
     </>
   );
 }

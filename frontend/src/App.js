@@ -18,11 +18,14 @@ import People from './pages/User/People'
 import Settings from './pages/User/Settings'
 import SearchResult from './pages/User/SearchResult'
 import Chat from './pages/User/Chat'
+import PageNotFound from './pages/User/PageNotFound/PageNotFound'
 import "./style.scss";
 
 function App() {
+  const darkMode = false
+
   return (
-    <div className="App">
+    <div  className={`theme-${darkMode ? "dark" : "light"}`} >
       <Router>
       <AuthProvider>
         <Routes>
@@ -158,10 +161,12 @@ function App() {
             }
           />
 
+<Route path='*' element={<PageNotFound/>} />
 
 
         </Routes>
         </AuthProvider>
+
       </Router>
     </div>
   );

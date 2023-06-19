@@ -8,26 +8,20 @@ import UserSettings from '../../components/User/UserProfile/UserSettings';
 function Settings() {
   return (
     <>
-    <div className="userSettings">
-    <Sidebar />
-    
-    <div className="settingsContainer">
-    <Navbar />
-    <div className="container">
-      <div className="row">
-        <div className="col-md-10">
+      <div>
+<Navbar />
+<div style={{ display: "flex" }}>
+  <Sidebar />
+  <div style={{ flex: 6 }}>
+<div className="home"> 
 <UserSettings />
-        </div>
-      </div>
-    </div>
+  
 
-
-
-    </div>
-    <div className="Rightbar">     
-     <Rightbar />
 </div>
-    </div>
+  </div>
+  <Rightbar />
+</div>
+</div>
 
   </>
   )

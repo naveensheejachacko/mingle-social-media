@@ -1,24 +1,85 @@
+@import "../../../style.scss";
 
+.navbar {
+  @include themify($themes) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 50px;
+    border-bottom: 1px solid themed("border");
+    position: sticky;
+    top: 0;
+    background-color: themed("bg");
+    color:themed("textColor");
+    z-index: 999;
 
-.main {
-  width: 50%;
-  margin: 1em auto;
-}
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
 
-/* Bootstrap 4 text input with search icon */
+      span {
+        font-weight: bold;
+        font-size: 20px;
+        color: themed("logo");
+      }
 
-.has-search .form-control {
-  padding-left: 1rem;
-}
+      .search {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid themed("border");
+        border-radius: 7px;
+        padding: 5px;
 
-.has-search .form-control-feedback {
-  position: absolute;
-  z-index: 2;
-  display: block;
-  width: 3rem;
-  height: 3rem;
-  line-height: 3rem;
-  text-align: center;
-  pointer-events: none;
-  color: #aaa;
+        input {
+          border: none; 
+          // height: 30px;
+          width: 500px;
+          background-color: transparent;
+          color: themed("textColor");
+
+          @include mobile{
+            display: none;
+          }
+
+          @include tablet{
+            width: 200px;
+          }
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      @include mobile{
+        display: none;
+      }
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+
+        @include tablet{
+          display: none;
+        }
+
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        span {
+        }
+      }
+    }
+  }
 }

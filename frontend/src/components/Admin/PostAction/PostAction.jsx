@@ -7,7 +7,7 @@ const PostAction = ({reportId }) => {
   const [isApproved,setIsApproved] = useState(false);
 
   const handlepost= () => {
-    const url = `${baseUrl}/adminn/approveReport/${reportId}/`;
+    const url = `http://127.0.0.1:8000/adminn/approveReport/${reportId}/`;
 
     // if (window.confirm(`Are you sure you want to ${isBlocked ? 'unblock' : 'block'} this user?`)) {
       Swal.fire({

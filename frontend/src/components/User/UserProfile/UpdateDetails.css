@@ -1,0 +1,17 @@
+.card {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+    
+  .custom-card-width {
+    max-width: 100%;
+  }
+  
+
+  @media (min-width: 768px) {
+    .custom-card-width {
+      max-width: 600px;
+    }
+  }
+  

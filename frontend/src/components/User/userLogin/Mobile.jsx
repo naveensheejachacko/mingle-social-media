@@ -13,6 +13,19 @@ import { login } from "../../../Redux/userSlice";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 
+
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBInput,
+  MDBIcon,
+  MDBNavbar,
+  MDBContainers,
+} from "mdb-react-ui-kit";
+
 function Mobile() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
@@ -170,6 +183,33 @@ function Mobile() {
   // };
 
   return (
+
+
+    <>
+      <MDBNavbar light bgColor="light">
+        <MDBContainer fluid>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              style={{ width: "31px", height: "31px", marginRight: "10px" }}
+              src="../../../Images/logo.jpg"
+              alt=""
+            />
+            <span
+              className="navbar-text"
+              style={{
+                fontFamily: "Iceberg",
+                fontWeight: "bold",
+                color: "black",
+              }}
+            >
+              
+              mingle
+            </span>
+          </div>
+        </MDBContainer>
+      </MDBNavbar>
+
+    
     <div className="wrapper">
       <h1 className="main-heading">Sign in</h1>
       <p className="sub-text">Sign in using your mobile number.</p>
@@ -203,12 +243,12 @@ function Mobile() {
             <div className="input-field">
               <label>Enter OTP</label>
               <input
-                type="number"
+                type="text"
                 placeholder="One time password"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 autoComplete="false"
-                required
+                
               />
             </div>
             <Toaster />
@@ -219,6 +259,7 @@ function Mobile() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

@@ -8,6 +8,7 @@ import "./userLogin.scss";
 import Swal from "sweetalert2";
 import { FaGoogle } from "react-icons/fa";
 
+import toast,{Toaster} from 'react-hot-toast'
 
 
 import {
@@ -24,6 +25,7 @@ import {
 import { userLogin,loginGoogle } from "../../../utils/Constants";
 import {auth,provider} from "../../../firebase";
 import { signInWithPopup } from "firebase/auth";
+import GoogleButton from "../GoogleButton/GoogleButton";
 
 
 
@@ -44,13 +46,17 @@ function UserLogin() {
       email.length==0
       
     ) {
-      Swal.fire({
-        position: "center",
-        icon: "warning",
-        title: "Please Fill all Fields",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+
+
+      toast.error('All Fields Required');
+
+      // Swal.fire({
+      //   position: "center",
+      //   icon: "warning",
+      //   title: "Please Fill all Fields",
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
     }
 
 else{
@@ -63,35 +69,41 @@ else{
           response.data.status === "Wrong Password" ||
           response.data.status === "Email is not found"
         ) {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Email or Password is incorrect",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          // Swal.fire({
+          //   position: "center",
+          //   icon: "error",
+          //   title: "Email or Password is incorrect",
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });
+          toast.error('Invalid Credentials');
+
         } 
         else if (response.data.status === "User is blocked") {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "This user is blocked. Access is restricted.",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          // Swal.fire({
+          //   position: "center",
+          //   icon: "error",
+          //   title: "This user is blocked. Access is restricted.",
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });
+          toast.error('User Restricted');
+
         }
         else {
           Cookies.set("jwt_user", String(response.data.jwt));
           Cookies.set("role", String(response.data.role));
           Cookies.set("id", String(response.data.id));
           // Cookies.set("fullname", String(response.data.fullname));
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Login Successfully",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          // Swal.fire({
+          //   position: "center",
+          //   icon: "success",
+          //   title: "Login Successfully",
+          //   showConfirmButton: false,
+          //   timer: 1500,
+          // });            
+          toast.success('Login Success');
+
           dispatch(
             login({
               email: email,
@@ -165,11 +177,11 @@ const signInWithGoogle = async () => {
         </MDBContainer>
       </MDBNavbar>
 
-      <MDBContainer className='mt-5 mb-5 shadow-5'>
-        <form onSubmit={(e) => handleLogin(e)}>
+      {/* <MDBContainer className='mt-5 mb-5 shadow-5'> */}
+       
           <MDBCol className="mx-auto" md="6">
             {/* <MDBCard className="my-3  py-4"> */}
-            <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: "center" ,marginTop:'2em'}}>
               <h3  style={{ fontSize: "3em" }}>
                 
                 <b>Getting Started</b>
@@ -190,10 +202,10 @@ const signInWithGoogle = async () => {
                 size="lg"
                 type="button" 
                  onClick={signInWithGoogle} >
-                  <FaGoogle />
-                connect with Google
+<GoogleButton />
               </button>
 
+              <form onSubmit={(e) => handleLogin(e)}>
               <div
                 style={{
                   width: "60%",
@@ -296,9 +308,10 @@ const signInWithGoogle = async () => {
               >
                 Login
               </MDBBtn>
+              </form>
             {/* </MDBCard> */}
           </MDBCol>
-        </form>
+       
 <div  style={{ textAlign: "center" }}  className="para">
 <Link className="userLogin"  to="/otpLogin" >Login with OTP</Link></div>
 
@@ -309,8 +322,8 @@ const signInWithGoogle = async () => {
                     Sign up here
                   </Link>
                   </div>
-
-      </MDBContainer>
+<Toaster />
+      {/* </MDBContainer> */}
     </>
   );
 }

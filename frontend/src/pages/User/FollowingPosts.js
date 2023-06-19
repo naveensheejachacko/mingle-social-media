@@ -13,20 +13,21 @@ function HomePage() {
   const [viewposts, setViewposts] = useState([])
   return (
     <>
-      <div className="userHome">
-      <Sidebar />
-      
-      <div className="homeContainer">
-      <Navbar />
-      <AddPost />
-      <ListFingPost />
+<div>
+<Navbar />
+<div style={{ display: "flex" }}>
+  <Sidebar />
+  <div style={{ flex: 6 }}>
+<div className="home"> 
+<AddPost />
+<ListFingPost />
+  
 
-      </div>
-      <div className="Rightbar">     
-       <Rightbar />
 </div>
-      </div>
-
+  </div>
+  <Rightbar />
+</div>
+</div>
     </>
   );
 }

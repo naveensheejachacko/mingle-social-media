@@ -50,7 +50,7 @@ function UserProfile() {
     const fetchFollowingCount = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/posts/following_list/${userId}`);
-        console.log(response,'following count');
+        // console.log(response,'following count');
         const following = response.data.length;
         setFollowingCount(following);
       } catch (error) {
@@ -130,7 +130,7 @@ function UserProfile() {
           `http://127.0.0.1:8000/changeCover/${userId}/`,
           formData
         );
-        console.log(response.data);
+        // console.log(response.data);
         handleCloseModal();
         // Handle the response as needed
         setUserDetails((prevUserDetails) => ({
@@ -152,7 +152,8 @@ function UserProfile() {
   
       try {
         const response = await axios.post(`http://127.0.0.1:8000/changeProfilePic/${userId}/`, formData);
-        console.log(response.data); // Handle the response as needed
+        // console.log(response.data); 
+        // Handle the response as needed
         setShowModal1(false); 
         // Close the modal after successful upload
         setUserDetails((prevUserDetails) => ({
@@ -174,7 +175,7 @@ function UserProfile() {
 
 
 
-console.log(user_id,userId,'userrrrrrr');
+// console.log(user_id,userId,'userrrrrrr');
 
 
   return (
@@ -189,7 +190,7 @@ console.log(user_id,userId,'userrrrrrr');
           {user_id == userId &&(
             <div className="editIcon">
               <label htmlFor="coverPictureInput">
-                <BiEdit onClick={handleShowModal} />
+                <BiEdit  onClick={handleShowModal} />
               </label>  
             </div>
           )}
@@ -202,8 +203,8 @@ console.log(user_id,userId,'userrrrrrr');
           alt=""
           className="cover"
           />
-          <div className="images">
-            {/* <div className="editIcon"> */}
+          {/* <div className="images">
+            
             {user_id == userId &&(
 
 <label htmlFor="profilePictureInput">
@@ -211,8 +212,13 @@ console.log(user_id,userId,'userrrrrrr');
               </label>
 
             )}
-            {/* </div> */}
-          </div>
+           
+          </div> */}
+
+{user_id == userId &&(
+
+
+
           <img
             src={decodeURIComponent(userDetails?.profile_picture).replace(
               "/https:",
@@ -220,8 +226,12 @@ console.log(user_id,userId,'userrrrrrr');
             )}
             alt="profile picture"
             className="profilePic"
+
+            onClick={handleShowModal1}
           />
 
+          
+          )}
         </div>
 
         <Modal show={showModal} onHide={handleCloseModal}>
@@ -245,8 +255,10 @@ console.log(user_id,userId,'userrrrrrr');
           <div className="uInfo">
             <div className="left"></div>
             <div className="center">
+
+            <br />
               <span className="userName">{userDetails.username}</span>
-              <br />
+              
               <span className="useremail">{userDetails.email}</span>
               <div className="info">
                 {/* <div className="item">

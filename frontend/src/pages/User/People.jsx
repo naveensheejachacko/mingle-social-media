@@ -9,28 +9,21 @@ function HomePage() {
 
   return (
     <>
-      <div className="userHome">
-      <Sidebar />
-      
-      <div className="homeContainer">
-      <Navbar />
-      <ConnectionList />
-
-      </div>
-      <div className="Rightbar">     
-       {/* <Rightbar /> */}
+<div>
+<Navbar />
+<div style={{ display: "flex" }}>
+  <Sidebar />
+  <div style={{ flex: 6 }}>
+<div className="home"> 
 
 
-
-<div />
-
-
-
-
-
+  <ConnectionList />
 
 </div>
-      </div>
+  </div>
+
+</div>
+</div>
 
     </>
   );

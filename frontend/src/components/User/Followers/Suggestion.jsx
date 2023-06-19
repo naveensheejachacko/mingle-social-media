@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 import axios from "axios";
 import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
-import './Suggestion.scss';
+import './Suggestion.css';
 
 import { Link } from "react-router-dom";
 
@@ -73,7 +73,7 @@ function Suggestion() {
         // Update the suggestions state with the updated suggestions
         fetchUserSuggestions();    
         // Do something with the removed_user details
-        console.log('Removed User:', removed_user);
+        // console.log('Removed User:', removed_user);
       } catch (error) {
         console.error(error);
       }
@@ -83,39 +83,74 @@ function Suggestion() {
 
   return (
     <>
-  {
-    suggestions?.length===0 ?
-    <>
-    
+<div className="suggestion-container">
+{suggestions?.length === 0 ? (
+  <>
     <SkeltonCard />
     <SkeltonCard />
     <SkeltonCard />
-</>:
+  </>
+) : (
+  <>
+    {suggestions.map((user) => (
+      <Card key={user.id} style={{marginTop:'20px'}} className="scard">
+        <Card.Img
+          style={{
+            width: '250px', // Set the desired width
+            height: '250px',
+            borderRadius: '50%',
+            position: 'relative',
+          }}
+          variant="top"
+          src={user.profile_picture}
+          className="rounded"
+        />
+        <CloseIcon
+          className="close-icon"
+          onClick={() => {
+            handleRemoveUser(user.id);
+          }}
+          color="primary"
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            zIndex: 1,
+          }}
+        />
+        <Card.Body>
+          <Card.Title>{user.fullname}</Card.Title>
+          <div className="button-container">
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => {
+                handleFollowUser(user.id);
+              }}
+              style={{ borderRadius: '10px' }}
+            >
+              Follow
+            </Button>
+            <Link to={`/profile/${user.id}`}>
+              <Button
+                variant="secondary"
+                size="sm"
+                style={{ borderRadius: '10px' }}
+              >
+                Profile
+              </Button>
+            </Link>
+          </div>
+        </Card.Body>
+      </Card>
+    ))}
+  </>
+)}
+</div>
 
-    <div className="card-container">
-      {suggestions.map((user) => (
-        <Card key={user.id} className="card">
-          <CloseIcon  className="close-icon"  onClick={() => { handleRemoveUser(user.id) }}
-          color="primary"/>
-          <Card.Img 
-          style={{ width: "250px",height:"250px",borderRadius: "50%" }}
-          variant="top"  src={user.profile_picture} className="rounded"/>
-          
-          <Card.Body>
-            <Card.Title>{user.fullname}</Card.Title>
-            <Card.Text>
-            </Card.Text>
-            <div className="button-container">
-              <Button variant="primary" size='sm' onClick={() => { handleFollowUser(user.id) }} style={{ borderRadius: '10px' }}>Follow</Button>
-              <Link to={`/profile/${user.id}`}>            
-              <Button variant="light" size='sm' style={{ borderRadius: '10px', margin: '5px' }}>View Profile</Button>{' '}
-              </Link>
-            </div>
-          </Card.Body>
-        </Card>
-      ))}
-    </div>
-}
+
+
+
     </>
     );
     
