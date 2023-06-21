@@ -171,16 +171,17 @@ export default function ListFingPost() {
 
   // getingpost
 
-  useEffect(() => {
-    async function fetchFollowingPost() {
+  const fetchFollowingPost=  async  () =>{
       const response = await axios.get(
         `${baseUrl}posts/fposts/${user_id}/`
       );
+      console.log(response.data.data,'post detailsss');
       setPosts(response.data.data);
       
     }
+  useEffect(() => {
     fetchFollowingPost();
-  }, [posts]);
+  }, [liked]);
 
   // delete Post
 

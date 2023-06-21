@@ -212,6 +212,7 @@ let deleteComment = async (id)=>{
     } 
     fetchPosts(); 
   },[]);
+  
 
   // [posts] include to  load user posts 
 // cloudify
