@@ -138,7 +138,7 @@ function Sidebar() {
                    <div
                      className="user-details"
                      style={{ cursor: "pointer" }}
-                     onClick={() => navigate(`/profile/${userId}`)}
+                     onClick={() => navigate(`/userprofile/`)}
                    >
                      {" "}
                      <span className="user-name"    style={{ fontWeight: 'bold', marginBottom: '5px' }}>{userName}</span>

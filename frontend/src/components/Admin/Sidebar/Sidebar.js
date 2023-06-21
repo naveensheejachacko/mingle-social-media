@@ -10,11 +10,10 @@ import {
   AccountBox,
   Home,
   Article,
-  // ModeNight,
   Person,
   Settings,
   Message,
-  Logout
+  Logout,
 } from "@mui/icons-material";
 import {
   List,
@@ -22,7 +21,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  // Switch,
 } from "@mui/material";
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
@@ -37,21 +35,15 @@ function Sidebar() {
   };
 
   return (
-
-    <div className="leftBar">
-      <div className="container" style={{
-          display: "flex",
-          height: "100vh",
-          overflow: "scroll initial",
-          marginTop: "2rem",
-        }}>
+    <div className="leftBar1">
+      <div className="container">
         <div className="menu">
-        <img
+          {/* <img
             style={{ width: "31px", height: "31px", marginLeft: "2rem" }}
             src="../../../Images/logo.jpg"
             alt=""
           />
-                    <span
+          <span
             className="navbar-text"
             style={{
               fontFamily: "Iceberg",
@@ -60,51 +52,48 @@ function Sidebar() {
             }}
           >
             mingle
-          </span>
+          </span> */}
           <div className="item">
             <List sx={{ width: '100%', maxWidth: 360, color: "black" }}>
-              <ListItem >
+              <ListItem>
               </ListItem>
-              <ListItem >
-                <ListItemButton  component="a" >
+              {/* <ListItem> */}
+                {/* <ListItemButton component="a" onClick={() => navigate('/')}>
                   <ListItemIcon>
                     <Home />
                   </ListItemIcon>
                   <ListItemText primary="Homepage" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem >
-                <ListItemButton component="a" onClick={() => navigate("/adminn/users")}>
+                </ListItemButton> */}
+              {/* </ListItem> */}
+              <ListItem>
+                <ListItemButton component="a" onClick={() => navigate('/adminn/users')}>
                   <ListItemIcon>
-                    <Article />
+                  <PeopleAltIcon />
                   </ListItemIcon>
                   <ListItemText primary="Users" />
                 </ListItemButton>
               </ListItem>
-              <ListItem >
-                <ListItemButton component="a" >
+              <ListItem>
+                <ListItemButton component="a" onClick={() => navigate('/adminn/reportPost')}>
                   <ListItemIcon>
-                  <PeopleAltIcon />
+                  <Article />
                   </ListItemIcon>
-                  <ListItemText primary="Post Management" onClick={() => navigate("/adminn/reportPost")}  /> 
+                  <ListItemText primary="Post Management" />
                 </ListItemButton>
               </ListItem>
-              <ListItem  >
-                <ListItemButton component="a"  onClick={adminLogout}>
+              <ListItem>
+                <ListItemButton onClick={adminLogout}>
                   <ListItemIcon>
                     <Logout />
                   </ListItemIcon>
                   <ListItemText primary="Logout" />
                 </ListItemButton>
               </ListItem>
-
-              
             </List>
           </div>
         </div>
       </div>
     </div>
-
   );
 }
 

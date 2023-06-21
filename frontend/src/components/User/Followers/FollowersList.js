@@ -11,6 +11,7 @@ import "./FollowingList.css";
 import { Link } from "react-router-dom";
 import NoDataAvailable from "../NoDataAvailable/NoDataAvailable";
 import SkeltonCard from "../SkeltonLoad/SkeltonCard";
+ import { baseUrl } from "../../../utils/Constants";
 
 function FollowersList() {
   const user_id = useSelector((state) => state.user?.user_id);
@@ -19,7 +20,7 @@ function FollowersList() {
   const handleFollowUser = async (fingId) => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/posts/follow_user/${user_id}/${fingId}/`
+        `${baseUrl}posts/follow_user/${user_id}/${fingId}/`
       );
       console.log(response);
       // Refresh the followers list
@@ -31,7 +32,7 @@ function FollowersList() {
   const handleUnFollowUser = async (fingId) => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/posts/follow_user/${user_id}/${fingId}/`
+        `${baseUrl}posts/follow_user/${user_id}/${fingId}/`
       );
       console.log(response);
       // Refresh the followers list
@@ -44,7 +45,7 @@ function FollowersList() {
   const fetchFollowersList = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/posts/followers_list/${user_id}/`
+        `${baseUrl}posts/followers_list/${user_id}/`
       );
       setFollowersList(response.data);
     } catch (error) {
@@ -82,6 +83,7 @@ function FollowersList() {
             height: '250px',
             borderRadius: '50%',
             position: 'relative',
+            
           }}
           variant="top"
           src={user.profile_picture}

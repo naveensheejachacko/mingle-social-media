@@ -5,6 +5,7 @@ import FollowingPosts from "./pages/User/FollowingPosts";
 import UserLogin from "./pages/UserLogin";
 import OTPLogin from "./pages/OTPLogin";
 import Profile from "./pages/User/Profile"
+import CurrentProfile from "./pages/User/CurrentUser";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthorizeUser, ProtectUser } from "./protected/AuthUser";
@@ -14,6 +15,7 @@ import AdminLogin from "../../frontend/src/pages/Admin/adminLogin/adminLogin";
 import AdminHome from "./pages/Admin/adminHome/adminHome";
 import AdminUserList from "./pages/Admin/adminUserList/AdminUserList";
 import AdminPostHandle from "./pages/Admin/adminPostHandle/adminPostHandle"
+import DetailPost from "./pages/Admin/adminPostHandle/DetailPost";
 import People from './pages/User/People'
 import Settings from './pages/User/Settings'
 import SearchResult from './pages/User/SearchResult'
@@ -98,6 +100,15 @@ function App() {
         }
           />
 
+<Route path="userprofile/"
+        element={
+          <AuthorizeUser>
+            <CurrentProfile />
+          </AuthorizeUser>
+        }
+          />
+
+
 <Route path="settings"
         element={
           <AuthorizeUser>
@@ -133,7 +144,7 @@ function App() {
               </ProtectAdmin>
             }
           />
-
+{/* 
           <Route
             path="/adminn/dashboard"
             element={
@@ -141,7 +152,7 @@ function App() {
                 <AdminHome />
               </AuthorizeAdmin>
             }
-          />
+          /> */}
 
           <Route
             path="/adminn/users"
@@ -160,6 +171,17 @@ function App() {
               </AuthorizeAdmin>
             }
           />
+
+<Route
+            path="/adminn/reportPost/detailed/:postId"
+            element={
+              <AuthorizeAdmin>
+                <DetailPost />
+              </AuthorizeAdmin>
+            }
+          />
+
+
 
 <Route path='*' element={<PageNotFound/>} />
 

@@ -10,6 +10,6 @@ urlpatterns = [
     path('approveReport/<int:reportId>/', views.ApproveReportView.as_view()),
     path('rPostList',views.ReportedPosts.as_view(),name='rPostList'),
     path('rPost/<int:reportId>/', views.rPostView.as_view()),
-
+    path('getPostById/<int:postId>/', views.PostByIdView.as_view()),
 
 ]

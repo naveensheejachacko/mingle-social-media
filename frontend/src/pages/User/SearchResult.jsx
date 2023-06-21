@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import Rightbar from "../../components/User/Rightbar/Rightbar";
+// import Rightbar from "../../components/User/Rightbar/Rightbar";
 import Navbar from "../../components/User/Navbar/Navbar";
 import Sidebar from "../../components/User/Sidebar/Sidebar";
 import SearchData from '../../components/User/Search/SearchData';
@@ -26,11 +26,14 @@ function SearchResult() {
 
   return (
     <>
-    <div className="userHome">
-    <Sidebar />
+  
+    <div>
+<Navbar />
     
-    <div className="homeContainer">
-    <Navbar />
+<div style={{ display: "flex" }}>
+  <Sidebar />
+  <div style={{ flex: 6 }}>
+<div className="home"> 
 
 
     {
@@ -39,13 +42,31 @@ function SearchResult() {
        <SearchData users={users}/>
     }
 
+</div>
+  </div>
 
     </div>
-    <div className="Rightbar">     
+    {/* <div className="Rightbar">     
     <Rightbar />
+    </div> */}
     </div>
-    </div>
+
+
+
+
+
+
+
+
+
   </>
+
+
+
+
+
+
+
   )
 }
 export default SearchResult

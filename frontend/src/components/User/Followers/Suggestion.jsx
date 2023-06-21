@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 import SkeltonCard from '../SkeltonLoad/SkeltonCard';
 
-
+import { baseUrl } from '../../../utils/Constants';
 
 function Suggestion() {
 
@@ -29,7 +29,7 @@ function Suggestion() {
 
       const fetchUserSuggestions = async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/posts/user_suggestions/${user_id}/`, {
+          const response = await axios.get(`${baseUrl}posts/user_suggestions/${user_id}/`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ function Suggestion() {
 
     const handleFollowUser = async (fingId) => {
       try {
-        const response = await axios.post(`http://127.0.0.1:8000/posts/follow_user/${user_id}/${fingId}/`);
+        const response = await axios.post(`${baseUrl}posts/follow_user/${user_id}/${fingId}/`);
         setFollowing(true);
         // toast.success('success')
         fetchUserSuggestions();
@@ -67,7 +67,7 @@ function Suggestion() {
 
     const handleRemoveUser = async (suggestionId) => {
       try {
-        const response = await axios.post(`http://127.0.0.1:8000/posts/removeSuggestion/${user_id}/${suggestionId}/`);
+        const response = await axios.post(`${baseUrl}posts/removeSuggestion/${user_id}/${suggestionId}/`);
         const { suggestions, removed_user } = response.data;
     
         // Update the suggestions state with the updated suggestions

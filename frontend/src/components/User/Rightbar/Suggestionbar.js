@@ -6,6 +6,7 @@ import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import toast,{Toaster} from 'react-hot-toast'
 import { Link } from "react-router-dom";
+import { baseUrl } from '../../../utils/Constants';
 
 
 const SuggestionBar = () => {
@@ -19,7 +20,7 @@ const SuggestionBar = () => {
 
       const fetchUserSuggestions = async () => {
         try {
-          const response = await axios.get(`http://127.0.0.1:8000/posts/user_suggestions/${user_id}/`, {
+          const response = await axios.get(`${baseUrl}posts/user_suggestions/${user_id}/`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -42,7 +43,7 @@ const SuggestionBar = () => {
 
     const handleFollowUser = async (fingId) => {
       try {
-        const response = await axios.post(`http://127.0.0.1:8000/posts/follow_user/${user_id}/${fingId}/`);
+        const response = await axios.post(`${baseUrl}posts/follow_user/${user_id}/${fingId}/`);
         setFollowing(true);
         // toast.success('success')
         fetchUserSuggestions();

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import toast,{Toaster} from 'react-hot-toast'
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { baseUrl } from "../../../utils/Constants";
 function Searches() {
 
 
@@ -33,7 +34,7 @@ function Searches() {
       }
       else {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/profileSearch?query=${query}`);
+        const response = await axios.get(`${baseUrl}profileSearch?query=${query}`);
         setQuery("")
         navigate('/searchResults', { state: { data: response.data } })
       } catch (error) {

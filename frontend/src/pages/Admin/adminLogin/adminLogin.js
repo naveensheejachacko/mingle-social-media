@@ -61,7 +61,7 @@ function AdminLogin() {
               token: response.data.jwt,
             })
           )
-          navigate("dashboard");
+          navigate("users");
           }
     })
 

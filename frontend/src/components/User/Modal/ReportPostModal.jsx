@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 //   setPosts,
 // } from "../../../redux/userSlice";
 import { useLocation } from "react-router-dom";
+import { baseUrl } from "../../../utils/Constants";
 
 import Cookies from "js-cookie";
 
@@ -60,7 +61,7 @@ function ReportPostModal({ postId,userId }) {
     // if (location.pathname === "/home") {
       axios
         .post(
-          `http://127.0.0.1:8000/posts/reportPost/${postId}/${userId}`,
+          `${baseUrl}posts/reportPost/${postId}/${userId}`,
           body,
           {
             headers: {

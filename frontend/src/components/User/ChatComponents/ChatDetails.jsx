@@ -10,7 +10,7 @@ import './ChatDetails.css'
 import ChatPeople from './ChatPeople'
 import Cookies from 'js-cookie';
 import moment from 'moment';
-
+import { baseUrl } from "../../../utils/Constants";
 
 
 const useStyles = styled((theme) => ({
@@ -113,7 +113,7 @@ const ChatDetails = () => {
   // getting messages
   let get_messages = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/chat/getMessages/${room}/`, {
+      const response = await fetch(`${baseUrl}chat/getMessages/${room}/`, {
         method: 'GET',
       });
 

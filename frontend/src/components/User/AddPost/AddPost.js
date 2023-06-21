@@ -14,12 +14,17 @@ import axios from '../../../utils/axios';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import MovieIcon from '@mui/icons-material/Movie';
 
+import { baseUrl } from '../../../utils/Constants';
+import Loading from '../LoadingComponent/Loading'
 
 function AddPost() {
   const navigate = useNavigate();
   const [content, setContent] = useState('');
   const [file, setFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+
 
   const user_id = useSelector((state) => state.user?.user_id);
   const userName = useSelector((state) => state.user?.user);
@@ -39,7 +44,9 @@ function AddPost() {
       return toast.error("Can't add an empty post!!");
     } else {
       try {
-        const response = await axios.post(`http://127.0.0.1:8000/posts/addposts/${user_id}`, formData, {
+
+        setLoading(true);
+        const response = await axios.post(`${baseUrl}posts/addposts/${user_id}`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (response.status === 200) {
@@ -57,6 +64,10 @@ function AddPost() {
       } catch (error) {
         console.log('Error', error);
       }
+      finally {
+        // Set loading back to false after the API call is completed
+        setLoading(false);
+      }
     }
   };
 
@@ -70,6 +81,14 @@ function AddPost() {
     console.log(setVideoFile(e.target.files[0]),'videooo');
 
   };
+
+
+
+  if (loading) {
+    return <Loading />;
+  }
+
+
 
   return (
     <div className='share'>

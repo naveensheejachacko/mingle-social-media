@@ -5,10 +5,11 @@ from django.contrib.auth.hashers import check_password
 import json
 import base64
 import jwt
-from posts.serializers import ReprotedPostSerializer
-from posts.models import Report
+from posts.serializers import ReprotedPostSerializer,PostSerializer
+from posts.models import Report,Post
 from user.models import User
 from user.serializers import UserSerializer
+
 
 
 
@@ -132,3 +133,11 @@ class rPostView(APIView):
         report = get_object_or_404(Report, pk=reportId)
         return Response({'approved': report.approved})
     
+
+class PostByIdView(APIView):
+    def get(self, request, postId):
+        p = get_object_or_404(Post, id=postId)
+        userPostSer = PostSerializer(p)
+        # print(userPostSer.data,'post detialslssssssssss')
+        return Response({"data": userPostSer.data}, status=status.HTTP_200_OK)
+

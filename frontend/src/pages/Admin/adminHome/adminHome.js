@@ -6,16 +6,13 @@ import UserList from '../../../components/Admin/UserList/UserList'
 function AdminHome() {
   return (
   <>
-  <div className='adminHome'>
-    <AdminSidebar />
-  <div className="homeContainer">
-  <AdminNavbar />
-  
-  </div>  
-  
- 
-  </div>
+<div>
+<AdminNavbar />
+<div style={{ display: "flex" }}>
+  <AdminSidebar />
 
+</div>
+</div>
     </>
   )
 }

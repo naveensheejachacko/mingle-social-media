@@ -12,6 +12,8 @@ import { login } from "../../../Redux/userSlice";
 
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
+import { baseUrl } from "../../../utils/Constants";
+
 
 
 import {
@@ -70,7 +72,7 @@ function Mobile() {
       const formattedMobileNumber = "+91" + mobileNumber;
       // try {
         await axios
-          .post(`http://127.0.0.1:8000/OTPLogin`, {
+          .post(`${baseUrl}OTPLogin`, {
             mobileNumber: mobileNumber,
           })
           .then((response) => {
@@ -152,35 +154,6 @@ function Mobile() {
   };
   
 
-
-
-
-
-  // const verifyOTP = (otp) => {
-  //   toast.success(otp);
-  //   let confirmationResult = window.confirmationResult;
-  //   confirmationResult
-  //     .confirm(otp)
-  //     .then((response) => {
-  //       Cookies.set("jwt_user", String(response.data.jwt));
-  //       Cookies.set("role", String(response.data.role));
-  //       Cookies.set("id", String(response.data.id));
-  //       dispatch(
-  //         login({
-  //           email: response.data.email,
-  //           //   password:password,
-  //           // loggedIn:true
-  //           user: response.data.fullname,
-  //           token: response.data.jwt,
-  //           user_id: response.data.id,
-  //         })
-  //       );
-  //       navigate("home");
-  //     })
-  //     .catch((error) => {
-  //       toast.success(`error=> ${error.message}`);
-  //     });
-  // };
 
   return (
 

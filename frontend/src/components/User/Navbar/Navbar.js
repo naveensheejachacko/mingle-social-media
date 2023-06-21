@@ -115,7 +115,7 @@ function Navbar() {
     >
       <MenuItem onClick={() => navigate('/home')}>Home</MenuItem>
       <MenuItem onClick={() => navigate('/explore')}>Explore</MenuItem>
-      <MenuItem onClick={() => navigate('/messenger')}>Messages</MenuItem>
+      <MenuItem onClick={() => navigate('/chat')}>Messages</MenuItem>
       <MenuItem onClick={() => navigate('/connections')}>Connections</MenuItem>
       <MenuItem onClick={() => navigate('/settings')}>Settings</MenuItem>
       <MenuItem onClick={() => navigate(`/profile/${userId}`)}>Profile</MenuItem>

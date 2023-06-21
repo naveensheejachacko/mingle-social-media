@@ -7,7 +7,7 @@ const BlockUnblockButton = ({ userId }) => {
   const [isBlocked, setIsBlocked] = useState(false);
 
   const handleBlockUnblock = () => {
-    const url = `${baseUrl}/adminn/block-unblock-user/${userId}/`;
+    const url = `${baseUrl}adminn/block-unblock-user/${userId}/`;
 
     // if (window.confirm(`Are you sure you want to ${isBlocked ? 'unblock' : 'block'} this user?`)) {
       Swal.fire({
@@ -36,7 +36,7 @@ const BlockUnblockButton = ({ userId }) => {
 
 
   useEffect(() => {
-    const url1= `${baseUrl}/adminn/user/${userId}/`;
+    const url1= `${baseUrl}adminn/user/${userId}/`;
   
     axios
       .get(url1)

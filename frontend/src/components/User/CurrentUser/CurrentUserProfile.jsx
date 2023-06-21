@@ -1,5 +1,5 @@
 import React from "react";
-import "./UserProfile.scss";
+import "./CurrentUserProfile.scss";
 
 import AddPost from "../../../components/User/AddPost/AddPost";
 import ListPost from "../../../components/User/ListPost/ListPost";
@@ -14,11 +14,15 @@ import { FcCompactCamera } from "react-icons/fc";
 import { Modal, Button } from "react-bootstrap";
 
 import SkeltonLoad from "../SkeltonLoad/SkeltonLoad";
+import Loading from '../LoadingComponent/Loading'
 import { baseUrl } from "../../../utils/Constants";
 
-function UserProfile() {
-  const { userId } = useParams();
+
+function CurrentUserProfile() {
+
   const [userDetails, setUserDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
 
   const [followersCount, setFollowersCount] = useState(0);
@@ -40,7 +44,7 @@ function UserProfile() {
   useEffect(() => {
     const fetchFollowersCount = async () => {
       try {
-        const response = await axios.get(`${baseUrl}posts/followers_list/${userId}`);
+        const response = await axios.get(`${baseUrl}posts/followers_list/${user_id}`);
         const followers = response.data.length;
         setFollowersCount(followers);
       } catch (error) {
@@ -50,7 +54,7 @@ function UserProfile() {
   
     const fetchFollowingCount = async () => {
       try {
-        const response = await axios.get(`${baseUrl}posts/following_list/${userId}`);
+        const response = await axios.get(`${baseUrl}posts/following_list/${user_id}`);
         // console.log(response,'following count');
         const following = response.data.length;
         setFollowingCount(following);
@@ -61,7 +65,7 @@ function UserProfile() {
   
     fetchFollowersCount();
     fetchFollowingCount();
-  }, [userId]);
+  }, [user_id]);
   
 
 
@@ -72,10 +76,10 @@ function UserProfile() {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}getUserById/${userId}`)
+      .get(`${baseUrl}getUserById/${user_id}`)
       .then((response) => setUserDetails(response.data))
       .catch((error) => console.log(error));
-  }, [userId]);
+  }, [user_id]);
 
   if (!userDetails) {
     return (   
@@ -127,8 +131,9 @@ function UserProfile() {
       formData.append("cover_picture", coverPicture);
 
       try {
+        setLoading(true);
         const response = await axios.post(
-          `${baseUrl}changeCover/${userId}/`,
+          `${baseUrl}changeCover/${user_id}/`,
           formData
         );
         // console.log(response.data);
@@ -141,8 +146,18 @@ function UserProfile() {
       } catch (error) {
         console.error(error);
       }
+      finally {
+        // Set loading back to false after the API call is completed
+        setLoading(false);
+      }
+
+
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
 
   // profilePicture
@@ -152,7 +167,9 @@ function UserProfile() {
       formData.append('profile_picture', profilePicture);
   
       try {
-        const response = await axios.post(`${baseUrl}changeProfilePic/${userId}/`, formData);
+        setLoading(true);
+
+        const response = await axios.post(`${baseUrl}changeProfilePic/${user_id}/`, formData);
         // console.log(response.data); 
         // Handle the response as needed
         setShowModal1(false); 
@@ -164,21 +181,41 @@ function UserProfile() {
       } catch (error) {
         console.error(error);
       }
+      finally {
+        // Set loading back to false after the API call is completed
+        setLoading(false);
+      }
     }
   };
 
+
+
+
+
+
+
+
+
+
 // console.log(user_id,userId,'userrrrrrr');
+
+
   return (
     <>
+
+
+
+
+
       <div className="profile">
         <div className="images">
-          {user_id == userId &&(
+        
             <div className="editIcon">
               <label htmlFor="coverPictureInput">
                 <BiEdit  onClick={handleShowModal} />
               </label>  
             </div>
-          )}
+          
           
           <img src={decodeURIComponent(userDetails?.cover_picture).replace(
             "/https:",
@@ -209,7 +246,7 @@ function UserProfile() {
             alt="profile picture"
             className="profilePic"
 
-            onClick={user_id == userId ?handleShowModal1:null}
+            onClick={handleShowModal1}
           />
 
           
@@ -297,4 +334,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default CurrentUserProfile;

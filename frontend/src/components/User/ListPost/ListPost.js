@@ -29,6 +29,7 @@ import ReportPostModal from "../Modal/ReportPostModal";
 // import { fetchPosts } from "../../../Redux/postSlice";
 
 import SkeltonLoad from '../SkeltonLoad/SkeltonLoad'
+import { baseUrl } from "../../../utils/Constants";
 
 export default function ListPost() {
   // console.log(post,'postttttttt')
@@ -41,7 +42,7 @@ export default function ListPost() {
   const profilePic = useSelector((state) => state.user?.profilePic);
   const token = Cookies.get('jwt_user');
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  // const [anchorEl, setAnchorEl] = useState(null);
 
   // const [commentwriting, setcommentwriting] = useState("");
 
@@ -51,13 +52,11 @@ export default function ListPost() {
 
   let likebutton = async (id) => {
     let response = await fetch(
-      `http://127.0.0.1:8000/posts/isliked/${user_id}/`,
+      `${baseUrl}posts/isliked/${user_id}/`,
       {
         method: "POST",
         headers: {
            "Authorization": `Bearer ${token}` ,
-
-
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ id }),
@@ -100,7 +99,7 @@ export default function ListPost() {
       return toast.error("Can't add an empty post!!");
     } else {
       let response = await fetch(
-        `http://127.0.0.1:8000/posts/addcomments/${user_id}/${postId}/`,
+        `${baseUrl}posts/addcomments/${user_id}/${postId}/`,
         {
           method: "POST",
           headers: {
@@ -126,7 +125,7 @@ export default function ListPost() {
     console.log(postId, "post id from getdata");
 
     let response = await fetch(
-      `http://127.0.0.1:8000/posts/getcomments/${postId}/`,
+      `${baseUrl}posts/getcomments/${postId}/`,
       {
         method: "GET",
         headers: {
@@ -146,7 +145,7 @@ export default function ListPost() {
   // delete comment
   let deleteComment = async (id) => {
     let response = await fetch(
-      `http://127.0.0.1:8000/posts/deletecomment/${id}/`,
+      `${baseUrl}posts/deletecomment/${id}/`,
       {
         method: "POST",
         headers: {
@@ -169,18 +168,7 @@ export default function ListPost() {
     getComments();
   }, [postcomment]);
 
-  // getingpost
 
-  // useEffect(() => {
-  //   async function fetchPosts() {
-  //     const response = await axios.get(
-  //       `http://127.0.0.1:8000/posts/getPosts/${user_id}/`
-  //     );
-  //     setPosts(response.data.data);
-  //     // console.log(response.data,'*******')
-  //   }
-  //   fetchPosts();
-  // }, []);
 
 
 
@@ -192,7 +180,7 @@ export default function ListPost() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/posts/getPosts/${user_id}/${page}`
+        `${baseUrl}posts/getPosts/${user_id}/${page}`
       );
       const newPosts = response.data.data;
       // console.log(response.data)
@@ -201,13 +189,25 @@ export default function ListPost() {
     } catch (error) {
       console.error(error);
     }
-    setLoading(false);
+    finally {
+      // Set loading back to false after the API call is completed
+      setLoading(false);
+    }
   };
+
+
+
+
+
 
   useEffect(() => {
     fetchPosts();
   }, []); // Fetch initial posts
 
+
+
+
+  
   const lastPostRef = useRef();
 
   const handleIntersection = (entries) => {
@@ -239,9 +239,9 @@ export default function ListPost() {
 
   // delete Post
 
-  const handleMenuClick = (event) => {
-    setAnchorEl(event?.currentTarget);
-  };
+  // const handleMenuClick = (event) => {
+  //   setAnchorEl(event?.currentTarget);
+  // };
 
   // report post
 
@@ -252,9 +252,9 @@ export default function ListPost() {
     setShowReportModal(true);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleMenuClose = () => {
+  //   setAnchorEl(null);
+  // };
 
 
   const handleDeleteClick = async (id) => {
@@ -271,7 +271,7 @@ export default function ListPost() {
     // delete the post if the user confirms
     if (confirmDelete.isConfirmed) {
       const response = await axios.delete(
-        `http://127.0.0.1:8000/posts/deletePost/${id}`
+        `${baseUrl}posts/deletePost/${id}`
       );
       if (response.status === 200) {
         setPosts(posts.filter((post) => post.id !== id));
@@ -286,6 +286,13 @@ export default function ListPost() {
   // useEffect(() => {
   //     dispatch(fetchPosts());
   //   }, [dispatch]);
+
+  if (loading) {
+    return( <SkeltonLoad />)
+  }
+
+
+
 
   return (
     <div className="posts">

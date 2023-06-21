@@ -19,7 +19,13 @@ function SearchData({users}) {
             <div className="button-container">
               {/* <Button variant="primary" size='sm' onClick={() => { handleFollowUser(user.id) }} style={{ borderRadius: '10px' }}>Follow</Button> */}
               <Link to={`/profile/${user.id}`}>            
-              <Button variant="light" size='sm' style={{ borderRadius: '10px', margin: '5px' }}>View Profile</Button>{' '}
+              <Button
+                variant="secondary"
+                size="sm"
+                style={{ borderRadius: "10px" }}
+                >
+                    View Profile
+                    </Button>
               </Link>
             </div>
           </Card.Body>

@@ -8,6 +8,7 @@ urlpatterns = [
     path('deletePost/<int:id>', views.deletePost, name='deletePost'),
     path('reportPost/<int:postId>/<int:userId>', views.reportPost, name='reportPost'),
 
+
     # likes
     path('isliked/<id>/', views.isliked, name='isliked'),
 

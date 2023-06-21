@@ -1,15 +1,13 @@
-import './UserPosts.scss'
+import './CurrentUserPost.scss'
 import { MoreVert } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 
 // import MapsUgcRoundedIcon from '@mui/icons-material/MapsUgcRounded';
 
 
+
 import { AiOutlineComment } from "react-icons/ai";
 import { BsTrash3 } from "react-icons/bs";
-
-
-
 
 // import {Users,Posts} from "../../../dummyData";
 import { useState, useEffect } from "react";
@@ -22,14 +20,16 @@ import toast,{Toaster} from 'react-hot-toast'
 
 import axios from "axios";
 import { fetchPosts } from "../../../Redux/postSlice";
-import { baseUrl } from '../../../utils/Constants';
+
 
 import { useParams } from "react-router-dom";
 
 import SkeltonLoad from '../SkeltonLoad/SkeltonLoad';
 import NoDataAvailable from '../NoDataAvailable/NoDataAvailable';
 
-export default function UserPost() {
+import { baseUrl } from '../../../utils/Constants';
+
+export default function CurrentUserPost() {
   const { userId } = useParams();
 
   const [posts, setPosts] = useState([]);
@@ -203,7 +203,7 @@ let deleteComment = async (id)=>{
 
   useEffect(() => {
     async function fetchPosts() {
-      const response = await axios.get(`${baseUrl}posts/userPost/${userId}/`);
+      const response = await axios.get(`${baseUrl}posts/userPost/${user_id}/`);
       setPosts(response.data.data);
  
 

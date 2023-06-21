@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../../Redux/userSlice";
 import toast,{Toaster} from 'react-hot-toast'
 import './UpdateDetails.css'
+import { baseUrl } from "../../../utils/Constants";
 
 function UpdateDetails() {
 
@@ -54,7 +55,7 @@ function UpdateDetails() {
       gender,
     };
     axios
-      .post(`http://127.0.0.1:8000/updateUserDetails/${user_id}/`, data)
+      .post(`${baseUrl}updateUserDetails/${user_id}/`, data)
       .then((response) => {
         console.log(response,'userrrrrr redirect')
         dispatch(
@@ -131,7 +132,7 @@ const handleGenderChange = (e) => {
 useEffect(() => {
   // Fetch user details from the backend API
   axios
-    .get(`http://127.0.0.1:8000/getUserById/${user_id}/`)
+    .get(`${baseUrl}getUserById/${user_id}/`)
     .then((response) => {
       
       const userDetails = response.data;
@@ -153,7 +154,7 @@ useEffect(() => {
   return (
 <>
 <main className="col-md-12 mt-5">
-        <article className="card custom-card-width "  >
+        <article className="card2 custom-card-width "  >
           <header className="card-header">
             <strong className="d-inline-block mr-3">Update Account</strong>
           </header>

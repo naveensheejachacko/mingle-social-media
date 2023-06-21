@@ -13,11 +13,15 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PostAction from '../../Admin/PostAction/PostAction'
 
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { useNavigate } from "react-router-dom";
 
+import { baseUrl } from "../../../utils/Constants";
 
 
 function ReportPost() {
 
+  const navigate = useNavigate();
 
   const [reportedPosts, setReportedPosts] = useState([]);
 
@@ -27,7 +31,7 @@ function ReportPost() {
 
   const fetchReportedPosts = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/adminn/rPostList");
+      const response = await axios.get(`${baseUrl}adminn/rPostList`);
       setReportedPosts(response.data);
       console.log(response.data);
     } catch (error) {
@@ -60,10 +64,11 @@ function ReportPost() {
           <TableCell align="right">Report Id</TableCell>
           <TableCell align="right">Post ID</TableCell>
           <TableCell align="right">Content</TableCell>
-          <TableCell align="right"  >Image</TableCell>
+          {/* <TableCell align="right"  >Image</TableCell> */}
           {/* <TableCell align="right"  >Reason</TableCell> */}
           <TableCell align="right">Count</TableCell>
           <TableCell align="right">Action</TableCell>
+          <TableCell align="right">View Post</TableCell>
         </TableRow>
       </TableHead>
       
@@ -78,23 +83,12 @@ function ReportPost() {
             <TableCell align="right"> {post.id}</TableCell>
             <TableCell align="right"> {post.post.id}</TableCell>
             <TableCell align="right">{post.post.content}</TableCell>
-            <TableCell align="right"  style={{height:'50px',width:'50px'}}>
-              <img src={decodeURIComponent(post.post.image).replace('/https:', 'https:')} alt='postimage'/> 
-            {/* < img src={post.post.image} /> */}
-            </TableCell>
             <TableCell align="right">{post.post.report_count}</TableCell>
+            <TableCell align="right"><PostAction reportId={post.id} /></TableCell>
+         <TableCell style={{ textAlign: "center" }} onClick={()=>navigate(`/adminn/reportPost/detailed/${post.post.id}`)} ><ArrowCircleRightIcon/></TableCell>
 
-            {/* <TableCell align="right"> <img src={user.profile_picture} alt="Profile Picture" className='shareProfileImg' /></TableCell> */}
-            {/* <TableCell align="right" key={user.id}>
-
-           <PostAction userId={user.id} /></TableCell> */}
-         <PostAction reportId={post.id} />
           </TableRow>
-         
-
 ))}
-
-
       </TableBody>
     </Table>
     <Toaster />

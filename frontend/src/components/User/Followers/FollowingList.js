@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 
 import SkeltonCard from "../SkeltonLoad/SkeltonCard";
 import NoDataAvailable from "../NoDataAvailable/NoDataAvailable";
+import { baseUrl } from "../../../utils/Constants";
 
 function FollowingList() {
   const [followingList, setFollowingList] = useState([]);
@@ -26,7 +27,7 @@ function FollowingList() {
   const fetchFollowingList = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/posts/following_list/${user_id}/`
+        `${baseUrl}posts/following_list/${user_id}/`
       ); // Replace with your API endpoint URL
       setFollowingList(response.data);
     } catch (error) {
@@ -37,7 +38,7 @@ function FollowingList() {
   const handleUnFollowUser = async (unfingId) => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/posts/follow_user/${user_id}/${unfingId}/`
+        `${baseUrl}posts/follow_user/${user_id}/${unfingId}/`
       );
       setunFollowing(true);
       // toast.success('success')

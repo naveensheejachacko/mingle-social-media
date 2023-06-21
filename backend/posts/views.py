@@ -302,3 +302,12 @@ def userPost(request, id):
     p = Post.objects.filter(user_id=id).order_by("-id")
     userPostSer = PostSerializer(p, many=True)
     return Response({"data": userPostSer.data}, status=status.HTTP_200_OK)
+
+
+
+
+# @api_view(['GET'])
+# def getPostById(request, postId):
+#     p = Post.objects.filter(post_id=postId).order_by("-id")
+#     userPostSer = PostSerializer(p, many=True)
+#     return Response({"data": userPostSer.data}, status=status.HTTP_200_OK)

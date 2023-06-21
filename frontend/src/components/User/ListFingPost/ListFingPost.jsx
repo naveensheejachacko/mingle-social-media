@@ -2,7 +2,9 @@ import "./ListFingPost.scss";
 // import { MoreVert } from "@mui/icons-material";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import SkeltonLoad from '../SkeltonLoad/SkeltonLoad';
-import NoDataAvailable from "../NoDataAvailable/NoDataAvailable";
+import NoDataAvailable from "../NoDataAvailable/NoDataAvailable"
+
+import { baseUrl } from "../../../utils/Constants";
 
 
 import Card from '@mui/material/Card';
@@ -52,7 +54,7 @@ export default function ListFingPost() {
 
   let likebutton = async (id) => {
     let response = await fetch(
-      `http://127.0.0.1:8000/posts/isliked/${user_id}/`,
+      `${baseUrl}posts/isliked/${user_id}/`,
       {
         method: "POST",
         headers: {
@@ -98,7 +100,7 @@ export default function ListFingPost() {
       return toast.error("Can't add an empty post!!");
     } else {
       let response = await fetch(
-        `http://127.0.0.1:8000/posts/addcomments/${user_id}/${postId}/`,
+        `${baseUrl}posts/addcomments/${user_id}/${postId}/`,
         {
           method: "POST",
           headers: {
@@ -124,7 +126,7 @@ export default function ListFingPost() {
     console.log(postId, "post id from getdata");
 
     let response = await fetch(
-      `http://127.0.0.1:8000/posts/getcomments/${postId}/`,
+      `${baseUrl}posts/getcomments/${postId}/`,
       {
         method: "GET",
         headers: {
@@ -144,7 +146,7 @@ export default function ListFingPost() {
   // delete comment
   let deleteComment = async (id) => {
     let response = await fetch(
-      `http://127.0.0.1:8000/posts/deletecomment/${id}/`,
+      `${baseUrl}posts/deletecomment/${id}/`,
       {
         method: "POST",
         headers: {
@@ -172,7 +174,7 @@ export default function ListFingPost() {
   useEffect(() => {
     async function fetchFollowingPost() {
       const response = await axios.get(
-        `http://127.0.0.1:8000/posts/fposts/${user_id}/`
+        `${baseUrl}posts/fposts/${user_id}/`
       );
       setPosts(response.data.data);
       
@@ -211,7 +213,7 @@ export default function ListFingPost() {
     // delete the post if the user confirms
     if (confirmDelete.isConfirmed) {
       const response = await axios.delete(
-        `http://127.0.0.1:8000/posts/deletePost/${id}`
+        `${baseUrl}/posts/deletePost/${id}`
       );
       if (response.status === 200) {
         setPosts(posts.filter((post) => post.id !== id));
@@ -390,41 +392,52 @@ export default function ListFingPost() {
                           {/* {item.profile === '' ? 
                   <img src={`https://images.pexels.com/photos/1126993/pexels-photo-1126993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`} className="PostImage" alt="" /> : <img src={`${item.profile}`} className="PostImage" alt="" />
                 } */}
-                          <p
-                            style={{
-                              marginLeft: "6px",
-                              fontSize: 18,
-                              marginTop: 6,
-                            }}
-                          >
-                            {com.user_na}
-                            {user_id == com.user && (
-                              <span
-                                onClick={() => {
-                                  {
-                                    deleteComment(com.id);
-                                  }
-                                  {
-                                    handleCommentClick(post.id);
-                                  }
-                                }}
-                                style={{ marginLeft: "3vh" }}
-                              >
-                                {" "}
-                                <BsTrash3 style={{ marginLeft: "5em" }} />
-                              </span>
-                            )}
-                          </p>
-                        </div>
                         <p
+                          
                           style={{
-                            marginLeft: "55px",
-                            textAlign: "start",
-                            marginTop: -16,
+                            marginLeft: "6px",
+                            fontSize: 18,
+                            marginTop: 8,
+                            fontWeight:'bold'
                           }}
                         >
-                          {com.comment}
+                          {com.user_na}
+
+
+
+                          
+                          {user_id == com.user && (
+                            <span
+                              onClick={() => {
+                                {
+                                  deleteComment(com.id);
+                                }
+                                {
+                                  handleCommentClick(post.id);
+                                }
+                              }}
+                              style={{ marginLeft: "3vh" }}
+                            >
+                              {" "}
+                              <BsTrash3 style={{ marginLeft: "1em" }} />
+                            </span>
+                          )}
+
+                          <p
+                        style={{
+                          marginLeft: "5px",
+                          textAlign: "start",
+                          color:'black',
+                          fontSize:'15px'
+                          // marginTop: -16,
+                        }}
+                      >
+                        {com.comment}
+                      </p>
+
                         </p>
+                        </div>
+
                       </div>
                     ))
                   : null}
