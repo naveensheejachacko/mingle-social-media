@@ -298,7 +298,7 @@ export default function ListFingPost() {
       className="postVideo"
       src={decodeURIComponent(post?.video).replace(
         "/https:",
-        "https:"
+        "https:/"
       )}
       controls
     ></video>
