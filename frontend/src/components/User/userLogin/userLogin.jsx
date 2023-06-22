@@ -124,7 +124,7 @@ else{
 const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
-    const response = await axios.post('http://127.0.0.1:8000/googleLogin', {
+    const response = await axios.post('http://api.mingle.fun/googleLogin', {
       fullname: result.user.displayName,
       email: result.user.email,
     });
@@ -146,12 +146,6 @@ const signInWithGoogle = async () => {
     console.log(error);
   }
 };
-
-
-
-
-
-
   return (
     <>
       <MDBNavbar light bgColor="light">

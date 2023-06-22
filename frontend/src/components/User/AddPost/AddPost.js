@@ -78,8 +78,6 @@ function AddPost() {
 
   const setVideo = (e) => {
     setVideoFile(e.target.files[0]);
-    console.log(setVideoFile(e.target.files[0]),'videooo');
-
   };
 
 
@@ -130,10 +128,6 @@ function AddPost() {
                   {/* <label>add image</label> */}
                 </div>
               </label>
-
-
-
-
               <input
   accept=".mp4, .mov, .avi"
   onChange={(e) => {

@@ -241,7 +241,7 @@ function CurrentUserProfile() {
           <img
             src={decodeURIComponent(userDetails?.profile_picture).replace(
               "/https:",
-              "https:"
+              "https://"
             )}
             alt="profile picture"
             className="profilePic"
