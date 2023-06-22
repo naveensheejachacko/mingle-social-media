@@ -355,7 +355,7 @@ export default function ListPost() {
     className="postImg"
     src={decodeURIComponent(post?.image).replace(
       "/https:",
-      "https/:"
+      "https://"
     )}
     alt=""
   />

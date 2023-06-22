@@ -288,7 +288,7 @@ export default function ListFingPost() {
     className="postImg"
     src={decodeURIComponent(post?.image).replace(
       "/https:",
-      "https:"
+      "https://"
     )}
     alt=""
   />
