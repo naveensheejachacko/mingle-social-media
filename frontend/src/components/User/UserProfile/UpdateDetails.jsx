@@ -57,7 +57,7 @@ function UpdateDetails() {
     axios
       .post(`${baseUrl}updateUserDetails/${user_id}/`, data)
       .then((response) => {
-        console.log(response,'userrrrrr redirect')
+        // console.log(response,'userrrrrr redirect')
         dispatch(
           login({
             ...user,

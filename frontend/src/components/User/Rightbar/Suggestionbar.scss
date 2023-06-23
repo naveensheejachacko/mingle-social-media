@@ -1,0 +1,116 @@
+.suggestionContainer1 {
+  max-height: 500px;
+  min-height:80px;
+  overflow-y: auto;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: transparent transparent; /* For Firefox */
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+.suggestionContainer1::-webkit-scrollbar {
+  width: 8px; /* For Chrome, Safari, and Opera */
+}
+
+.suggestionContainer1::-webkit-scrollbar-track {
+  background: transparent; /* For Chrome, Safari, and Opera */
+}
+
+.suggestionContainer1::-webkit-scrollbar-thumb {
+  background-color: transparent; /* For Chrome, Safari, and Opera */
+}
+
+
+.rightBar {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .suggestionBar,
+  .onlineBar {
+    z-index: -1;
+  }
+
+  .container {
+    padding-top: 4em;
+    padding-right: 3em;
+
+    .item {
+      -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+      box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: themed("bg");
+      border-radius: 10px;
+
+      span {
+        color: gray;
+      }
+
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0px;
+
+        .userInfo {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          position: relative;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .online {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: limegreen;
+            position: absolute;
+            top: 0;
+            left: 30px;
+          }
+
+          p {
+            color: themed("textColorSoft");
+          }
+
+          span {
+            font-weight: 500;
+            color: themed("textColor");
+          }
+        }
+
+        .buttons {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          button {
+            border: none;
+            padding: 5px;
+            color: white;
+            cursor: pointer;
+
+            &:first-child {
+              background-color: #5271ff;
+            }
+
+            // &:last-child {
+            //   background-color: #f0544f;
+            // }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}

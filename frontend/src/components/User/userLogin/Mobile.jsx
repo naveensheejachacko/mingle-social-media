@@ -76,10 +76,7 @@ function Mobile() {
             mobileNumber: mobileNumber,
           })
           .then((response) => {
-            console.log(response);
-
-
-
+            // console.log(response);
             setTokenVal(String(response.data.jwt));
             setRole(String(response.data.role));
             setId(String(response.data.id));
@@ -104,7 +101,7 @@ function Mobile() {
               let appVerifier = window.recaptchaVerifier;
               signInWithPhoneNumber(auth,formattedMobileNumber, appVerifier)
                 .then((confirmationResult) => {
-                  console.log("otp sent");
+                  // console.log("otp sent");
                   setViewOtpForm(true);
                   window.confirmationResult = confirmationResult;
                 })

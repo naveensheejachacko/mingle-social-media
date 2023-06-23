@@ -22,7 +22,7 @@ function FollowersList() {
       const response = await axios.post(
         `${baseUrl}posts/follow_user/${user_id}/${fingId}/`
       );
-      console.log(response);
+      // console.log(response);
       // Refresh the followers list
       fetchFollowersList();
     } catch (error) {
@@ -34,7 +34,7 @@ function FollowersList() {
       const response = await axios.post(
         `${baseUrl}posts/follow_user/${user_id}/${fingId}/`
       );
-      console.log(response);
+      // console.log(response);
       // Refresh the followers list
       fetchFollowersList();
     } catch (error) {
@@ -64,7 +64,12 @@ function FollowersList() {
 
       {followersList?.length === 0 ? (
         <>
-          <NoDataAvailable data={"Followers"} />
+               
+            <span className='nodatapeople' style={{ backgroundColor: '#d4d4d4', width: '100%' ,borderRadius:'10px',fontWeight:'bold',fontSize:'40px'}} variant="h6" align="center">
+              Sorry! 😥No Followers Yet
+            </span>
+             
+          
           <SkeltonCard />
           <SkeltonCard />
           {/* <SkeltonCard /> */}

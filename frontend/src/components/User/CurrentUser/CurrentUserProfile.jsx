@@ -4,7 +4,9 @@ import "./CurrentUserProfile.scss";
 import AddPost from "../../../components/User/AddPost/AddPost";
 import ListPost from "../../../components/User/ListPost/ListPost";
 import UserPost from "../../../components/User/UserPosts/UserPosts";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { login } from "../../../Redux/userSlice";
+
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -25,6 +27,7 @@ function CurrentUserProfile() {
 
 
 
+
   const [followersCount, setFollowersCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
 
@@ -37,7 +40,8 @@ function CurrentUserProfile() {
   const [coverPicture, setCoverPicture] = useState(null);
   const [profilePicture,setProfilePicture] = useState(null)
   const user_id = useSelector((state) => state.user?.user_id);
-
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 // user following followers count
 
 
@@ -178,6 +182,14 @@ function CurrentUserProfile() {
           ...prevUserDetails,
           profile_picture: response.data.profile_picture_url,
         }));
+        dispatch(
+          login({
+            ...user,
+            profilePic:response.data.profile_picture_url,
+          })
+        );
+
+
       } catch (error) {
         console.error(error);
       }
@@ -276,7 +288,10 @@ function CurrentUserProfile() {
             <div className="center">
 
             <br />
-              <span className="userName">{userDetails.username}</span>
+              <span className="userName">
+          {userDetails.username &&
+          userDetails.username.charAt(0).toUpperCase() + userDetails.username.slice(1)
+        }</span>
               
               <span className="useremail">{userDetails.email}</span>
               <div className="info">

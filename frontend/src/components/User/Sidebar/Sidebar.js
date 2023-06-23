@@ -57,8 +57,8 @@ function Sidebar() {
 
 
   return (
-    <div className="leftBar">
-    <div className="container">
+    <div className="leftSideBar">
+    <div className="sidebarContainer">
       <div className="menu">
         {/* <div className="user">
         
@@ -69,7 +69,6 @@ function Sidebar() {
             <ListItem >
 
               {/* <AddPostModal /> */}
-            
             </ListItem>
             <ListItem >
               <ListItemButton component="a" onClick={() => navigate('/home')}>
@@ -141,7 +140,10 @@ function Sidebar() {
                      onClick={() => navigate(`/userprofile/`)}
                    >
                      {" "}
-                     <span className="user-name"    style={{ fontWeight: 'bold', marginBottom: '5px' }}>{userName}</span>
+                     <span className="user-name"    style={{ fontWeight: 'bold', marginBottom: '5px' }}>{
+          userName &&
+          userName.charAt(0).toUpperCase() + userName.slice(1)
+        }</span>
                      <br />
                      <span className="user-email"  style={{ fontSize: '12px', marginBottom: '5px' }}>{email}</span>
                    </div>

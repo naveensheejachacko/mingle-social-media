@@ -43,7 +43,7 @@ function Chat() {
     <div style={{ display: "flex" }}>
     <Sidebar/>
 
-    <Container>
+    <Container >
   <Grid container>
     <Grid item xs={4}>
       <Typography variant="h5" className="header-message">

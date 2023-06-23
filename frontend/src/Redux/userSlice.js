@@ -6,6 +6,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     user: null,
+    homePosts:[],
   },
   reducers: {
     login: (state, action) => {
@@ -21,12 +22,13 @@ const userSlice = createSlice({
       state.token=null
       state.user_id=null
       state.email=null
+      state.homePosts=null
     },
-    setPosts:(state,action)=>{
-      state.posts=action.payload
-  },
+  //   setPosts:(state,action)=>{
+  //     state.posts=action.payload
+  // },
   setHomePosts:(state,action)=>{
-    state.homePosts=action.payload
+    state.homePosts=action.payload;
 },
   },
 
@@ -34,7 +36,7 @@ const userSlice = createSlice({
 
 
 
-export const { login, logout,setPost,setHomePosts} = userSlice.actions;
+export const { login, logout,setHomePosts} = userSlice.actions;
 
 export const selectUser = (state) => state.user.user;
 

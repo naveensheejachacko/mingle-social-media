@@ -7,9 +7,18 @@ export const AuthProvider = ({children}) => {
     const [messageDetail,setMessageDetail] = useState()
     const [roomid, setRoomid] = useState([]);
     const [isopen,setIsopen] = useState(false)
-
+    const [fullName, setFullName] = useState('');
+    const [chatUserPic,setchatUserPic] = useState('')
     let MessageDetails = (chat) =>{
       setMessageDetail(chat)
+  }
+
+  const updateFullName = (name) => {
+    setFullName(name);
+  };
+
+  const updatechatUserPic= (userPic) =>{
+    setchatUserPic(userPic)
   }
     let contextData={
       MessageDetails:MessageDetails,
@@ -18,9 +27,12 @@ export const AuthProvider = ({children}) => {
       roomid:roomid,
       setRoomid:setRoomid,
       isopen:isopen,
-      setIsopen:setIsopen,   
-
-    
+      setIsopen:setIsopen, 
+      fullName:fullName,
+      updateFullName:updateFullName,
+      chatUserPic:chatUserPic,
+      setchatUserPic:chatUserPic,
+      updatechatUserPic:updatechatUserPic
     
     }
   return (

@@ -53,7 +53,9 @@ function FollowingList() {
         <div className="following-container">
     {followingList?.length === 0 ? (
       <>
-        <NoDataAvailable data="Following" />
+        <span className='nodatapeople' style={{ backgroundColor: '#d4d4d4', width: '100%' ,borderRadius:'10px',fontWeight:'bold',fontSize:'40px'}} variant="h6" align="center">
+              Please Follow People 
+            </span>
         <SkeltonCard />
         <SkeltonCard />
       </>

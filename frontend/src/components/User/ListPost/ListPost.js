@@ -95,7 +95,7 @@ export default function ListPost() {
   };
   let addComment = async (postId) => {
     if (!values.comment) {
-      console.log("empty string");
+      // console.log("empty string");
       return toast.error("Can't add an empty post!!");
     } else {
       let response = await fetch(
@@ -122,7 +122,7 @@ export default function ListPost() {
   };
   // gettingcommetns for posts
   let getComments = async (postId) => {
-    console.log(postId, "post id from getdata");
+    // console.log(postId, "post id from getdata");
 
     let response = await fetch(
       `${baseUrl}posts/getcomments/${postId}/`,
@@ -322,7 +322,7 @@ export default function ListPost() {
                   <Link to={`/profile/${post.user.id}`}>
                     <span key={post.user.id} className="postUsername">
                       {" "}
-                      {post.user.fullname}
+                      {post.user.fullname && post.user.fullname.charAt(0).toUpperCase() + post.user.fullname.slice(1)}
                     </span>
                   </Link>
 
@@ -396,7 +396,7 @@ export default function ListPost() {
               <div className="postBottomRight">
                 {/* <AiOutlineComment   onClick={handleshow } size={40}flex='1' /> */}
 
-                <AiOutlineComment
+                <AiOutlineComment style={{cursor:'pointer'}}
                   size={25}
                   flex="1"
                   onClick={() => {
@@ -406,7 +406,7 @@ export default function ListPost() {
                 />
               </div>
               {user_id == post.user.id ? (
-                <BsTrash3
+                <BsTrash3 style={{cursor:'pointer'}}
                   size={20}
                   onClick={() => handleDeleteClick(post.id)}
                 />
@@ -452,7 +452,7 @@ export default function ListPost() {
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <img
                           className="PostImage"
-                          src="assets/person/1.jpeg"
+                          src="https://res.cloudinary.com/dtnbd0res/image/upload/v1684419108/profile_picture/sywfducryop3fhv0cxd8.png"
                           alt=""
                         />
 
@@ -486,7 +486,7 @@ export default function ListPost() {
                               style={{ marginLeft: "3vh" }}
                             >
                               {" "}
-                              <BsTrash3 style={{ marginLeft: "1em" }} />
+                              <BsTrash3 style={{ marginLeft: "1em" ,cursor:'pointer'}} />
                             </span>
                           )}
 

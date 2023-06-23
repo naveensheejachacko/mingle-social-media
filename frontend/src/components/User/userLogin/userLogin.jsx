@@ -124,7 +124,7 @@ else{
 const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
-    const response = await axios.post('http://api.mingle.fun/googleLogin', {
+    const response = await axios.post('https://api.mingle.fun/googleLogin', {
       fullname: result.user.displayName,
       email: result.user.email,
     });

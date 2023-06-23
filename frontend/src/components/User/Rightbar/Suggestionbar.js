@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Rightbar.scss";
+import "./Suggestionbar.scss";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
 import { useState,useEffect } from "react";
@@ -58,10 +58,18 @@ const SuggestionBar = () => {
 
 
   return (
-    <>
-        <div className="item">
-            
-          <span>Suggestions For You</span>
+
+<>
+{suggestions.length==0 ?"":(
+
+
+
+    <div className='suggestionContainer1'>
+
+          <div className="item">
+
+<>
+          <span style={{fontWeight:'bold'}}>Suggestions For You</span>
           {suggestions.map((user) => (
 <div className="suggestionBar">
 
@@ -90,7 +98,11 @@ const SuggestionBar = () => {
 
           </div>
           ))}
+          </>
+
         </div>
+        </div>
+        )}
         </>
   )}
   export default SuggestionBar;

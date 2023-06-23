@@ -119,6 +119,7 @@ function Navbar() {
       <MenuItem onClick={() => navigate('/people')}>Connections</MenuItem>
       <MenuItem onClick={() => navigate('/settings')}>Settings</MenuItem>
       <MenuItem onClick={() => navigate(`/profile/${userId}`)}>Profile</MenuItem>
+      <MenuItem  onClick={userLogout}>Logout</MenuItem>
     </Menu>
   );
 

@@ -21,27 +21,28 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Button,
 } from "@mui/material";
 // import "./ChatDetails.css";
 
 const useStyles = styled((theme) => ({
-  table: {
-    minWidth: 650,
-  },
-  chatSection: {
-    width: "100%",
-    height: "80vh",
-  },
-  headBG: {
-    backgroundColor: "#e0e0e0",
-  },
-  borderRight500: {
-    borderRight: "1px solid #e0e0e0",
-  },
-  messageArea: {
-    height: "100vh",
-    overflowY: "auto",
-  },
+  // table: {
+  //   minWidth: 650,
+  // },
+  // chatSection: {
+  //   width: "100%",
+  //   height: "80vh",
+  // },
+  // headBG: {
+  //   backgroundColor: "#e0e0e0",
+  // },
+  // borderRight500: {
+  //   borderRight: "1px solid #e0e0e0",
+  // },
+  // messageArea: {
+  //   height: "100vh",
+  //   overflowY: "auto",
+  // },
 }));
 
 function ChatPeople() {
@@ -56,7 +57,7 @@ function ChatPeople() {
   const [filteredMembers, setFilteredMembers] = useState([]);
 
   let {
-    contextData: { MessageDetails, roomid, setRoomid, isopen, setIsopen },
+    contextData: { MessageDetails, roomid, setRoomid, isopen, setIsopen,updateFullName,fulName,chatUserPic,setchatUserPic,updatechatUserPic},
   } = useContext(AuthContext);
 
   const token = Cookies.get("jwt_user");
@@ -88,9 +89,11 @@ function ChatPeople() {
 
 
 
-  function handleClick(id) {
+  function handleClick(id,fullname,profile_picture) {
     setIsopen(true);
     createroom(id);
+    updateFullName(fullname);
+    updatechatUserPic(profile_picture);
   }
 
   let createroom = async (usersid) => {
@@ -100,7 +103,7 @@ function ChatPeople() {
       );
       if (response.status === 200) {
         setRoomid(response.data);
-        console.log("Room ID:", response.data.id);
+        // console.log("Room ID:", response.data.id);
         MessageDetails(response.data.id); // Pass the roomid to MessageDetails
       } else {
         alert("Failed");
@@ -163,14 +166,15 @@ function ChatPeople() {
         <ListItemButton
           key={i}
           onClick={() => {
-            handleClick(chat.user.id);
+            handleClick(chat.user.id,chat.user.fullname,chat.user.profile_picture);
             MessageDetails(chat);
           }}
         >
           <ListItemIcon>
             <Avatar alt="Remy Sharp" src={chat.user.profile_picture} />
+            
           </ListItemIcon>
-          <ListItemText primary={chat.user.fullname} />
+          <ListItemText primary=  {chat.user.fullname && chat.user.fullname.charAt(0).toUpperCase() + chat.user.fullname.slice(1)} />
         </ListItemButton>
         <Divider />
       </React.Fragment>

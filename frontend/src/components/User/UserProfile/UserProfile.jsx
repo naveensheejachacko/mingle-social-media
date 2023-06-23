@@ -239,7 +239,10 @@ function UserProfile() {
             <div className="center">
 
             <br />
-              <span className="userName">{userDetails.username}</span>
+              <span className="userName">{
+          userDetails.username &&
+          userDetails.username.charAt(0).toUpperCase() + userDetails.username.slice(1)
+        }</span>
               
               <span className="useremail">{userDetails.email}</span>
               <div className="info">

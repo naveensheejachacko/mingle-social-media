@@ -78,6 +78,7 @@ function AddPost() {
 
   const setVideo = (e) => {
     setVideoFile(e.target.files[0]);
+
   };
 
 

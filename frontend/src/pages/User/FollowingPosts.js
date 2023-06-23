@@ -21,8 +21,6 @@ function HomePage() {
 <div className="home"> 
 <AddPost />
 <ListFingPost />
-  
-
 </div>
   </div>
   <Rightbar />

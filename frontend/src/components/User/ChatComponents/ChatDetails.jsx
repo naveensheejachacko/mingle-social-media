@@ -51,6 +51,8 @@ const useStyles = styled((theme) => ({
     padding: '20px',
     zIndex: 9999,
   },
+
+
 }));
 
 const ChatDetails = () => {
@@ -61,21 +63,25 @@ const ChatDetails = () => {
   const profilePic = useSelector((state) => state.user?.profilePic);
   // const token = Cookies.get('jwt_user');
 
-  let { messageDetail, contextData: { roomid, setIsopen, isopen } } = useContext(AuthContext);
+  let { messageDetail, contextData: { roomid, setIsopen, isopen,fullName,chatUserPic} } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState([]);
   const [isTrue, setIsTrue] = useState(false);
 
   const socketRef = useRef(null);
   let room = roomid.id;
+  let chatUserName = fullName;
+  let chatUserImage = chatUserPic
+
+ 
 
   const bottomRef = useRef(null);
 
   useEffect(() => {
     if (isopen && room) {
       // we should use `wss` while hosting because it should be secured
-      socketRef.current = new WebSocket(`wss://api.mingle.fun/ws/chat/${room}/${user_id}/`);
-      // socketRef.current = new WebSocket(`wss://127.0.0.1:8000/ws/chat/${room}/${user_id}/`);
+      // socketRef.current = new WebSocket(`wss://api.mingle.fun/ws/chat/${room}/${user_id}/`);
+      socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${room}/${user_id}/`);
 
       socketRef.current.onmessage = (event) => {
         setIsTrue(!isTrue);
@@ -121,7 +127,7 @@ const ChatDetails = () => {
       if (response.ok) {
         const data = await response.json();
         setMessages(data);
-        console.log(data, 'message details');
+        // console.log(data, 'message details');
       } else {
         alert('Failed to fetch messages');
       }
@@ -132,11 +138,27 @@ const ChatDetails = () => {
 
   return (
 
-      <Grid container component={Paper} className={classes.chatSection}>
-        {/* <ChatPeople /> */}
+      <Grid container className={classes.chatSection}  >
+
+
+
         {isopen === true ? (
+
+<>
+
+
+<span item xs={12} md={3} style={{ backgroundColor: '#d4d4d4', width: '100%' ,borderRadius:'10px'}}>
+ 
+  <span style={{ width: '100%', fontWeight: 'bold', fontSize: 'medium'}}>
+  <img src={chatUserImage} alt="Chat User" style={{margin:'5px' ,width:'50px',height:'50px',borderRadius:'50%'}}/>
+    {chatUserName && chatUserName.charAt(0).toUpperCase() + chatUserName.slice(1)}
+  </span>
+</span>
+
+
+
           <Grid item xs={12} md={9}>
-            <List className={classes.messageArea}>
+            <List className={classes.messageArea}  style={{ maxHeight: '500px',minHeight:'500px', overflowY: 'auto' }}>
               {messages.map((msg, index) => {
                 const isSentMessage = msg.sender === user_id;
                 return (
@@ -154,11 +176,12 @@ const ChatDetails = () => {
                           backgroundColor: isSentMessage ? '#DCF8C6' : '#ECECEC',
                           borderRadius: '10px',
                           padding: '8px',
+                          marginLeft: isSentMessage ? '0' : '16px', 
                         }}
-                      >
+                      >               
                         {msg.message}
                       </Typography>
-                      <Typography variant="caption" component="div" color="primary">
+                      <Typography style={{marginLeft: isSentMessage ? '0' : '16px', }} variant="caption" component="div" color="primary">
                         {moment(msg.timestamp).fromNow()}
                       </Typography>
                     </Stack>
@@ -185,14 +208,14 @@ const ChatDetails = () => {
               </Grid>
             </Grid>
           </Grid>
-        ) : (
+          </>) : (
           <Grid item xs={12}>
-            {/* <Typography variant="h6" align="center">
+            <Typography   style={{ backgroundColor: '#d4d4d4', width: '100%' ,borderRadius:'10px',fontWeight:'bold',fontSize:'50px'}} variant="h6" align="center">
               Please select a chat
-            </Typography> */}
-<div>
-<img src="https://res.cloudinary.com/dtnbd0res/image/upload/v1686754319/assets/chatlogo_b7xdlu.gif" alt="GIF Image" />
-</div>
+            </Typography>
+{/* <div >
+<img src="https://res.cloudinary.com/dtnbd0res/image/upload/v1686754319/assets/chatlogo_b7xdlu.gif" alt="GIF Image"  />
+</div> */}
 
 
           </Grid>

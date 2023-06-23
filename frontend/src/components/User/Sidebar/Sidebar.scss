@@ -1,17 +1,38 @@
 
 @import "../../../style.scss";
 
-.leftBar {
+.leftSideBar {
   @include themify($themes) {
-    flex: 2;
+    // flex: 1.8;
+    margin-top: 50px;
     position: sticky;
-    top: 70px;
-    height: calc(100vh - 70px);
-    overflow: scroll;
+    // top: 70px;
+    // height: calc(100vh - 70px);
+    max-height: 500px;
+    min-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: transparent transparent; /* For Firefox */
     background-color: themed("bg");
     color: themed("textColor");
-    border-radius: 30px;      
+    border-radius: 20px;      
     box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+
+
+    .leftSideBar::-webkit-scrollbar {
+      width: 8px; /* For Chrome, Safari, and Opera */
+    }
+    
+    .leftSideBar::-webkit-scrollbar-track {
+      background: transparent; /* For Chrome, Safari, and Opera */
+    }
+    
+    .leftSideBar::-webkit-scrollbar-thumb {
+      background-color: transparent; /* For Chrome, Safari, and Opera */
+    }
+    
+
+
 
     @include mobile{
       display: none;
@@ -22,7 +43,7 @@
     }
 
 
-    .container {
+    .sidebarContainer {
       padding: 20px;
 
 

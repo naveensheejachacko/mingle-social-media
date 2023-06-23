@@ -9,19 +9,15 @@ function HomePage() {
 
   return (
     <>
-<div>
+<div >
 <Navbar />
 <div style={{ display: "flex" }}>
   <Sidebar />
   <div style={{ flex: 6 }}>
-<div className="home"> 
-
-
+  <div className="homePeople"> 
   <ConnectionList />
-
 </div>
   </div>
-
 </div>
 </div>
 

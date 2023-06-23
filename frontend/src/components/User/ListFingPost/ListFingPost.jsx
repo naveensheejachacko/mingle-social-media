@@ -96,7 +96,7 @@ export default function ListFingPost() {
   };
   let addComment = async (postId) => {
     if (!values.comment) {
-      console.log("empty string");
+      // console.log("empty string");
       return toast.error("Can't add an empty post!!");
     } else {
       let response = await fetch(
@@ -123,7 +123,7 @@ export default function ListFingPost() {
   };
   // gettingcommetns for posts
   let getComments = async (postId) => {
-    console.log(postId, "post id from getdata");
+    // console.log(postId, "post id from getdata");
 
     let response = await fetch(
       `${baseUrl}posts/getcomments/${postId}/`,
@@ -175,7 +175,7 @@ export default function ListFingPost() {
       const response = await axios.get(
         `${baseUrl}posts/fposts/${user_id}/`
       );
-      console.log(response.data.data,'post detailsss');
+      // console.log(response.data.data,'post detailsss');
       setPosts(response.data.data);
       
     }
@@ -214,7 +214,7 @@ export default function ListFingPost() {
     // delete the post if the user confirms
     if (confirmDelete.isConfirmed) {
       const response = await axios.delete(
-        `${baseUrl}/posts/deletePost/${id}`
+        `${baseUrl}posts/deletePost/${id}`
       );
       if (response.status === 200) {
         setPosts(posts.filter((post) => post.id !== id));
@@ -238,7 +238,7 @@ export default function ListFingPost() {
         <NoDataAvailable   data={"Posts"}/>
         
         </div>
-        <SkeltonLoad />
+        
         </>
       ) : (
         posts.map((post) => (
@@ -256,7 +256,7 @@ export default function ListFingPost() {
                     <Link to={`/profile/${post.user.id}`}>
                       <span key={post.user.id} className="postUsername">
                         {" "}
-                        {post.user.fullname}
+                        {post.user.fullname && post.user.fullname.charAt(0).toUpperCase() + post.user.fullname.slice(1)}
                       </span>
                     </Link>
 
@@ -330,7 +330,7 @@ export default function ListFingPost() {
                 <div className="postBottomRight">
                   {/* <AiOutlineComment   onClick={handleshow } size={40}flex='1' /> */}
 
-                  <AiOutlineComment
+                  <AiOutlineComment style={{cursor:'pointer'}}
                     size={25}
                     flex="1"
                     onClick={() => {
@@ -340,7 +340,7 @@ export default function ListFingPost() {
                   />
                 </div>
                 {user_id == post.user.id ? (
-                  <BsTrash3
+                  <BsTrash3 style={{cursor:'pointer'}}
                     size={20}
                     onClick={() => handleDeleteClick(post.id)}
                   />
@@ -420,7 +420,7 @@ export default function ListFingPost() {
                               style={{ marginLeft: "3vh" }}
                             >
                               {" "}
-                              <BsTrash3 style={{ marginLeft: "1em" }} />
+                              <BsTrash3 style={{ marginLeft: "1em" ,cursor:'pointer'}} />
                             </span>
                           )}
 
