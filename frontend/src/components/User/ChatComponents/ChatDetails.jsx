@@ -80,8 +80,8 @@ const ChatDetails = () => {
   useEffect(() => {
     if (isopen && room) {
       // we should use `wss` while hosting because it should be secured
-      // socketRef.current = new WebSocket(`wss://api.mingle.fun/ws/chat/${room}/${user_id}/`);
-      socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${room}/${user_id}/`);
+      socketRef.current = new WebSocket(`wss://api.mingle.fun/ws/chat/${room}/${user_id}/`);
+      // socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${room}/${user_id}/`);
 
       socketRef.current.onmessage = (event) => {
         setIsTrue(!isTrue);
