@@ -1,11 +1,14 @@
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  gap: 15px; /* margin gap */
+.searchcard-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-.card {
-  width: 250px; 
+.searchcard {
+  /* width: 250px; */
+  margin-bottom: 20px;
+  /* margin-top: 20px; */
+  margin-right: 2em; 
 }
 .button-container {
   display: flex;

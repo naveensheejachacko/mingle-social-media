@@ -28,16 +28,19 @@ function Searches() {
   
     const handleSearchSubmit = async (e) => {
       if (searchError) {
+        setQuery("")
         toast.error("Please fill the search", {
           position: "top-right"
+          
         })
       }
       else {
       try {
         const response = await axios.get(`${baseUrl}profileSearch?query=${query}`);
-        setQuery("")
+        
         navigate('/searchResults', { state: { data: response.data } })
       } catch (error) {
+        
         console.error(error);
       }
     };
@@ -57,7 +60,7 @@ function Searches() {
           className="form-control"
           placeholder="Search on mingle"
         />{" "}
-      <SearchOutlinedIcon onClick={handleSearchSubmit} />
+      <SearchOutlinedIcon style={{pointer:'cursor'}} onClick={handleSearchSubmit} />
 
       <Toaster  />
     </div>

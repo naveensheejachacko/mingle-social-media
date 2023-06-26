@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../../Redux/userSlice";
 import Cookies from "js-cookie";
 import axios from "../../../utils/axios";
+import { baseUrl } from "../../../utils/Constants";
 import "./userLogin.scss";
 import Swal from "sweetalert2";
 import { FaGoogle } from "react-icons/fa";
@@ -124,7 +125,7 @@ else{
 const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
-    const response = await axios.post('https://api.mingle.fun/googleLogin', {
+    const response = await axios.post(`${baseUrl}googleLogin`, {
       fullname: result.user.displayName,
       email: result.user.email,
     });

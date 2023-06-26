@@ -8,10 +8,18 @@ function SearchData({users}) {
   return (
     
 
-    <div className="card-container">
+    <div className="searchcard-container">
       {users.map((user) => (
-        <Card key={user.id} className="card">
-          <Card.Img  style={{ width: "250px",height:"250px",borderRadius: "50%" }} variant="top"  src={user.profile_picture} className="rounded"/>
+        <Card key={user.id} style={{marginTop:'20px'}} className="searchcard">
+          <Card.Img            style={{
+            width: '250px', // Set the desired width
+            height: '250px',
+            borderRadius: '50%',
+            position: 'relative',
+          }}
+          variant="top"
+          src={user.profile_picture}
+          className="rounded"/>
           <Card.Body>
             <Card.Title>{user.fullname}</Card.Title>
             <Card.Text>

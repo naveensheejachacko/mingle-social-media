@@ -181,7 +181,7 @@ export default function ListFingPost() {
     }
   useEffect(() => {
     fetchFollowingPost();
-  }, [liked]);
+  }, [liked,posts]);
 
   // delete Post
 
