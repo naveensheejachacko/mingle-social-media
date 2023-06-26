@@ -33,7 +33,7 @@ function ReportPost() {
     try {
       const response = await axios.get(`${baseUrl}adminn/rPostList`);
       setReportedPosts(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error("Error fetching reported posts:", error);
     }
