@@ -273,7 +273,7 @@ export default function UserPost() {
                     className="postVideo"
                     src={decodeURIComponent(post?.video).replace(
                       "/https:",
-                      "https:"
+                      "https:/"
                     )}
                     controls
                   ></video>

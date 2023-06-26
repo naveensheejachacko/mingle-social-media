@@ -267,7 +267,7 @@ export default function CurrentUserPost() {
                   className="postImg"
                   src={decodeURIComponent(post?.image).replace(
                     "/https:",
-                    "https:"
+                    "https://"
                   )}
                   alt=""
                 />
@@ -277,7 +277,7 @@ export default function CurrentUserPost() {
                     className="postVideo"
                     src={decodeURIComponent(post?.video).replace(
                       "/https:",
-                      "https:"
+                      "https:/"
                     )}
                     controls
                   ></video>
