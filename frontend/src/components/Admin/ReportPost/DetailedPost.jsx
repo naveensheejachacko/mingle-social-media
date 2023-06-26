@@ -64,7 +64,7 @@ function DetailedPost() {
             <source
                     src={decodeURIComponent(postDetails?.video).replace(
                       "/https:",
-                      "https://"
+                      "https:/"
                     )}
               type="video/mp4"
             />
