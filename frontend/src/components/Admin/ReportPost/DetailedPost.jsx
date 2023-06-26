@@ -44,7 +44,7 @@ function DetailedPost() {
         <img
           src={decodeURIComponent(postDetails?.image).replace(
             "/https:",
-            "https:"
+            "https://"
           )}
           alt=""
         />
@@ -64,7 +64,7 @@ function DetailedPost() {
             <source
                     src={decodeURIComponent(postDetails?.video).replace(
                       "/https:",
-                      "https:"
+                      "https://"
                     )}
               type="video/mp4"
             />
