@@ -61,7 +61,7 @@ function Navbar() {
     Cookies.remove("jwt-admin");
     Cookies.remove("role", "admin");
     dispatch(setAdminLogout());
-    navigate("adminn");
+    navigate("/adminn");
   };
 
 
