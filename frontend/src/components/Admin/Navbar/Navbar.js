@@ -62,7 +62,7 @@ function Navbar() {
     Cookies.remove("role", "admin");
     dispatch(setAdminLogout());
     navigate("/adminn");
-  };
+    };
 
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -113,10 +113,9 @@ function Navbar() {
     >
       <MenuItem onClick={() => navigate('/adminn/users')}>Users</MenuItem>
       <MenuItem onClick={() => navigate('/adminn/reportPost')}>Posts</MenuItem>
-      {/* <MenuItem onClick={() => navigate('/messenger')}>Messages</MenuItem>
-      <MenuItem onClick={() => navigate('/connections')}>Connections</MenuItem>
-      <MenuItem onClick={() => navigate('/settings')}>Settings</MenuItem>
-      <MenuItem onClick={() => navigate(`/profile/${userId}`)}>Profile</MenuItem> */}
+      <MenuItem onClick={adminLogout}>Logout</MenuItem> 
+ 
+      
     </Menu>
   );
 
@@ -161,7 +160,7 @@ function Navbar() {
     >
 
 
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menuLogout"
@@ -170,7 +169,7 @@ function Navbar() {
         >
           <LogoutIcon />
         </IconButton >
-        <p onClick= {adminLogout}>Logout</p>
+        <p onClick= {adminLogout}>Logout</p> */}
       {/* </MenuItem> */}
     </Menu>
   );
