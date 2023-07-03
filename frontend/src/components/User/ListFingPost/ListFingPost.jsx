@@ -34,15 +34,20 @@ import axios from "axios";
 
 import { Link } from "react-router-dom";
 import ReportPostModal from "../Modal/ReportPostModal";
+import { setHomePosts } from '../../../Redux/userSlice';
+
 
 export default function ListFingPost() {
   // console.log(post,'postttttttt')
+  const dispatch = useDispatch()
   const [posts, setPosts] = useState([]);
 
   const user_id = useSelector((state) => state.user?.user_id);
   // console.log(useSelector((state)=>state.user?.user_id),'lllllllllll')
   const userName = useSelector((state) => state.user?.user?.user);
   const [anchorEl, setAnchorEl] = useState(null);
+  const homePosts = useSelector((state) => state?.user?.homePosts);
+  // console.log(homePosts,'homPosts');
 
   // const [commentwriting, setcommentwriting] = useState("");
 
@@ -176,12 +181,13 @@ export default function ListFingPost() {
         `${baseUrl}posts/fposts/${user_id}/`
       );
       // console.log(response.data.data,'post detailsss');
-      setPosts(response.data.data);
+      // setPosts(response.data.data);
+      dispatch(setHomePosts(response.data.data))
       
     }
   useEffect(() => {
     fetchFollowingPost();
-  }, [liked,posts]);
+  }, [liked]);
 
   // delete Post
 
@@ -214,10 +220,13 @@ export default function ListFingPost() {
     // delete the post if the user confirms
     if (confirmDelete.isConfirmed) {
       const response = await axios.delete(
-        `${baseUrl}posts/deletePost/${id}`
+        `${baseUrl}posts/deletePost/${id}/${user_id}`
       );
       if (response.status === 200) {
-        setPosts(posts.filter((post) => post.id !== id));
+        dispatch(setHomePosts(response.data.data))
+
+        // setPosts(posts.filter((post) => post.id !== id));
+
         toast.success("Post deleted successfully");
         // fetchPosts();
       } else {
@@ -232,7 +241,7 @@ export default function ListFingPost() {
 
   return (
     <div className="posts">
-      {posts.length === 0 ? (
+      {homePosts?.length === 0 ? (
         <>
         <div className="post">
         <NoDataAvailable   data={"Posts"}/>
@@ -241,7 +250,7 @@ export default function ListFingPost() {
         
         </>
       ) : (
-        posts.map((post) => (
+        homePosts?.map((post) => (
           <div className="post">
             <div className="postWrapper">
               <div className="postTop">

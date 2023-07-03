@@ -46,7 +46,7 @@ function AdminLogin() {
             response.data.status === "Email is not found"
             
           ) {
-            console.log("wrong password wrong email if")
+            // console.log("wrong password wrong email if")
             toast.error(data.message);
           }
           else {

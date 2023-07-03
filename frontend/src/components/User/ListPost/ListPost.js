@@ -12,7 +12,8 @@ import { MdReportGmailerrorred } from "react-icons/md";
 // import {Users,Posts} from "../../../dummyData";
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
+import { setExplorePosts } from "../../../Redux/userSlice";
 import moment from "moment";
 import Cookies from 'js-cookie';
 
@@ -33,13 +34,15 @@ import { baseUrl } from "../../../utils/Constants";
 
 export default function ListPost() {
   // console.log(post,'postttttttt')
-  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch()
 
   const user_id = useSelector((state) => state.user?.user_id);
 
   // console.log(useSelector((state)=>state.user?.user_id),'lllllllllll')
   const userName = useSelector((state) => state.user?.user?.user);
   const profilePic = useSelector((state) => state.user?.profilePic);
+  const explorePosts = useSelector((state) => state?.user?.explorePosts);
+
   const token = Cookies.get('jwt_user');
 
   // const [anchorEl, setAnchorEl] = useState(null);
@@ -172,69 +175,31 @@ export default function ListPost() {
 
 
 
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1); // Initialize the page to 1
+  // const [loading, setLoading] = useState(false);
 
 
   const fetchPosts = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const response = await axios.get(
-        `${baseUrl}posts/getPosts/${user_id}/${page}`
+        `${baseUrl}posts/getPosts/${user_id}`
       );
-      const newPosts = response.data.data;
+      dispatch(setExplorePosts(response.data.data))
+
       // console.log(response.data)
-      setPosts((prevPosts) => [...prevPosts, ...newPosts]);
-      setPage((prevPage) => prevPage + 1); // Increment the page
     } catch (error) {
       console.error(error);
     }
     finally {
       // Set loading back to false after the API call is completed
-      setLoading(false);
+      // setLoading(false);
     }
   };
-
-
-
-
-
 
   useEffect(() => {
     fetchPosts();
-  }, []); // Fetch initial posts
-
-
-
-
+  }, [liked]); 
   
-  const lastPostRef = useRef();
-
-  const handleIntersection = (entries) => {
-    const entry = entries[0];
-    if (entry.isIntersecting && !loading) {
-      fetchPosts();
-    }
-  };
-
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    };
-
-    const observer = new IntersectionObserver(handleIntersection, options);
-    if (lastPostRef.current) {
-      observer.observe(lastPostRef.current);
-    }
-
-    return () => {
-      if (lastPostRef.current) {
-        observer.unobserve(lastPostRef.current);
-      }
-    };
-  }, [loading]);
 
 
   // delete Post
@@ -257,54 +222,54 @@ export default function ListPost() {
   // };
 
 
-  const handleDeleteClick = async (id) => {
-    // show confirmation dialog
-    const confirmDelete = await Swal.fire({
-      title: "Are you sure you want to delete this post?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Delete",
-    });
+  // const handleDeleteClick = async (id) => {
+  //   // show confirmation dialog
+  //   const confirmDelete = await Swal.fire({
+  //     title: "Are you sure you want to delete this post?",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#3085d6",
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonText: "Delete",
+  //   });
 
-    // delete the post if the user confirms
-    if (confirmDelete.isConfirmed) {
-      const response = await axios.delete(
-        `${baseUrl}posts/deletePost/${id}`
-      );
-      if (response.status === 200) {
-        setPosts(posts.filter((post) => post.id !== id));
-        toast.success("Post deleted successfully");
-        // fetchPosts();
-      } else {
-        toast.error("Failed to delete post");
-      }
-    }
-  };
+  //   // delete the post if the user confirms
+  //   if (confirmDelete.isConfirmed) {
+  //     const response = await axios.delete(
+  //       `${baseUrl}posts/deletePost/${id}`
+  //     );
+  //     if (response.status === 200) {
+  //       setPosts(posts.filter((post) => post.id !== id));
+  //       toast.success("Post deleted successfully");
+  //       // fetchPosts();
+  //     } else {
+  //       toast.error("Failed to delete post");
+  //     }
+  //   }
+  // };
 
   // useEffect(() => {
   //     dispatch(fetchPosts());
   //   }, [dispatch]);
 
-  if (loading) {
-    return( <SkeltonLoad />)
-  }
+  // if (loading) {
+  //   return( <SkeltonLoad />)
+  // }
 
 
 
 
   return (
     <div className="posts">
-      {posts.length === 0 ? (
+      {/* {explorePosts.length === 0 ? (
         
  <SkeltonLoad />
 
 
-      ) : (
+      ) : ( */}
 
 
-        posts.map((post, index) => (
+       { explorePosts.map((post, index) => (
 
 
 
@@ -405,12 +370,6 @@ export default function ListPost() {
                   }}
                 />
               </div>
-              {user_id == post.user.id ? (
-                <BsTrash3 style={{cursor:'pointer'}}
-                  size={20}
-                  onClick={() => handleDeleteClick(post.id)}
-                />
-              ) : null}
             </div>
           </div>
 
@@ -517,14 +476,10 @@ export default function ListPost() {
       )
 
       
-      )
+      // )
       )}
 
-             {/* Render the loading indicator */}
-             {loading && <div> <SkeltonLoad /></div>}
 
-{/* Attach the ref to the last post */}
-<div ref={lastPostRef}></div>
 
 
     </div>

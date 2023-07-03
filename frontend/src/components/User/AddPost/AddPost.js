@@ -9,13 +9,14 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import { setPosts } from '../../../Redux/postSlice';
 import axios from '../../../utils/axios';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import MovieIcon from '@mui/icons-material/Movie';
 
 import { baseUrl } from '../../../utils/Constants';
 import Loading from '../LoadingComponent/Loading'
+import { setHomePosts } from '../../../Redux/userSlice';
+
 
 function AddPost() {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ function AddPost() {
           setContent('');
           setFile(null);
           setVideoFile(null);
+          dispatch(setHomePosts(response.data.data))
         } else if (response.status === 400) {
           toast.error('Error 400');
           navigate('/');
