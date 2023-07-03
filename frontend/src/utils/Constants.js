@@ -1,5 +1,5 @@
-export const baseUrl = "http://localhost:8000/";
-// export const baseUrl = "https://api.mingle.fun/";
+// export const baseUrl = "http://localhost:8000/";
+export const baseUrl = "https://api.mingle.fun/";
 // User
 export const userSignup = "signup"
 export const userLogin = "login"
