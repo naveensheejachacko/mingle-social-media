@@ -278,7 +278,7 @@ export default function ListPost() {
             <div className="postTop">
               <div key={post.id}  className="postTopLeft">
                 <img
-                  src={post.user.profile_picture}
+                  src={post?.user?.profile_picture}
                   className="shareProfileImg"
                   alt="Profile Picture"
                 />

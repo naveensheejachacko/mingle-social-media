@@ -180,10 +180,10 @@ export default function ListFingPost() {
       const response = await axios.get(
         `${baseUrl}posts/fposts/${user_id}/`
       );
-      // console.log(response.data.data,'post detailsss');
+      console.log(response.data.data,'post detailsss');
       // setPosts(response.data.data);
       dispatch(setHomePosts(response.data.data))
-      
+    
     }
   useEffect(() => {
     fetchFollowingPost();
@@ -250,28 +250,26 @@ export default function ListFingPost() {
         
         </>
       ) : (
-        homePosts?.map((post) => (
+        homePosts?.map((post,index) => (
           <div className="post">
             <div className="postWrapper">
               <div className="postTop">
-                <div className="postTopLeft">
+                <div key={post.id} className="postTopLeft">
                   <img
-                    src={post.user.profile_picture}
+                    src={post?.user?.profile_picture}
                     className="shareProfileImg"
                     alt="Profile Picture"
                   />
-
                   <div>
-                    <Link to={`/profile/${post.user.id}`}>
-                      <span key={post.user.id} className="postUsername">
+                    <Link to={`/profile/${post?.user?.id}`}>
+                      <span key={post?.user?.id} className="postUsername">
                         {" "}
-                        {post.user.fullname && post.user.fullname.charAt(0).toUpperCase() + post.user.fullname.slice(1)}
+                        {post?.user?.fullname && post?.user?.fullname.charAt(0).toUpperCase() + post?.user?.fullname.slice(1)}
                       </span>
                     </Link>
-
                     <br />
                     <span style={{ marginLeft: "0.6em" }} className="postDate">
-                      {moment(post.created_at).fromNow()}
+                      {moment(post?.created_at).fromNow()}
                     </span>
                   </div>
 
